@@ -21,7 +21,7 @@ export async function getAdCreatives(audience: string = "affiliate", language: s
   }`
 
   try {
-    return await client.fetch(query, { audience }, { next: { revalidate: 0 } })
+    return await client.fetch(query, { audience, language }, { next: { revalidate: 0 } })
   } catch (error) {
     console.error("[v0] Failed to fetch ad creatives from Sanity:", error)
     return []
