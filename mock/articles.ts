@@ -231,5 +231,49 @@ export async function getRelatedArticles(
   }
 }
 
+
+export async function searchArticles(
+  query: string,
+  audience: string = "affiliate",
+  language: string = "en",
+): Promise<Article[]> {
+  if (!query || query.length < 2) return []
+
+  // Ensure we match on the specific language title/body if localized, or generic if string
+  // Based on the interface, title and body are Localized<string> or similar.
+  // We'll search in the specified language field.
+  const sanityQuery = `*[_type == "article" && audience == $audience && (
+    title[$language] match $term + "*" || 
+    body[$language][].children[].text match $term + "*" ||
+    excerpt[$language] match $term + "*"
+  )] | order(date desc) {
+    "slug": slug.current,
+    title,
+    type,
+    category,
+    date,
+    excerpt,
+    body,
+    "thumbnail": {
+      "en": thumbnail.en.asset->url,
+      "ru": thumbnail.ru.asset->url
+    },
+    readingTime
+  }`
+
+  try {
+    const results = await client.fetch(
+      sanityQuery,
+      { term: query, audience, language },
+      { next: { revalidate: 0 } },
+    )
+    return results
+  } catch (error) {
+    console.error("[v0] Failed to search articles from Sanity:", error)
+    return []
+  }
+}
+
 // Export for backward compatibility
 export const articles = getArticles()
+

@@ -3,8 +3,12 @@
 import { getNavigation } from "@/lib/navigation"
 
 import Link from "next/link"
-import { useState } from "react"
-import { ChevronDown, Search, Menu, X } from "lucide-react"
+import { useRouter } from "next/navigation"
+import { useState, useEffect, useRef } from "react"
+import { ChevronDown, Search, Menu, X, Loader2 } from "lucide-react"
+import { useDebounce } from "use-debounce"
+import { searchArticlesAction } from "@/app/actions"
+import type { Article } from "@/mock/articles"
 import ThemeToggle from "./ThemeToggle"
 import LanguageToggle from "./LanguageToggle"
 import AudienceToggle from "./AudienceToggle"
@@ -112,6 +116,35 @@ export default function Header() {
   const { audience } = useAudience()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
+  // Search State
+  const [query, setQuery] = useState("")
+  const [results, setResults] = useState<Article[]>([])
+  const [open, setOpen] = useState(false)
+  const [isSearching, setIsSearching] = useState(false)
+  const [debouncedQuery] = useDebounce(query, 300)
+  const router = useRouter()
+
+  useEffect(() => {
+    if (debouncedQuery.length < 2) {
+      setResults([])
+      return
+    }
+
+    const fetchResults = async () => {
+      setIsSearching(true)
+      try {
+        const data = await searchArticlesAction(debouncedQuery, audience, language)
+        setResults(data)
+      } catch (error) {
+        console.error("Search error:", error)
+      } finally {
+        setIsSearching(false)
+      }
+    }
+
+    fetchResults()
+  }, [debouncedQuery, audience, language])
+
   const getPath = (path: string) => `/${language}/${audience}${path === "/" ? "" : path}`
 
   const rawNavItems = getNavigation(audience)
@@ -138,12 +171,83 @@ export default function Header() {
 
             <div className="flex items-center gap-3">
               <div className="hidden sm:block relative">
-                <input
-                  type="text"
-                  placeholder={t("common.search")}
-                  className="w-48 lg:w-64 bg-accent-100 dark:bg-gray-800 border border-accent-200 dark:border-gray-700 rounded-lg px-4 py-2 text-sm text-gray-900 dark:text-gray-300 placeholder-gray-500 focus:outline-none focus:border-accent-500"
-                />
-                <Search className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault()
+                    if (query.trim()) {
+                      setOpen(false)
+                      router.push(`/${language}/${audience}/search?q=${encodeURIComponent(query)}`)
+                    }
+                  }}
+                  className="relative"
+                >
+                  <input
+                    type="text"
+                    value={query}
+                    onChange={(e) => {
+                      setQuery(e.target.value)
+                      setOpen(true)
+                    }}
+                    onFocus={() => setOpen(true)}
+                    // onBlur={() => setTimeout(() => setOpen(false), 200)} // Delay to allow clicking items
+                    placeholder={t("common.search")}
+                    className="w-48 lg:w-64 bg-accent-100 dark:bg-gray-800 border border-accent-200 dark:border-gray-700 rounded-lg px-4 py-2 text-sm text-gray-900 dark:text-gray-300 placeholder-gray-500 focus:outline-none focus:border-accent-500"
+                  />
+                  <button type="submit" className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-gray-400 hover:text-accent-600">
+                    {isSearching ? <Loader2 className="w-4 h-4 animate-spin" /> : <Search className="w-4 h-4" />}
+                  </button>
+                </form>
+
+                {/* Instant Search Dropdown */}
+                {open && debouncedQuery.length >= 2 && (
+                  <>
+                    <div
+                      className="fixed inset-0 z-40"
+                      onClick={() => setOpen(false)}
+                    />
+                    <div className="absolute top-full left-0 right-0 mt-2 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg shadow-xl z-50 overflow-hidden max-h-[80vh] overflow-y-auto">
+                      {isSearching ? (
+                        <div className="p-4 text-center text-gray-500 text-sm">Searching...</div>
+                      ) : results.length > 0 ? (
+                        <div className="py-2">
+                          <div className="px-3 pb-2 text-xs font-semibold text-gray-400 uppercase tracking-wider">
+                            Articles
+                          </div>
+                          {results.map((article) => (
+                            <Link
+                              key={article.slug}
+                              href={`/${language}/${audience}/blog/${article.slug}`} // Note: simplified link, assumes blog for now or uses helper
+                              onClick={() => setOpen(false)}
+                              className="block px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+                            >
+                              <div className="text-sm font-medium text-gray-900 dark:text-gray-100 line-clamp-1">
+                                {typeof article.title === 'string' ? article.title : (article.title as any)[language] || (article.title as any)['en']}
+                              </div>
+                              <div className="text-xs text-gray-500 mt-0.5 line-clamp-1">
+                                {new Date(article.date).toLocaleDateString()}
+                              </div>
+                            </Link>
+                          ))}
+                          <div className="border-t border-gray-100 dark:border-gray-800 mt-1 pt-1">
+                            <button
+                              onClick={() => {
+                                setOpen(false)
+                                router.push(`/${language}/${audience}/search?q=${encodeURIComponent(query)}`)
+                              }}
+                              className="w-full text-left px-4 py-2 text-sm text-accent-600 font-medium hover:bg-gray-50 dark:hover:bg-gray-800"
+                            >
+                              View all {results.length} results
+                            </button>
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="p-4 text-center text-gray-500 text-sm">
+                          No results found for "{debouncedQuery}"
+                        </div>
+                      )}
+                    </div>
+                  </>
+                )}
               </div>
               <AudienceToggle />
               <div className="flex items-center gap-2">
