@@ -11,7 +11,7 @@ export default function Footer() {
   const getPath = (path: string) => `/${language}/${audience}${path === "/" ? "" : path}`
 
   return (
-    <footer className="bg-white dark:bg-gray-900 border-t border-sky-200 dark:border-gray-800 mt-16">
+    <footer className="bg-white dark:bg-gray-900 border-t border-accent-200 dark:border-gray-800 mt-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-8">
           <div>
@@ -20,7 +20,7 @@ export default function Footer() {
               <li>
                 <Link
                   href={getPath("/networks")}
-                  className="text-gray-500 dark:text-gray-400 hover:text-sky-600 dark:hover:text-white text-sm transition-colors"
+                  className="text-gray-500 dark:text-gray-400 hover:text-accent-600 dark:hover:text-white text-sm transition-colors"
                 >
                   {t("nav.networks")}
                 </Link>
@@ -28,7 +28,7 @@ export default function Footer() {
               <li>
                 <Link
                   href={getPath("/rankings")}
-                  className="text-gray-500 dark:text-gray-400 hover:text-sky-600 dark:hover:text-white text-sm transition-colors"
+                  className="text-gray-500 dark:text-gray-400 hover:text-accent-600 dark:hover:text-white text-sm transition-colors"
                 >
                   {t("nav.rankings")}
                 </Link>
@@ -36,7 +36,7 @@ export default function Footer() {
               <li>
                 <Link
                   href={getPath("/formats")}
-                  className="text-gray-500 dark:text-gray-400 hover:text-sky-600 dark:hover:text-white text-sm transition-colors"
+                  className="text-gray-500 dark:text-gray-400 hover:text-accent-600 dark:hover:text-white text-sm transition-colors"
                 >
                   {t("nav.formats")}
                 </Link>
@@ -49,7 +49,7 @@ export default function Footer() {
               <li>
                 <Link
                   href={getPath("/news")}
-                  className="text-gray-500 dark:text-gray-400 hover:text-sky-600 dark:hover:text-white text-sm transition-colors"
+                  className="text-gray-500 dark:text-gray-400 hover:text-accent-600 dark:hover:text-white text-sm transition-colors"
                 >
                   {t("nav.news")}
                 </Link>
@@ -57,7 +57,7 @@ export default function Footer() {
               <li>
                 <Link
                   href={getPath("/guides")}
-                  className="text-gray-500 dark:text-gray-400 hover:text-sky-600 dark:hover:text-white text-sm transition-colors"
+                  className="text-gray-500 dark:text-gray-400 hover:text-accent-600 dark:hover:text-white text-sm transition-colors"
                 >
                   {t("nav.guides")}
                 </Link>
@@ -65,7 +65,7 @@ export default function Footer() {
               <li>
                 <Link
                   href={getPath("/case-studies")}
-                  className="text-gray-500 dark:text-gray-400 hover:text-sky-600 dark:hover:text-white text-sm transition-colors"
+                  className="text-gray-500 dark:text-gray-400 hover:text-accent-600 dark:hover:text-white text-sm transition-colors"
                 >
                   {t("nav.caseStudies")}
                 </Link>
@@ -73,7 +73,7 @@ export default function Footer() {
               <li>
                 <Link
                   href={getPath("/tools")}
-                  className="text-gray-500 dark:text-gray-400 hover:text-sky-600 dark:hover:text-white text-sm transition-colors"
+                  className="text-gray-500 dark:text-gray-400 hover:text-accent-600 dark:hover:text-white text-sm transition-colors"
                 >
                   {t("nav.tools")}
                 </Link>
@@ -86,7 +86,7 @@ export default function Footer() {
               <li>
                 <Link
                   href={getPath("/about")}
-                  className="text-gray-500 dark:text-gray-400 hover:text-sky-600 dark:hover:text-white text-sm transition-colors"
+                  className="text-gray-500 dark:text-gray-400 hover:text-accent-600 dark:hover:text-white text-sm transition-colors"
                 >
                   {t("nav.about")}
                 </Link>
@@ -94,7 +94,7 @@ export default function Footer() {
               <li>
                 <Link
                   href={getPath("/methodology")}
-                  className="text-gray-500 dark:text-gray-400 hover:text-sky-600 dark:hover:text-white text-sm transition-colors"
+                  className="text-gray-500 dark:text-gray-400 hover:text-accent-600 dark:hover:text-white text-sm transition-colors"
                 >
                   {t("nav.methodology")}
                 </Link>
@@ -102,7 +102,7 @@ export default function Footer() {
               <li>
                 <Link
                   href={getPath("/advertise")}
-                  className="text-gray-500 dark:text-gray-400 hover:text-sky-600 dark:hover:text-white text-sm transition-colors"
+                  className="text-gray-500 dark:text-gray-400 hover:text-accent-600 dark:hover:text-white text-sm transition-colors"
                 >
                   {t("nav.advertise")}
                 </Link>
@@ -110,7 +110,7 @@ export default function Footer() {
               <li>
                 <Link
                   href={getPath("/contact")}
-                  className="text-gray-500 dark:text-gray-400 hover:text-sky-600 dark:hover:text-white text-sm transition-colors"
+                  className="text-gray-500 dark:text-gray-400 hover:text-accent-600 dark:hover:text-white text-sm transition-colors"
                 >
                   {t("nav.contact")}
                 </Link>
@@ -123,7 +123,7 @@ export default function Footer() {
               <li>
                 <Link
                   href={getPath("/terms")}
-                  className="text-gray-500 dark:text-gray-400 hover:text-sky-600 dark:hover:text-white text-sm transition-colors"
+                  className="text-gray-500 dark:text-gray-400 hover:text-accent-600 dark:hover:text-white text-sm transition-colors"
                 >
                   {t("nav.terms")}
                 </Link>
@@ -131,7 +131,7 @@ export default function Footer() {
               <li>
                 <Link
                   href={getPath("/privacy")}
-                  className="text-gray-500 dark:text-gray-400 hover:text-sky-600 dark:hover:text-white text-sm transition-colors"
+                  className="text-gray-500 dark:text-gray-400 hover:text-accent-600 dark:hover:text-white text-sm transition-colors"
                 >
                   {t("nav.privacy")}
                 </Link>
@@ -139,7 +139,7 @@ export default function Footer() {
               <li>
                 <Link
                   href={getPath("/disclaimer")}
-                  className="text-gray-500 dark:text-gray-400 hover:text-sky-600 dark:hover:text-white text-sm transition-colors"
+                  className="text-gray-500 dark:text-gray-400 hover:text-accent-600 dark:hover:text-white text-sm transition-colors"
                 >
                   {t("nav.disclaimer")}
                 </Link>
@@ -147,7 +147,7 @@ export default function Footer() {
             </ul>
           </div>
         </div>
-        <div className="pt-8 border-t border-sky-200 dark:border-gray-800 text-center text-gray-500 text-sm">
+        <div className="pt-8 border-t border-accent-200 dark:border-gray-800 text-center text-gray-500 text-sm">
           © {new Date().getFullYear()} TraffDirector.
         </div>
       </div>

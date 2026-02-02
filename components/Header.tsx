@@ -1,5 +1,7 @@
 "use client"
 
+import { getNavigation } from "@/lib/navigation"
+
 import Link from "next/link"
 import { useState } from "react"
 import { ChevronDown, Search, Menu, X } from "lucide-react"
@@ -28,7 +30,7 @@ function NavItem({ label, href, items }: NavItemProps) {
     return (
       <Link
         href={href}
-        className="text-sm text-gray-600 dark:text-gray-300 hover:text-sky-600 dark:hover:text-white transition-colors"
+        className="text-sm text-gray-600 dark:text-gray-300 hover:text-accent-600 dark:hover:text-white transition-colors"
       >
         {label}
       </Link>
@@ -39,19 +41,19 @@ function NavItem({ label, href, items }: NavItemProps) {
     <div className="relative" onMouseEnter={() => setIsOpen(true)} onMouseLeave={() => setIsOpen(false)}>
       <Link
         href={href}
-        className="text-sm text-gray-600 dark:text-gray-300 hover:text-sky-600 dark:hover:text-white transition-colors flex items-center gap-1"
+        className="text-sm text-gray-600 dark:text-gray-300 hover:text-accent-600 dark:hover:text-white transition-colors flex items-center gap-1"
       >
         {label}
         <ChevronDown className={cn("w-3 h-3 transition-transform", isOpen && "rotate-180")} />
       </Link>
       {isOpen && (
         <div className="absolute top-full left-0 pt-2 z-50">
-          <div className="bg-white dark:bg-gray-900 border border-sky-200 dark:border-gray-700 rounded-lg shadow-lg py-2 min-w-[180px]">
+          <div className="bg-white dark:bg-gray-900 border border-accent-200 dark:border-gray-700 rounded-lg shadow-lg py-2 min-w-[180px]">
             {items.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 hover:bg-sky-50 dark:hover:bg-gray-800 hover:text-sky-600 dark:hover:text-white transition-colors"
+                className="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 hover:bg-accent-50 dark:hover:bg-gray-800 hover:text-accent-600 dark:hover:text-white transition-colors"
               >
                 {item.label}
               </Link>
@@ -71,7 +73,7 @@ function MobileNavItem({ label, href, items, onNavigate }: NavItemProps & { onNa
       <Link
         href={href}
         onClick={onNavigate}
-        className="text-base text-gray-700 dark:text-gray-300 hover:text-sky-600 dark:hover:text-white transition-colors py-2"
+        className="text-base text-gray-700 dark:text-gray-300 hover:text-accent-600 dark:hover:text-white transition-colors py-2"
       >
         {label}
       </Link>
@@ -82,7 +84,7 @@ function MobileNavItem({ label, href, items, onNavigate }: NavItemProps & { onNa
     <div>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full flex items-center justify-between text-base text-gray-700 dark:text-gray-300 hover:text-sky-600 dark:hover:text-white transition-colors py-2"
+        className="w-full flex items-center justify-between text-base text-gray-700 dark:text-gray-300 hover:text-accent-600 dark:hover:text-white transition-colors py-2"
       >
         {label}
         <ChevronDown className={cn("w-4 h-4 transition-transform", isOpen && "rotate-180")} />
@@ -94,7 +96,7 @@ function MobileNavItem({ label, href, items, onNavigate }: NavItemProps & { onNa
               key={item.href}
               href={item.href}
               onClick={onNavigate}
-              className="text-sm text-gray-600 dark:text-gray-400 hover:text-sky-600 dark:hover:text-white transition-colors py-1.5"
+              className="text-sm text-gray-600 dark:text-gray-400 hover:text-accent-600 dark:hover:text-white transition-colors py-1.5"
             >
               {item.label}
             </Link>
@@ -112,102 +114,62 @@ export default function Header() {
 
   const getPath = (path: string) => `/${language}/${audience}${path === "/" ? "" : path}`
 
-  const navItems: NavItemProps[] = [
-    {
-      label: t("nav.networks"),
-      href: getPath("/networks"),
-    },
-    {
-      label: t("nav.rankings"),
-      href: getPath("/rankings"),
-      items: [
-        { label: t("common.allRankings"), href: getPath("/rankings") },
-        { label: "Web Push", href: getPath("/rankings/web-push") },
-        { label: "Popunder", href: getPath("/rankings/popunder") },
-        { label: "In-Page Push", href: getPath("/rankings/in-page-push") },
-        { label: "Banner", href: getPath("/rankings/banner") },
-      ],
-    },
-    {
-      label: t("nav.blog"),
-      href: getPath("/blog"),
-      items: [
-        { label: t("blog.allPosts"), href: getPath("/blog") },
-        { label: t("blog.news"), href: getPath("/blog?cat=news") },
-        { label: t("blog.caseStudies"), href: getPath("/blog?cat=case-studies") },
-        { label: t("blog.google"), href: getPath("/blog?cat=google") },
-        { label: t("blog.monetization"), href: getPath("/blog?cat=monetization") },
-        { label: t("blog.seo"), href: getPath("/blog?cat=seo") },
-        { label: t("blog.tools"), href: getPath("/blog?cat=tools") },
-        { label: t("blog.ai"), href: getPath("/blog?cat=ai") },
-      ],
-    },
-    {
-      label: t("nav.guides"),
-      href: getPath("/guides"),
-      items: [
-        { label: t("guides.allGuides"), href: getPath("/guides") },
-        { label: t("guides.monetizationFormats"), href: getPath("/guides?cat=monetization-formats") },
-        { label: t("guides.optimization"), href: getPath("/guides?cat=optimization") },
-        { label: t("guides.technical"), href: getPath("/guides?cat=technical") },
-        { label: t("guides.scaling"), href: getPath("/guides?cat=scaling") },
-      ],
-    },
-    {
-      label: t("nav.knowledgeBase"),
-      href: getPath("/knowledge-base"),
-    },
-    {
-      label: t("nav.tools"),
-      href: getPath("/tools"),
-      items: [
-        { label: t("common.allTools"), href: getPath("/tools") },
-        { label: t("tools.rpmCalculator"), href: getPath("/tools/rpm-calculator") },
-        { label: t("tools.formatPicker"), href: getPath("/tools/ad-format-picker") },
-        { label: t("tools.checklist"), href: getPath("/tools/pre-monetization-checklist") },
-        { label: t("tools.formatDemo"), href: getPath("/tools/format-demo") },
-      ],
-    },
-  ]
+  const rawNavItems = getNavigation(audience)
+
+  // Transform the static config into the props expected by NavItem
+  const navItems: NavItemProps[] = rawNavItems.map(item => ({
+    label: item.label[language] || item.label.en,
+    href: getPath(item.href === "/blog" || item.href === "/guides" || item.href === "/rankings" || item.href === "/tools" ? item.href : item.href), // Simple pass-through, the config hrefs are relative roots
+    items: item.items?.map(subItem => ({
+      label: subItem.label[language] || subItem.label.en,
+      href: getPath(subItem.href)
+    }))
+  }))
 
   return (
     <>
-      <header className="sticky top-0 z-50 bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm border-b border-sky-200 dark:border-gray-800">
+      <header className="sticky top-0 z-50 bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm border-b border-accent-200 dark:border-gray-800 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <div className="flex items-center gap-8">
-              <Link href={getPath("/")} className="text-xl font-bold text-gray-900 dark:text-white">
-                <span className="text-sky-600 dark:text-blue-500">Traff</span>Director
-              </Link>
-              <nav className="hidden md:flex items-center gap-6">
-                {navItems.map((item) => (
-                  <NavItem key={item.href} {...item} />
-                ))}
-              </nav>
-            </div>
+          {/* Top Row: Logo, Search, Controls */}
+          <div className="flex items-center justify-between h-16 border-b border-gray-100 dark:border-gray-800">
+            <Link href={getPath("/")} className="text-xl font-bold text-gray-900 dark:text-white">
+              <span className="text-accent-600">Aff</span>Traff
+            </Link>
+
             <div className="flex items-center gap-3">
               <div className="hidden sm:block relative">
                 <input
                   type="text"
                   placeholder={t("common.search")}
-                  className="w-48 lg:w-64 bg-sky-100 dark:bg-gray-800 border border-sky-200 dark:border-gray-700 rounded-lg px-4 py-2 text-sm text-gray-900 dark:text-gray-300 placeholder-gray-500 focus:outline-none focus:border-sky-500 dark:focus:border-blue-500"
+                  className="w-48 lg:w-64 bg-accent-100 dark:bg-gray-800 border border-accent-200 dark:border-gray-700 rounded-lg px-4 py-2 text-sm text-gray-900 dark:text-gray-300 placeholder-gray-500 focus:outline-none focus:border-accent-500"
                 />
                 <Search className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
               </div>
-              <ThemeToggle />
               <AudienceToggle />
-              <LanguageToggle />
+              <div className="flex items-center gap-2">
+                <ThemeToggle />
+                <LanguageToggle />
+              </div>
               <button
                 onClick={() => {
                   console.log("[v0] Mobile menu toggled:", !mobileMenuOpen)
                   setMobileMenuOpen(!mobileMenuOpen)
                 }}
-                className="md:hidden p-2 text-gray-600 dark:text-gray-300 hover:text-sky-600 dark:hover:text-white"
+                className="md:hidden p-2 text-gray-600 dark:text-gray-300 hover:text-accent-600 dark:hover:text-white"
                 aria-label="Toggle menu"
               >
                 {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
               </button>
             </div>
+          </div>
+
+          {/* Bottom Row: Navigation */}
+          <div className="hidden md:flex items-center justify-center h-12">
+            <nav className="flex items-center gap-8">
+              {navItems.map((item) => (
+                <NavItem key={item.href} {...item} />
+              ))}
+            </nav>
           </div>
         </div>
       </header>
@@ -225,11 +187,11 @@ export default function Header() {
                 className="text-xl font-bold text-gray-900 dark:text-white"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                <span className="text-sky-600 dark:text-blue-500">Traff</span>Director
+                <span className="text-accent-600">Aff</span>Traff
               </Link>
               <button
                 onClick={() => setMobileMenuOpen(false)}
-                className="p-2 text-gray-600 dark:text-gray-300 hover:text-sky-600 dark:hover:text-white"
+                className="p-2 text-gray-600 dark:text-gray-300 hover:text-accent-600 dark:hover:text-white"
                 aria-label="Close menu"
               >
                 <X className="w-5 h-5" />

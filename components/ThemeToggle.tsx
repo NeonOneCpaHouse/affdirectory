@@ -9,7 +9,7 @@ export default function ThemeToggle() {
   return (
     <button
       onClick={toggleTheme}
-      className="p-2 rounded-lg bg-sky-100 dark:bg-gray-800 text-gray-900 dark:text-gray-300 hover:bg-sky-200 dark:hover:bg-gray-700 transition-colors"
+      className="p-2 rounded-lg bg-accent-100 dark:bg-gray-800 text-gray-900 dark:text-gray-300 hover:bg-accent-200 dark:hover:bg-gray-700 transition-colors"
       aria-label="Toggle theme"
     >
       {theme === "light" ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4" />}

@@ -23,7 +23,7 @@ export default function NewsArticleClient({ article, related }: { article: Artic
       image: ({ value }: any) => {
         const imageUrl = urlForImage(value)?.url()
         return (
-          <div className="my-8 rounded-2xl overflow-hidden border border-sky-100 dark:border-gray-800 shadow-sm">
+          <div className="my-8 rounded-2xl overflow-hidden border border-accent-100 dark:border-gray-800 shadow-sm">
             {value.link ? (
               <a href={value.link} target="_blank" rel="noopener noreferrer">
                 <img src={imageUrl || "/placeholder.svg"} alt={value.alt || ""} className="w-full h-auto" />
@@ -57,7 +57,7 @@ export default function NewsArticleClient({ article, related }: { article: Artic
         <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-lg mb-6">{children}</p>
       ),
       blockquote: ({ children }: any) => (
-        <blockquote className="border-l-4 border-sky-500 dark:border-blue-500 pl-4 italic text-gray-600 dark:text-gray-300 my-6">
+        <blockquote className="border-l-4 border-accent-500 pl-4 italic text-gray-600 dark:text-gray-300 my-6">
           {children}
         </blockquote>
       ),
@@ -74,7 +74,7 @@ export default function NewsArticleClient({ article, related }: { article: Artic
       strong: ({ children }: any) => <strong className="font-bold">{children}</strong>,
       em: ({ children }: any) => <em className="italic">{children}</em>,
       code: ({ children }: any) => (
-        <code className="bg-gray-100 dark:bg-gray-800 text-sky-600 dark:text-blue-400 px-1.5 py-0.5 rounded text-sm font-mono">
+        <code className="bg-gray-100 dark:bg-gray-800 text-accent-600 px-1.5 py-0.5 rounded text-sm font-mono">
           {children}
         </code>
       ),
@@ -84,7 +84,7 @@ export default function NewsArticleClient({ article, related }: { article: Artic
         const target = value?.blank ? "_blank" : undefined
         const rel = value?.blank ? "noopener noreferrer" : undefined
         return (
-          <a href={value?.href} target={target} rel={rel} className="text-sky-600 dark:text-blue-400 hover:underline">
+          <a href={value?.href} target={target} rel={rel} className="text-accent-600 hover:underline">
             {children}
           </a>
         )
@@ -114,7 +114,7 @@ export default function NewsArticleClient({ article, related }: { article: Artic
             </div>
             <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">{title}</h1>
             {thumbnail && (
-              <div className="mb-8 rounded-2xl overflow-hidden border border-sky-100 dark:border-gray-800 shadow-sm">
+              <div className="mb-8 rounded-2xl overflow-hidden border border-accent-100 dark:border-gray-800 shadow-sm">
                 <img
                   src={thumbnail || "/placeholder.svg"}
                   alt={title}
@@ -136,7 +136,7 @@ export default function NewsArticleClient({ article, related }: { article: Artic
           </div>
 
           {related.length > 0 && (
-            <section className="mt-12 pt-12 border-t border-sky-100 dark:border-gray-800">
+            <section className="mt-12 pt-12 border-t border-accent-100 dark:border-gray-800">
               <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">{t("article.related")}</h2>
               <div className="grid md:grid-cols-3 gap-6">
                 {related.map((a) => (
@@ -150,15 +150,15 @@ export default function NewsArticleClient({ article, related }: { article: Artic
         <aside className="w-full lg:w-[300px]">
           <div className="sticky top-8 space-y-6">
             <AdSlot slotKey="sidebar" />
-            <div className="bg-sky-50 dark:bg-gray-800/50 rounded-xl p-6 border border-sky-100 dark:border-gray-700/50">
+            <div className="bg-accent-50 dark:bg-gray-800/50 rounded-xl p-6 border border-accent-100 dark:border-gray-700/50">
               <h3 className="font-semibold text-gray-900 dark:text-white mb-3">{t("common.newsletter")}</h3>
               <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">{t("common.newsletterDesc")}</p>
               <input
                 type="email"
                 placeholder={t("common.emailAddress")}
-                className="w-full bg-white dark:bg-gray-800 border border-sky-200 dark:border-gray-700 rounded-lg px-4 py-2 text-sm mb-3"
+                className="w-full bg-white dark:bg-gray-800 border border-accent-200 dark:border-gray-700 rounded-lg px-4 py-2 text-sm mb-3"
               />
-              <button className="w-full bg-sky-600 dark:bg-blue-600 text-white font-medium py-2 rounded-lg text-sm hover:bg-sky-700 dark:hover:bg-blue-500 transition-colors">
+              <button className="w-full bg-accent-600 text-white font-medium py-2 rounded-lg text-sm hover:bg-accent-700 transition-colors">
                 {t("common.subscribe")}
               </button>
             </div>

@@ -19,14 +19,14 @@ export default function Breadcrumbs({ items }: BreadcrumbsProps) {
 
   return (
     <nav className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 mb-6">
-      <Link href={`/${language}/${audience}`} className="hover:text-sky-600 dark:hover:text-white transition-colors">
+      <Link href={`/${language}/${audience}`} className="hover:text-accent-600 dark:hover:text-white transition-colors">
         {t("nav.home") || "Home"}
       </Link>
       {items.map((item, index) => (
         <span key={index} className="flex items-center gap-2">
           <span className="text-gray-300 dark:text-gray-600">/</span>
           {item.href ? (
-            <Link href={item.href} className="hover:text-sky-600 dark:hover:text-white transition-colors">
+            <Link href={item.href} className="hover:text-accent-600 dark:hover:text-white transition-colors">
               {item.label}
             </Link>
           ) : (

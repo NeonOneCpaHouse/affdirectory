@@ -29,7 +29,7 @@ export default function ArticleCard({ article }: { article: Article }) {
   return (
     <Link
       href={getArticlePath()}
-      className="group flex flex-col bg-white dark:bg-gray-800/50 border border-sky-200 dark:border-gray-700/50 rounded-xl overflow-hidden hover:border-sky-400 dark:hover:border-blue-500/50 transition-all shadow-sm"
+      className="group flex flex-col bg-white dark:bg-gray-800/50 border border-accent-200 dark:border-gray-700/50 rounded-xl overflow-hidden hover:border-accent-500 dark:hover:border-accent-500/50 transition-all shadow-sm"
     >
       {thumbnail && (
         <div className="relative aspect-video overflow-hidden">
@@ -51,7 +51,7 @@ export default function ArticleCard({ article }: { article: Article }) {
             })}
           </span>
         </div>
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white group-hover:text-sky-600 dark:group-hover:text-blue-400 transition-colors mb-2 line-clamp-2">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-white group-hover:text-accent-600 transition-colors mb-2 line-clamp-2">
           {title}
         </h3>
         <p className="text-sm text-gray-600 dark:text-gray-300 line-clamp-2 mt-auto">{excerpt}</p>

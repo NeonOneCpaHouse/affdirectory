@@ -28,6 +28,12 @@ export function AudienceProvider({
         setAudienceState(initialAudience)
     }, [initialAudience])
 
+    // Update document class for theme switching
+    useEffect(() => {
+        document.documentElement.classList.remove('audience-affiliate', 'audience-webmaster')
+        document.documentElement.classList.add(`audience-${audience}`)
+    }, [audience])
+
     useEffect(() => {
         if (initialAudience) {
             localStorage.setItem("preferred_audience", initialAudience)

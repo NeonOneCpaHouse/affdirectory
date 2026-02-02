@@ -38,17 +38,34 @@ export interface Network {
 }
 
 export const formatLabels: Record<FormatKey, Localized<string>> = {
-  webPush: { en: "Web Push", ru: "Пуш" },
+  webPush: { en: "Web Push", ru: "Web Пуши" },
   popunder: { en: "Popunder", ru: "Попандер" },
-  inPagePush: { en: "In-Page Push", ru: "In-Page" },
-  banner: { en: "Banner", ru: "Баннер" },
-  telegram: { en: "Telegram", ru: "Телеграм" },
-  display: { en: "Display", ru: "Дисплей" },
-  native: { en: "Native", ru: "Нативные" },
-  mobile: { en: "Mobile", ru: "Мобильные" },
+  inPagePush: { en: "In-Page Push", ru: "In-Page Пуши" },
+  banner: { en: "Banner", ru: "Баннеры" },
+  telegram: { en: "Telegram", ru: "Telegram" },
+  display: { en: "Display", ru: "Display" },
+  native: { en: "Native", ru: "Нативная" },
+  mobile: { en: "Mobile", ru: "Мобильная" },
   video: { en: "Video", ru: "Видео" },
-  domainRedirect: { en: "Domain Redirect", ru: "Редирект" },
-  interstitial: { en: "Interstitial", ru: "Полноэкранные" },
+  domainRedirect: { en: "Domain Redirect", ru: "Доменный трафик" },
+  interstitial: { en: "Interstitial", ru: "Интерстишиал" },
+  // New categories mappings
+  adNetworks: { en: "Ad Networks", ru: "Рекламные сети" },
+  cpaNetworks: { en: "CPA Networks", ru: "CPA-сети" },
+  services: { en: "Services", ru: "Сервисы" },
+  antidetect: { en: "Antidetect Browsers", ru: "Антидетект-браузеры" },
+  spyTools: { en: "Spy Tools", ru: "Spy сервисы" },
+  cloaking: { en: "Cloaking", ru: "Клоакинг" },
+  proxy: { en: "Proxy", ru: "Прокси" },
+  trackers: { en: "Trackers", ru: "Трекеры" },
+  pwa: { en: "PWA", ru: "PWA" },
+  payment: { en: "Payment", ru: "Платежки" },
+  trafficMonetization: { en: "Traffic Monetization", ru: "Монетизация трафика" },
+  seo: { en: "SEO", ru: "SEO" },
+  ddosProtection: { en: "DDoS Protection", ru: "Защита от DDos-атак" },
+  cms: { en: "CMS", ru: "Системы управления контентом" },
+  testing: { en: "Testing", ru: "Тест сайтов и приложений" },
+  hostings: { en: "Hostings", ru: "Хостинги" },
 }
 
 export async function getNetworks(audience: string = "affiliate"): Promise<Network[]> {

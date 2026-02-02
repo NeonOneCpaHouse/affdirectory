@@ -25,7 +25,7 @@ export default function CaseStudyArticleClient({ article, related }: { article: 
       image: ({ value }: any) => {
         const imageUrl = urlForImage(value)?.url()
         return (
-          <div className="my-8 rounded-2xl overflow-hidden border border-sky-100 dark:border-gray-800 shadow-sm">
+          <div className="my-8 rounded-2xl overflow-hidden border border-accent-100 dark:border-gray-800 shadow-sm">
             {value.link ? (
               <a href={value.link} target="_blank" rel="noopener noreferrer">
                 <img src={imageUrl || "/placeholder.svg"} alt={value.alt || ""} className="w-full h-auto" />
@@ -59,7 +59,7 @@ export default function CaseStudyArticleClient({ article, related }: { article: 
         <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-lg mb-6">{children}</p>
       ),
       blockquote: ({ children }: any) => (
-        <blockquote className="border-l-4 border-sky-500 dark:border-blue-500 pl-4 italic text-gray-600 dark:text-gray-300 my-6">
+        <blockquote className="border-l-4 border-accent-500 pl-4 italic text-gray-600 dark:text-gray-300 my-6">
           {children}
         </blockquote>
       ),
@@ -76,7 +76,7 @@ export default function CaseStudyArticleClient({ article, related }: { article: 
       strong: ({ children }: any) => <strong className="font-bold">{children}</strong>,
       em: ({ children }: any) => <em className="italic">{children}</em>,
       code: ({ children }: any) => (
-        <code className="bg-gray-100 dark:bg-gray-800 text-sky-600 dark:text-blue-400 px-1.5 py-0.5 rounded text-sm font-mono">
+        <code className="bg-gray-100 dark:bg-gray-800 text-accent-600 px-1.5 py-0.5 rounded text-sm font-mono">
           {children}
         </code>
       ),
@@ -86,7 +86,7 @@ export default function CaseStudyArticleClient({ article, related }: { article: 
         const target = value?.blank ? "_blank" : undefined
         const rel = value?.blank ? "noopener noreferrer" : undefined
         return (
-          <a href={value?.href} target={target} rel={rel} className="text-sky-600 dark:text-blue-400 hover:underline">
+          <a href={value?.href} target={target} rel={rel} className="text-accent-600 hover:underline">
             {children}
           </a>
         )
@@ -111,15 +111,15 @@ export default function CaseStudyArticleClient({ article, related }: { article: 
             <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-8 leading-tight">{title}</h1>
 
             {thumbnail && (
-              <div className="mb-12 rounded-2xl overflow-hidden aspect-video border border-sky-100 dark:border-gray-800 shadow-lg relative bg-sky-900 group">
+              <div className="mb-12 rounded-2xl overflow-hidden aspect-video border border-accent-100 dark:border-gray-800 shadow-lg relative bg-accent-900 group">
                 <img
                   src={thumbnail || "/placeholder.svg"}
                   alt={title}
                   className="w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-700"
                 />
-                <div className="absolute inset-0 flex items-center justify-center p-8 bg-gradient-to-t from-sky-900/80 to-transparent">
+                <div className="absolute inset-0 flex items-center justify-center p-8 bg-gradient-to-t from-accent-900/80 to-transparent">
                   <div className="text-center">
-                    <span className="inline-block px-4 py-1 bg-sky-500/20 backdrop-blur-md rounded-full text-sky-400 text-xs font-bold uppercase tracking-wider mb-4 border border-sky-500/30">
+                    <span className="inline-block px-4 py-1 bg-accent-500/20 backdrop-blur-md rounded-full text-accent-400 text-xs font-bold uppercase tracking-wider mb-4 border border-accent-500/30">
                       {t("article.detailedCaseAnalysis")}
                     </span>
                     <h2 className="text-2xl md:text-3xl font-bold text-white max-w-2xl">{title}</h2>
@@ -132,36 +132,36 @@ export default function CaseStudyArticleClient({ article, related }: { article: 
               <div className="space-y-12 mb-12">
                 <section>
                   <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-3">
-                    <span className="text-sky-600">01.</span> {t("article.setupStrategy")}
+                    <span className="text-accent-600">01.</span> {t("article.setupStrategy")}
                   </h3>
                   <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-lg">{sections.setup}</p>
                 </section>
                 <section>
                   <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-3">
-                    <span className="text-sky-600">02.</span> {t("article.trafficDistribution")}
+                    <span className="text-accent-600">02.</span> {t("article.trafficDistribution")}
                   </h3>
                   <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-lg">{sections.traffic}</p>
                 </section>
                 <section>
                   <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-3">
-                    <span className="text-sky-600">03.</span> {t("article.adPlacements")}
+                    <span className="text-accent-600">03.</span> {t("article.adPlacements")}
                   </h3>
                   <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-lg">{sections.placements}</p>
                 </section>
-                <div className="p-8 bg-sky-600/5 dark:bg-blue-600/10 rounded-2xl border border-sky-600/20 dark:border-blue-600/20">
-                  <h3 className="text-2xl font-bold text-sky-600 dark:text-blue-400 mb-4 flex items-center gap-3">
-                    <span className="text-sky-600 inline-block w-8 h-8 rounded-lg bg-sky-600/10 flex items-center justify-center opacity-0 group-hover:opacity-100">
+                <div className="p-8 bg-accent-600/5 dark:bg-accent-600/10 rounded-2xl border border-accent-600/20">
+                  <h3 className="text-2xl font-bold text-accent-600 mb-4 flex items-center gap-3">
+                    <span className="text-accent-600 inline-block w-8 h-8 rounded-lg bg-accent-600/10 flex items-center justify-center opacity-0 group-hover:opacity-100">
                       04.
                     </span>{" "}
                     {t("article.finalResults")}
                   </h3>
-                  <p className="text-sky-900 dark:text-sky-100 leading-relaxed text-xl font-medium">
+                  <p className="text-accent-900 dark:text-accent-100 leading-relaxed text-xl font-medium">
                     {sections.results}
                   </p>
                 </div>
                 <section>
                   <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-3">
-                    <span className="text-sky-600">05.</span> {t("article.keyLessons")}
+                    <span className="text-accent-600">05.</span> {t("article.keyLessons")}
                   </h3>
                   <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-lg">{sections.lessons}</p>
                 </section>
@@ -182,7 +182,7 @@ export default function CaseStudyArticleClient({ article, related }: { article: 
           </div>
 
           {related.length > 0 && (
-            <section className="mt-12 pt-12 border-t border-sky-100 dark:border-gray-800">
+            <section className="mt-12 pt-12 border-t border-accent-100 dark:border-gray-800">
               <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">{t("article.related")}</h2>
               <div className="grid md:grid-cols-3 gap-6">
                 {related.map((a) => (
@@ -196,11 +196,11 @@ export default function CaseStudyArticleClient({ article, related }: { article: 
         <aside className="w-full lg:w-[300px]">
           <div className="sticky top-8 space-y-6">
             <AdSlot slotKey="sidebar" />
-            <div className="bg-white dark:bg-gray-800/50 rounded-xl p-6 border border-sky-100 dark:border-gray-700/50 shadow-sm overflow-hidden relative group">
-              <div className="absolute top-0 right-0 w-24 h-24 bg-sky-600/5 rounded-full -mr-12 -mt-12 group-hover:scale-150 transition-transform duration-700" />
+            <div className="bg-white dark:bg-gray-800/50 rounded-xl p-6 border border-accent-100 dark:border-gray-700/50 shadow-sm overflow-hidden relative group">
+              <div className="absolute top-0 right-0 w-24 h-24 bg-accent-600/5 rounded-full -mr-12 -mt-12 group-hover:scale-150 transition-transform duration-700" />
               <h3 className="font-bold text-gray-900 dark:text-white mb-2 relative">{t("common.downloadBreakdown")}</h3>
               <p className="text-sm text-gray-500 dark:text-gray-400 mb-4 relative">{t("common.downloadDesc")}</p>
-              <button className="w-full bg-sky-100 dark:bg-gray-700 text-sky-600 dark:text-blue-400 font-bold py-3 rounded-lg text-sm hover:bg-sky-200 dark:hover:bg-gray-600 transition-colors relative">
+              <button className="w-full bg-accent-100 dark:bg-gray-700 text-accent-600 font-bold py-3 rounded-lg text-sm hover:bg-accent-200 dark:hover:bg-gray-600 transition-colors relative">
                 {t("common.downloadPDF")}
               </button>
             </div>

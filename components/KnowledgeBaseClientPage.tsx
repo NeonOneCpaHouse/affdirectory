@@ -38,7 +38,7 @@ export default function KnowledgeBaseClientPage({ entries }: KnowledgeBaseClient
   const groupedEntries = groupKnowledgeByCategory(entries)
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-sky-50 to-white dark:from-gray-900 dark:to-gray-950">
+    <main className="min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Header */}
         <div className="text-center mb-12">
@@ -65,9 +65,9 @@ export default function KnowledgeBaseClientPage({ entries }: KnowledgeBaseClient
                     <Link
                       key={entry.slug}
                       href={`/${language}/${audience}/knowledge-base/${entry.slug}`}
-                      className="group bg-white dark:bg-gray-800/50 border border-sky-200 dark:border-gray-700/50 rounded-lg p-6 hover:border-sky-400 dark:hover:border-blue-500/50 hover:shadow-lg transition-all"
+                      className="group bg-white dark:bg-gray-800/50 border border-accent-200 dark:border-gray-700/50 rounded-lg p-6 hover:border-accent-500 dark:hover:border-accent-500/50 hover:shadow-lg transition-all"
                     >
-                      <h3 className="text-center font-medium text-gray-900 dark:text-white group-hover:text-sky-600 dark:group-hover:text-blue-400 transition-colors">
+                      <h3 className="text-center font-medium text-gray-900 dark:text-white group-hover:text-accent-600 transition-colors">
                         {entry.title[language] || entry.title.en}
                       </h3>
                     </Link>

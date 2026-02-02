@@ -29,9 +29,9 @@ export default function RankingsClientPage({ rankings }: { rankings: FormatRanki
                 <Link
                   key={ranking.slug}
                   href={`/${language}/${audience}/rankings/${ranking.slug}`}
-                  className="block bg-white dark:bg-gray-800/50 border border-sky-200 dark:border-gray-700/50 rounded-xl p-6 hover:border-sky-400 dark:hover:border-blue-500/50 transition-all group shadow-sm"
+                  className="block bg-white dark:bg-gray-800/50 border border-accent-200 dark:border-gray-700/50 rounded-xl p-6 hover:border-accent-500 dark:hover:border-accent-500/50 transition-all group shadow-sm"
                 >
-                  <h2 className="text-xl font-semibold text-gray-900 dark:text-white group-hover:text-sky-600 dark:group-hover:text-blue-400 transition-colors mb-2">
+                  <h2 className="text-xl font-semibold text-gray-900 dark:text-white group-hover:text-accent-600 transition-colors mb-2">
                     {t("rankings.bestNetworks").replace("{format}", label)}
                   </h2>
                   <p className="text-gray-500 dark:text-gray-400 mb-4">

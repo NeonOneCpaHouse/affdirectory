@@ -1,16 +1,19 @@
 import type React from "react"
 import Header from "@/components/Header"
 import Footer from "@/components/Footer"
+import Popup from "@/components/Popup"
 import { LanguageProvider } from "@/context/LanguageContext"
 import { AudienceProvider } from "@/context/AudienceContext"
 
-export default function Layout({
+export default async function Layout({
     children,
     params,
 }: {
     children: React.ReactNode
-    params: { lang: string; audience: string }
+    params: Promise<{ lang: string; audience: string }>
 }) {
+    const { lang, audience } = await params
+
     return (
         // We should probably init the providers with the params if we want to be strict,
         // but the providers currently read from localStorage/cookies.
@@ -27,11 +30,12 @@ export default function Layout({
         // No, layout.tsx is nested, it can't change the <html> tag easily without hacks.
         // We can leave logical lang in the HTML tag as a default or use a client component to update it.
 
-        <AudienceProvider initialAudience={params.audience}>
-            <LanguageProvider initialLanguage={params.lang}>
+        <AudienceProvider initialAudience={audience}>
+            <LanguageProvider initialLanguage={lang}>
                 <Header />
                 <main>{children}</main>
                 <Footer />
+                <Popup />
             </LanguageProvider>
         </AudienceProvider>
     )

@@ -31,6 +31,23 @@ const formatSlugs: Record<FormatKey, string> = {
   video: "video",
   domainRedirect: "domain-redirect",
   interstitial: "interstitial",
+  // New slugs
+  adNetworks: "ad-networks",
+  cpaNetworks: "cpa-networks",
+  services: "services",
+  antidetect: "antidetect",
+  spyTools: "spy-tools",
+  cloaking: "cloaking",
+  proxy: "proxy",
+  trackers: "trackers",
+  pwa: "pwa",
+  payment: "payment",
+  trafficMonetization: "traffic-monetization",
+  seo: "seo",
+  ddosProtection: "ddos-protection",
+  cms: "cms",
+  testing: "testing",
+  hostings: "hostings",
 }
 
 export async function getRankingsByFormat(format: FormatKey, audience: string = "affiliate"): Promise<FormatRanking> {
@@ -87,6 +104,23 @@ export async function getAllFormatRankings(audience: string = "affiliate"): Prom
     "video",
     "domainRedirect",
     "interstitial",
+    // New formats
+    "adNetworks",
+    "cpaNetworks",
+    "services",
+    "antidetect",
+    "spyTools",
+    "cloaking",
+    "proxy",
+    "trackers",
+    "pwa",
+    "payment",
+    "trafficMonetization",
+    "seo",
+    "ddosProtection",
+    "cms",
+    "testing",
+    "hostings",
   ]
   return Promise.all(allFormats.map((format) => getRankingsByFormat(format, audience)))
 }
@@ -103,8 +137,54 @@ export async function getRankingBySlug(slug: string, audience: string = "affilia
     mobile: "mobile",
     "domain-redirect": "domainRedirect",
     interstitial: "interstitial",
+    // New mappings
+    "ad-networks": "adNetworks",
+    "cpa-networks": "cpaNetworks",
+    services: "services",
+    antidetect: "antidetect",
+    "spy-tools": "spyTools",
+    cloaking: "cloaking",
+    proxy: "proxy",
+    trackers: "trackers",
+    pwa: "pwa",
+    payment: "payment",
+    "traffic-monetization": "trafficMonetization",
+    seo: "seo",
+    "ddos-protection": "ddosProtection",
+    cms: "cms",
+    testing: "testing",
+    hostings: "hostings",
   }
-  return map[slug] ? await getRankingsByFormat(map[slug], audience) : undefined
+
+  const formatKey = map[slug]
+  if (!formatKey) return undefined
+
+  // For new categories, we might not have specific data yet, so we reuse existing network data
+  // but label it with the correct category title.
+  // This is a temporary hack to populate the UI.
+  if (!["webPush", "popunder", "inPagePush", "banner", "telegram", "display", "native", "mobile", "video", "domainRedirect", "interstitial"].includes(formatKey)) {
+    const networks = await getNetworks(audience)
+    // Just take top 5 networks and pretend they support this category
+    const rankedNetworks = networks.slice(0, 5).map((n, i) => ({
+      network: n,
+      score: 5 - i * 0.5,
+      rank: i + 1
+    }))
+
+    return {
+      format: formatKey,
+      label: formatLabels[formatKey],
+      slug: slug,
+      networks: rankedNetworks,
+      bestFor: [{
+        title: { en: "Best Choice", ru: "Лучший выбор" },
+        network: rankedNetworks[0].network,
+        reason: { en: "Top rated in this category", ru: "Лидер рейтинга в этой категории" }
+      }],
+    }
+  }
+
+  return await getRankingsByFormat(formatKey, audience)
 }
 
 export const rankingMethodology: Localized<string> = {

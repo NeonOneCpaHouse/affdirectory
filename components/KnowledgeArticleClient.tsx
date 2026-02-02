@@ -32,7 +32,7 @@ export default function KnowledgeArticleClient({ entry }: KnowledgeArticleClient
         <p className="mb-4 text-gray-700 dark:text-gray-300 leading-relaxed">{children}</p>
       ),
       blockquote: ({ children }: any) => (
-        <blockquote className="border-l-4 border-sky-500 pl-4 italic my-6 text-gray-600 dark:text-gray-400">
+        <blockquote className="border-l-4 border-accent-500 pl-4 italic my-6 text-gray-600 dark:text-gray-400">
           {children}
         </blockquote>
       ),
@@ -49,14 +49,14 @@ export default function KnowledgeArticleClient({ entry }: KnowledgeArticleClient
       strong: ({ children }: any) => <strong className="font-bold text-gray-900 dark:text-white">{children}</strong>,
       em: ({ children }: any) => <em className="italic">{children}</em>,
       code: ({ children }: any) => (
-        <code className="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded text-sm font-mono text-sky-600 dark:text-blue-400">
+        <code className="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded text-sm font-mono text-accent-600">
           {children}
         </code>
       ),
       link: ({ value, children }: any) => (
         <a
           href={value?.href}
-          className="text-sky-600 dark:text-blue-400 hover:underline"
+          className="text-accent-600 hover:underline"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -67,12 +67,12 @@ export default function KnowledgeArticleClient({ entry }: KnowledgeArticleClient
   }
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-sky-50 to-white dark:from-gray-900 dark:to-gray-950">
+    <main className="min-h-screen">
       <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Back Button */}
         <Link
           href="/knowledge-base"
-          className="inline-flex items-center gap-2 text-sky-600 dark:text-blue-400 hover:text-sky-700 dark:hover:text-blue-300 mb-8 transition-colors"
+          className="inline-flex items-center gap-2 text-accent-600 hover:text-accent-700 mb-8 transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
           {t("knowledge.title")}

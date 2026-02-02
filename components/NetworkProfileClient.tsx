@@ -29,7 +29,7 @@ export default function NetworkProfileClient({
       </div>
       <div className="grid lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2 space-y-8">
-          <div className="bg-white dark:bg-gray-800/50 border border-sky-200 dark:border-gray-700/50 rounded-xl p-6 shadow-sm">
+          <div className="bg-white dark:bg-gray-800/50 border border-accent-200 dark:border-gray-700/50 rounded-xl p-6 shadow-sm">
             <div className="flex flex-col md:flex-row md:items-center gap-6 mb-6">
               {network.logo && network.logo.trim() !== "" && (
                 <div className="w-28 h-28 flex items-center justify-center">
@@ -67,7 +67,7 @@ export default function NetworkProfileClient({
             </div>
           </div>
 
-          <div className="lg:hidden bg-sky-600 dark:bg-blue-600 rounded-xl p-6 text-center shadow-md">
+          <div className="lg:hidden bg-accent-600 rounded-xl p-6 text-center shadow-md">
             <h3 className="text-white font-semibold text-lg mb-4">
               {t("network.visit")} {network.name}
             </h3>
@@ -75,17 +75,17 @@ export default function NetworkProfileClient({
               href={network.websiteUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="block w-full bg-white text-sky-600 dark:text-blue-600 font-medium py-3 rounded-lg hover:bg-sky-50 dark:hover:bg-blue-50 transition-colors shadow-sm"
+              className="block w-full bg-white text-accent-600 font-medium py-3 rounded-lg hover:bg-accent-50 transition-colors shadow-sm"
             >
               {t("network.goToSite")} →
             </a>
           </div>
 
-          <div className="bg-white dark:bg-gray-800/50 border border-sky-200 dark:border-gray-700/50 rounded-xl p-6 shadow-sm">
+          <div className="bg-white dark:bg-gray-800/50 border border-accent-200 dark:border-gray-700/50 rounded-xl p-6 shadow-sm">
             <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">{t("network.ratingsFormat")}</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {network.formatsSupported.map((fmt) => (
-                <div key={fmt} className="p-4 bg-sky-50 dark:bg-gray-900/50 rounded-lg">
+                <div key={fmt} className="p-4 bg-accent-50 dark:bg-gray-900/50 rounded-lg">
                   <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">{formatLabels[fmt][language]}</p>
                   <RatingStars rating={network.ratingsByFormat[fmt].overall} />
                   <div className="mt-2 text-xs text-gray-400 dark:text-gray-500">
@@ -125,7 +125,7 @@ export default function NetworkProfileClient({
               </ul>
             </div>
           </div>
-          <div className="bg-white dark:bg-gray-800/50 border border-sky-200 dark:border-gray-700/50 rounded-xl p-6 shadow-sm">
+          <div className="bg-white dark:bg-gray-800/50 border border-accent-200 dark:border-gray-700/50 rounded-xl p-6 shadow-sm">
             <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">{t("network.editorialNote")}</h2>
             <p className="text-gray-600 dark:text-gray-300 leading-relaxed">{currentNote}</p>
           </div>
@@ -135,7 +135,7 @@ export default function NetworkProfileClient({
         </div>
         <aside className="space-y-6">
           <div className="sticky top-8 space-y-6">
-            <div className="hidden lg:block bg-sky-600 dark:bg-blue-600 rounded-xl p-6 text-center shadow-md">
+            <div className="hidden lg:block bg-accent-600 rounded-xl p-6 text-center shadow-md">
               <h3 className="text-white font-semibold text-lg mb-4">
                 {t("network.visit")} {network.name}
               </h3>
@@ -143,7 +143,7 @@ export default function NetworkProfileClient({
                 href={network.websiteUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block w-full bg-white text-sky-600 dark:text-blue-600 font-medium py-3 rounded-lg hover:bg-sky-50 dark:hover:bg-blue-50 transition-colors shadow-sm"
+                className="block w-full bg-white text-accent-600 font-medium py-3 rounded-lg hover:bg-accent-50 transition-colors shadow-sm"
               >
                 {t("network.goToSite")} →
               </a>

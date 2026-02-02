@@ -6,13 +6,20 @@ export default defineType({
   type: "document",
   fields: [
     defineField({
+      name: "title",
+      title: "Internal Name",
+      description: "Name for identifying this banner in the Studio (not visible on the site).",
+      type: "string",
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
       name: "slotKey",
       title: "Slot Key",
       type: "string",
       options: {
         list: [
           { title: "Leaderboard (728x90 / 320x50)", value: "leaderboard" },
-          { title: "Inline (336x280 / 300x250)", value: "inline" },
+          { title: "Inline (800x90 / 300x250)", value: "inline" },
           { title: "Sidebar (300x600 / 300x250)", value: "sidebar" },
         ],
       },
@@ -81,8 +88,9 @@ export default defineType({
   ],
   preview: {
     select: {
-      title: "headline",
+      title: "title",
       subtitle: "slotKey",
+      media: "desktopImage",
     },
   },
 })

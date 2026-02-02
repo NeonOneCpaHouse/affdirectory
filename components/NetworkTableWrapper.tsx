@@ -19,7 +19,7 @@ export default function NetworkTableWrapper() {
   return (
     <>
       <FormatTabs onTabChange={setActiveFormat} />
-      <div className="mt-4 bg-white dark:bg-gray-800/30 border border-sky-200 dark:border-gray-700/50 rounded-xl overflow-hidden shadow-sm">
+      <div className="mt-4 bg-white dark:bg-gray-800/30 border border-accent-200 dark:border-gray-700/50 rounded-xl overflow-hidden shadow-sm">
         <NetworkTable networks={rankings.networks} maxRows={5} />
       </div>
     </>

@@ -11,7 +11,7 @@ import { AudienceProvider } from "@/context/AudienceContext"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "TraffDirector - Webmaster Monetization Directory",
+  title: "AffTraff - Webmaster Monetization Directory",
   description: "Compare ad networks, read industry news, and find the best monetization strategies for publishers.",
   generator: 'v0.app'
 }
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html suppressHydrationWarning>
-      <body className={`${inter.className} bg-sky-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 min-h-screen transition-colors`}>
+      <body className={`${inter.className} dark:bg-gray-950 text-gray-900 dark:text-gray-100 min-h-screen transition-colors`}>
         <ThemeProvider>
           {children}
         </ThemeProvider>

@@ -21,7 +21,7 @@ export default function NetworkTable({ networks, showRank = true, maxRows }: Net
     <div className="overflow-x-auto">
       <table className="w-full">
         <thead>
-          <tr className="border-b border-sky-200 dark:border-gray-700">
+          <tr className="border-b border-accent-200 dark:border-gray-700">
             {showRank && (
               <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                 #
@@ -42,7 +42,7 @@ export default function NetworkTable({ networks, showRank = true, maxRows }: Net
             <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider"></th>
           </tr>
         </thead>
-        <tbody className="divide-y divide-sky-100 dark:divide-gray-700/50">
+        <tbody className="divide-y divide-accent-100 dark:divide-gray-700/50">
           {rows.map((item) => (
             <tr
               key={item.network.slug}
@@ -52,7 +52,7 @@ export default function NetworkTable({ networks, showRank = true, maxRows }: Net
                   ? "bg-gradient-to-r from-gray-50/50 to-transparent dark:from-gray-500/5 dark:to-transparent border-l-4 border-gray-300 dark:border-gray-400 shadow-[0_0_15px_rgba(156,163,175,0.12)] dark:shadow-[0_0_15px_rgba(156,163,175,0.15)] hover:shadow-[0_0_20px_rgba(156,163,175,0.2)] dark:hover:shadow-[0_0_20px_rgba(156,163,175,0.25)]"
                   : item.rank === 3
                     ? "bg-gradient-to-r from-orange-50/50 to-transparent dark:from-orange-500/5 dark:to-transparent border-l-4 border-orange-400 dark:border-orange-500 shadow-[0_0_15px_rgba(251,146,60,0.12)] dark:shadow-[0_0_15px_rgba(249,115,22,0.15)] hover:shadow-[0_0_20px_rgba(251,146,60,0.2)] dark:hover:shadow-[0_0_20px_rgba(249,115,22,0.25)]"
-                    : "hover:bg-sky-50 dark:hover:bg-gray-800/50"
+                    : "hover:bg-accent-50 dark:hover:bg-gray-800/50"
                 }`}
             >
               {showRank && (
@@ -74,7 +74,7 @@ export default function NetworkTable({ networks, showRank = true, maxRows }: Net
               <td className="px-4 py-4">
                 <Link
                   href={`/${language}/${audience}/networks/${item.network.slug}`}
-                  className="flex items-center gap-3 text-gray-900 dark:text-white hover:text-sky-600 dark:hover:text-blue-400 font-medium"
+                  className="flex items-center gap-3 text-gray-900 dark:text-white hover:text-accent-600 font-medium"
                 >
                   {item.network.logo && item.network.logo.trim() !== "" && (
                     <div className="flex-shrink-0 w-10 h-10 flex items-center justify-center">
@@ -96,7 +96,7 @@ export default function NetworkTable({ networks, showRank = true, maxRows }: Net
               <td className="px-4 py-4">
                 <Link
                   href={`/${language}/${audience}/networks/${item.network.slug}`}
-                  className="text-sky-600 dark:text-blue-400 hover:text-sky-700 dark:hover:text-blue-300 text-sm font-medium"
+                  className="text-accent-600 hover:text-accent-700 text-sm font-medium"
                 >
                   {t("common.more")} →
                 </Link>

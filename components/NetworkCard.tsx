@@ -27,7 +27,7 @@ export default function NetworkCard({ network }: NetworkCardProps) {
   return (
     <Link
       href={`/${language}/${audience}/networks/${network.slug}`}
-      className="block bg-white/20 dark:bg-gray-800/20 backdrop-blur-lg border border-sky-200/50 dark:border-gray-700/50 rounded-xl p-5 hover:border-sky-400 dark:hover:border-blue-500/50 hover:bg-sky-50/20 dark:hover:bg-gray-800/30 transition-all group shadow-sm"
+      className="block bg-white/20 dark:bg-gray-800/20 backdrop-blur-lg border border-accent-200 dark:border-gray-700/50 rounded-xl p-5 hover:border-accent-500 dark:hover:border-accent-500/50 hover:bg-accent-50 dark:hover:bg-gray-800/30 transition-all group shadow-sm"
     >
       <div className="flex items-start justify-between mb-3">
         <div className="flex items-center gap-3">
@@ -41,7 +41,7 @@ export default function NetworkCard({ network }: NetworkCardProps) {
             </div>
           )}
           <div>
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white group-hover:text-sky-600 dark:group-hover:text-blue-400 transition-colors">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white group-hover:text-accent-600 transition-colors">
               {network.name}
             </h3>
             <p className="text-sm text-gray-500 dark:text-gray-400">
@@ -52,7 +52,7 @@ export default function NetworkCard({ network }: NetworkCardProps) {
         <RatingStars rating={avgRating} size="sm" />
       </div>
       <TagPills tags={formats} variant="format" size="sm" />
-      <div className="mt-3 pt-3 border-t border-sky-100 dark:border-gray-700/50">
+      <div className="mt-3 pt-3 border-t border-accent-100 dark:border-gray-700/50">
         <p className="text-xs text-gray-400 dark:text-gray-500">
           {currentGeos.slice(0, 3).join(", ")}
           {currentGeos.length > 3 && ` +${currentGeos.length - 3}`}

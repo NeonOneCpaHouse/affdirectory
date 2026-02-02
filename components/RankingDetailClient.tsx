@@ -30,11 +30,11 @@ export default function RankingDetailClient({
       <div className="flex flex-col lg:flex-row gap-8">
         <main className="flex-1 min-w-0">
           <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">Best {label} Networks</h1>
-          <div className="bg-sky-50 dark:bg-blue-500/10 border border-sky-200 dark:border-blue-500/20 rounded-xl p-4 mb-8">
-            <h2 className="text-sky-700 dark:text-blue-400 font-semibold mb-2">Methodology</h2>
+          <div className="bg-accent-50 dark:bg-accent-500/10 border border-accent-200 dark:border-accent-500/20 rounded-xl p-4 mb-8">
+            <h2 className="text-accent-700 font-semibold mb-2">Methodology</h2>
             <p className="text-gray-600 dark:text-gray-300 text-sm">{methodologyText}</p>
           </div>
-          <div className="bg-white dark:bg-gray-800/30 border border-sky-200 dark:border-gray-700/50 rounded-xl overflow-hidden mb-8 shadow-sm">
+          <div className="bg-white dark:bg-gray-800/30 border border-accent-200 dark:border-gray-700/50 rounded-xl overflow-hidden mb-8 shadow-sm">
             <NetworkTable networks={ranking.networks} />
           </div>
           <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Best For...</h2>
@@ -46,9 +46,9 @@ export default function RankingDetailClient({
                 <Link
                   key={pickTitle}
                   href={`/networks/${pick.network.slug}`}
-                  className="block bg-white dark:bg-gray-800/50 border border-sky-200 dark:border-gray-700/50 rounded-xl p-5 hover:border-sky-400 dark:hover:border-blue-500/50 transition-all shadow-sm"
+                  className="block bg-white dark:bg-gray-800/50 border border-accent-200 dark:border-gray-700/50 rounded-xl p-5 hover:border-accent-500 dark:hover:border-accent-500/50 transition-all shadow-sm"
                 >
-                  <p className="text-sm text-sky-600 dark:text-blue-400 mb-1">{pickTitle}</p>
+                  <p className="text-sm text-accent-600 mb-1">{pickTitle}</p>
                   <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">{pick.network.name}</h3>
                   <p className="text-sm text-gray-500 dark:text-gray-400">{pickReason}</p>
                 </Link>

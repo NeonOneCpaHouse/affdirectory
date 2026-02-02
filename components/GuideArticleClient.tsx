@@ -23,7 +23,7 @@ export default function GuideArticleClient({ article, related }: { article: Arti
       image: ({ value }: any) => {
         const imageUrl = urlForImage(value)?.url()
         return (
-          <div className="my-8 rounded-2xl overflow-hidden border border-sky-100 dark:border-gray-800 shadow-sm">
+          <div className="my-8 rounded-2xl overflow-hidden border border-accent-100 dark:border-gray-800 shadow-sm">
             {value.link ? (
               <a href={value.link} target="_blank" rel="noopener noreferrer">
                 <img src={imageUrl || "/placeholder.svg"} alt={value.alt || ""} className="w-full h-auto" />
@@ -57,7 +57,7 @@ export default function GuideArticleClient({ article, related }: { article: Arti
         <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-lg mb-6">{children}</p>
       ),
       blockquote: ({ children }: any) => (
-        <blockquote className="border-l-4 border-sky-500 dark:border-blue-500 pl-4 italic text-gray-600 dark:text-gray-300 my-6">
+        <blockquote className="border-l-4 border-accent-500 pl-4 italic text-gray-600 dark:text-gray-300 my-6">
           {children}
         </blockquote>
       ),
@@ -74,7 +74,7 @@ export default function GuideArticleClient({ article, related }: { article: Arti
       strong: ({ children }: any) => <strong className="font-bold">{children}</strong>,
       em: ({ children }: any) => <em className="italic">{children}</em>,
       code: ({ children }: any) => (
-        <code className="bg-gray-100 dark:bg-gray-800 text-sky-600 dark:text-blue-400 px-1.5 py-0.5 rounded text-sm font-mono">
+        <code className="bg-gray-100 dark:bg-gray-800 text-accent-600 px-1.5 py-0.5 rounded text-sm font-mono">
           {children}
         </code>
       ),
@@ -84,7 +84,7 @@ export default function GuideArticleClient({ article, related }: { article: Arti
         const target = value?.blank ? "_blank" : undefined
         const rel = value?.blank ? "noopener noreferrer" : undefined
         return (
-          <a href={value?.href} target={target} rel={rel} className="text-sky-600 dark:text-blue-400 hover:underline">
+          <a href={value?.href} target={target} rel={rel} className="text-accent-600 hover:underline">
             {children}
           </a>
         )
@@ -114,9 +114,9 @@ export default function GuideArticleClient({ article, related }: { article: Arti
             </div>
 
             {checklist && checklist.length > 0 && (
-              <div className="mt-10 p-8 bg-sky-50 dark:bg-blue-500/5 rounded-2xl border border-sky-100 dark:border-blue-500/10 shadow-sm relative overflow-hidden group">
+              <div className="mt-10 p-8 bg-accent-50 dark:bg-accent-500/10 rounded-2xl border border-accent-100 dark:border-accent-500/20 shadow-sm relative overflow-hidden group">
                 <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:scale-110 transition-transform duration-500">
-                  <svg className="w-24 h-24 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-24 h-24 text-accent-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -126,7 +126,7 @@ export default function GuideArticleClient({ article, related }: { article: Arti
                   </svg>
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-3">
-                  <span className="w-8 h-8 rounded-lg bg-sky-600 dark:bg-blue-600 text-white flex items-center justify-center text-sm">
+                  <span className="w-8 h-8 rounded-lg bg-accent-600 text-white flex items-center justify-center text-sm">
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
@@ -137,10 +137,10 @@ export default function GuideArticleClient({ article, related }: { article: Arti
                   {checklist.map((item, i) => (
                     <div
                       key={i}
-                      className="flex items-start gap-4 p-4 bg-white dark:bg-gray-800/50 rounded-xl border border-sky-100/50 dark:border-gray-700/50 hover:border-sky-300 dark:hover:border-blue-500/50 transition-all hover:shadow-md"
+                      className="flex items-start gap-4 p-4 bg-white dark:bg-gray-800/50 rounded-xl border border-accent-100 dark:border-gray-700/50 hover:border-accent-300 dark:hover:border-accent-500/50 transition-all hover:shadow-md"
                     >
-                      <div className="flex-shrink-0 w-6 h-6 rounded-full border-2 border-sky-200 dark:border-gray-700 flex items-center justify-center mt-0.5">
-                        <div className="w-2 h-2 rounded-full bg-sky-600 dark:bg-blue-600 opacity-0 group-hover:opacity-100 transition-opacity" />
+                      <div className="flex-shrink-0 w-6 h-6 rounded-full border-2 border-accent-200 dark:border-gray-700 flex items-center justify-center mt-0.5">
+                        <div className="w-2 h-2 rounded-full bg-accent-600 opacity-0 group-hover:opacity-100 transition-opacity" />
                       </div>
                       <span className="text-gray-700 dark:text-gray-300 text-sm font-medium leading-tight">{item}</span>
                     </div>
@@ -155,7 +155,7 @@ export default function GuideArticleClient({ article, related }: { article: Arti
           </div>
 
           {related.length > 0 && (
-            <section className="mt-12 pt-12 border-t border-sky-100 dark:border-gray-800">
+            <section className="mt-12 pt-12 border-t border-accent-100 dark:border-gray-800">
               <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">{t("article.related")}</h2>
               <div className="grid md:grid-cols-3 gap-6">
                 {related.map((a) => (
@@ -169,12 +169,12 @@ export default function GuideArticleClient({ article, related }: { article: Arti
         <aside className="w-full lg:w-[300px]">
           <div className="sticky top-8 space-y-6">
             <AdSlot slotKey="sidebar" />
-            <div className="bg-sky-600 dark:bg-blue-600 rounded-xl p-6 text-white shadow-lg shadow-sky-200 dark:shadow-none">
+            <div className="bg-accent-600 rounded-xl p-6 text-white shadow-lg shadow-accent-200 dark:shadow-none">
               <h3 className="font-bold text-lg mb-2">Need Help?</h3>
-              <p className="text-sky-50 text-sm mb-4 opacity-90">
+              <p className="text-accent-50 text-sm mb-4 opacity-90">
                 Get a free consultation on optimizing your ad stack from our experts.
               </p>
-              <button className="w-full bg-white text-sky-600 font-bold py-3 rounded-lg text-sm hover:bg-sky-50 transition-colors shadow-sm">
+              <button className="w-full bg-white text-accent-600 font-bold py-3 rounded-lg text-sm hover:bg-accent-50 transition-colors shadow-sm">
                 Book Free Call
               </button>
             </div>
