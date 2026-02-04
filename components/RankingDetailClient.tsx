@@ -37,6 +37,10 @@ export default function RankingDetailClient({
           <div className="bg-white dark:bg-gray-800/30 border border-accent-200 dark:border-gray-700/50 rounded-xl overflow-hidden mb-8 shadow-sm">
             <NetworkTable networks={ranking.networks} />
           </div>
+
+          <div className="lg:hidden mb-8">
+            <AdSlot slotKey="sidebar" />
+          </div>
           <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Best For...</h2>
           <div className="grid md:grid-cols-2 gap-4 mb-8">
             {ranking.bestFor.map((pick) => {
@@ -55,12 +59,13 @@ export default function RankingDetailClient({
               )
             })}
           </div>
+
           <div className="">
             <AdSlot slotKey="inline" />
           </div>
         </main>
 
-        <aside className="w-full lg:w-[300px]">
+        <aside className="hidden lg:block w-full lg:w-[300px]">
           <div className="sticky top-8">
             <AdSlot slotKey="sidebar" />
           </div>

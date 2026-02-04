@@ -22,6 +22,9 @@ export default function RankingsClientPage({ rankings }: { rankings: FormatRanki
         <main className="flex-1 min-w-0">
           <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">{t("rankings.title")}</h1>
           <p className="text-gray-500 dark:text-gray-400 mb-8 max-w-2xl">{t("rankings.description")}</p>
+          <div className="lg:hidden mb-8">
+            <AdSlot slotKey="sidebar" />
+          </div>
           <div className="grid md:grid-cols-2 gap-4 mb-8">
             {rankings.map((ranking) => {
               const label = ranking.label[language] || ranking.label["en"]
@@ -51,12 +54,15 @@ export default function RankingsClientPage({ rankings }: { rankings: FormatRanki
               )
             })}
           </div>
-          <div className="">
+          <div className="mb-12">
             <AdSlot slotKey="inline" />
+          </div>
+          <div className="lg:hidden mb-8">
+            <AdSlot slotKey="sidebar" />
           </div>
         </main>
 
-        <aside className="w-full lg:w-[300px]">
+        <aside className="hidden lg:block w-full lg:w-[300px]">
           <div className="sticky top-8">
             <AdSlot slotKey="sidebar" />
           </div>

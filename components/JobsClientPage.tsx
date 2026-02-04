@@ -260,6 +260,8 @@ export default function JobsClientPage({ jobs }: { jobs: Job[] }) {
                 </div>
             </div>
 
+
+
             <div className="flex flex-col lg:flex-row gap-10">
                 {/* Main Content */}
                 <div className="flex-1 min-w-0">
@@ -268,6 +270,11 @@ export default function JobsClientPage({ jobs }: { jobs: Job[] }) {
                             filteredJobs.map((job, index) => (
                                 <div key={job.id}>
                                     <JobCard job={job} />
+                                    {index === 0 && (
+                                        <div className="lg:hidden my-6">
+                                            <AdSlot slotKey="sidebar" />
+                                        </div>
+                                    )}
                                     {index === 2 && (
                                         <div className="my-6">
                                             <AdSlot slotKey="inline" />
@@ -284,7 +291,7 @@ export default function JobsClientPage({ jobs }: { jobs: Job[] }) {
                 </div>
 
                 {/* Sidebar */}
-                <aside className="w-full lg:w-[320px] shrink-0">
+                <aside className="hidden lg:block w-full lg:w-[320px] shrink-0">
                     <div className="sticky top-24">
                         <AdSlot slotKey="sidebar" />
                     </div>

@@ -18,7 +18,7 @@ export default function AdSlot({ slotKey, className = "", fullWidth = false }: A
 
   const sizes = slotSizes[slotKey] || {
     desktop: { width: 336, height: 280 },
-    mobile: { width: 300, height: 250 }
+    mobile: { width: 320, height: 50 }
   }
 
   useEffect(() => {

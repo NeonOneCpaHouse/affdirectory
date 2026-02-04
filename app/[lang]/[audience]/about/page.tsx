@@ -54,6 +54,9 @@ export default function AboutPage() {
                         <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-6">
                             {active.description}
                         </p>
+                        <div className="lg:hidden my-8">
+                            <AdSlot slotKey="sidebar" />
+                        </div>
                         <div className="my-8">
                             <AdSlot slotKey="inline" />
                         </div>
@@ -69,7 +72,7 @@ export default function AboutPage() {
                         </ul>
                     </div>
                 </div>
-                <aside className="w-full lg:w-[300px]">
+                <aside className="hidden lg:block w-full lg:w-[300px]">
                     <div className="sticky top-8">
                         <AdSlot slotKey="sidebar" />
                     </div>

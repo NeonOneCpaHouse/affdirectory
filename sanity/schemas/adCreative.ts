@@ -19,7 +19,7 @@ export default defineType({
       options: {
         list: [
           { title: "Leaderboard (728x90 / 320x50)", value: "leaderboard" },
-          { title: "Inline (800x90 / 300x250)", value: "inline" },
+          { title: "Inline (800x90 / 320x50)", value: "inline" },
           { title: "Sidebar (300x600 / 300x250)", value: "sidebar" },
         ],
       },

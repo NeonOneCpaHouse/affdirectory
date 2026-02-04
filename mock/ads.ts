@@ -58,7 +58,7 @@ export async function getAdForSlot(
 
 export const slotSizes: Record<string, { desktop: { width: number; height: number }; mobile: { width: number; height: number } }> = {
   leaderboard: { desktop: { width: 728, height: 90 }, mobile: { width: 320, height: 50 } },
-  inline: { desktop: { width: 800, height: 90 }, mobile: { width: 300, height: 250 } },
+  inline: { desktop: { width: 800, height: 90 }, mobile: { width: 320, height: 50 } },
   sidebar: { desktop: { width: 300, height: 600 }, mobile: { width: 300, height: 250 } },
 }
 

@@ -162,6 +162,9 @@ export default function CaseStudyArticleClient({ article, related }: { article: 
                     {sections.results}
                   </p>
                 </div>
+                <div className="lg:hidden my-8">
+                  <AdSlot slotKey="sidebar" />
+                </div>
                 <section>
                   <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-3">
                     <span className="text-accent-600">05.</span> {t("article.keyLessons")}
@@ -180,6 +183,7 @@ export default function CaseStudyArticleClient({ article, related }: { article: 
             </div>
           </article>
 
+
           <div className="my-12">
             <AdSlot slotKey="inline" />
           </div>
@@ -196,7 +200,7 @@ export default function CaseStudyArticleClient({ article, related }: { article: 
           )}
         </main>
 
-        <aside className="w-full lg:w-[300px]">
+        <aside className="hidden lg:block w-full lg:w-[300px]">
           <div className="sticky top-8 space-y-6">
             <AdSlot slotKey="sidebar" />
             <div className="bg-white dark:bg-gray-800/50 rounded-xl p-6 border border-accent-100 dark:border-gray-700/50 shadow-sm overflow-hidden relative group">

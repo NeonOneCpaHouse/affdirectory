@@ -33,6 +33,9 @@ export default function SearchClientPage({ articles, query }: SearchClientPagePr
                         ? `По запросу "${query}" найдено ${articles.length} материалов`
                         : `Found ${articles.length} results for "${query}"`}
                 </p>
+                <div className="lg:hidden mt-8">
+                    <AdSlot slotKey="sidebar" />
+                </div>
             </div>
 
             <div className="flex flex-col lg:flex-row gap-8">
@@ -73,7 +76,7 @@ export default function SearchClientPage({ articles, query }: SearchClientPagePr
                     )}
                 </div>
 
-                <aside className="w-full lg:w-[300px]">
+                <aside className="hidden lg:block w-full lg:w-[300px]">
                     <div className="sticky top-24 space-y-8">
                         <AdSlot slotKey="sidebar" />
                     </div>

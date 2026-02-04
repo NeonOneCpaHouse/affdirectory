@@ -101,6 +101,9 @@ export default function NetworkProfileClient({
               ))}
             </div>
           </div>
+          <div className="lg:hidden mb-12">
+            <AdSlot slotKey="sidebar" />
+          </div>
           <div className="grid md:grid-cols-2 gap-6">
             <div className="bg-green-50 dark:bg-green-500/10 border border-green-200 dark:border-green-500/20 rounded-xl p-6">
               <h3 className="text-green-700 dark:text-green-400 font-semibold mb-3">{t("network.pros")}</h3>
@@ -129,11 +132,12 @@ export default function NetworkProfileClient({
             <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">{t("network.editorialNote")}</h2>
             <p className="text-gray-600 dark:text-gray-300 leading-relaxed">{currentNote}</p>
           </div>
+
           <div className="">
             <AdSlot slotKey="inline" />
           </div>
         </div>
-        <aside className="space-y-6">
+        <aside className="hidden lg:block space-y-6">
           <div className="sticky top-8 space-y-6">
             <div className="hidden lg:block bg-accent-600 rounded-xl p-6 text-center shadow-md">
               <h3 className="text-white font-semibold text-lg mb-4">

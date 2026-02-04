@@ -122,6 +122,10 @@ export default function JobDetailClientPage({ job }: { job: Job }) {
                             </div>
                         </div>
 
+                        <div className="lg:hidden p-8 border-b border-gray-50 dark:border-gray-800 text-center">
+                            <AdSlot slotKey="sidebar" />
+                        </div>
+
                         {/* Body Content */}
                         <div className="p-8 md:p-12 space-y-12 bg-white dark:bg-gray-900">
                             {job.aboutCompany && (
@@ -169,7 +173,7 @@ export default function JobDetailClientPage({ job }: { job: Job }) {
                 </div>
 
                 {/* Sidebar */}
-                <aside className="w-full lg:w-[300px]">
+                <aside className="hidden lg:block w-full lg:w-[300px]">
                     <div className="sticky top-24">
                         <AdSlot slotKey="sidebar" />
                     </div>

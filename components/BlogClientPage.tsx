@@ -57,6 +57,11 @@ export default function BlogClientPage({ articles }: { articles: Article[] }) {
                     <ArticleCard key={article.slug} article={article} />
                   ))}
                 </div>
+                {index === 1 && (
+                  <div className="mt-12 lg:hidden">
+                    <AdSlot slotKey="sidebar" />
+                  </div>
+                )}
                 {index === 0 && (
                   <div className="mt-12">
                     <AdSlot slotKey="inline" />
@@ -66,7 +71,7 @@ export default function BlogClientPage({ articles }: { articles: Article[] }) {
             ))}
           </div>
         </div>
-        <aside className="w-full lg:w-[300px]">
+        <aside className="hidden lg:block w-full lg:w-[300px]">
           <div className="sticky top-8">
             <AdSlot slotKey="sidebar" />
           </div>

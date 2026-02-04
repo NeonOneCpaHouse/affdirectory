@@ -60,6 +60,8 @@ export default function HomePageClient({
             <NetworkTableWrapper />
           </section>
 
+
+
           <div className="mb-12">
             <AdSlot slotKey="inline" />
           </div>
@@ -81,6 +83,10 @@ export default function HomePageClient({
             </div>
           </section>
 
+          <div className="lg:hidden mb-12">
+            <AdSlot slotKey="sidebar" />
+          </div>
+
           <section>
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-2xl font-bold text-gray-900 dark:text-white">{t("home.caseStudies")}</h2>
@@ -99,7 +105,7 @@ export default function HomePageClient({
           </section>
         </div>
 
-        <aside className="w-full lg:w-[300px]">
+        <aside className="hidden lg:block w-full lg:w-[300px]">
           <div className="sticky top-8">
             <AdSlot slotKey="sidebar" />
           </div>

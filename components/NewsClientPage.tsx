@@ -37,6 +37,9 @@ export default function NewsClientPage({ articles }: { articles: Article[] }) {
               </button>
             ))}
           </div>
+
+
+
           <div className="grid md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6">
             {filtered.map((article, index) => (
               <>
@@ -49,8 +52,12 @@ export default function NewsClientPage({ articles }: { articles: Article[] }) {
               </>
             ))}
           </div>
+
+          <div className="lg:hidden mt-8">
+            <AdSlot slotKey="sidebar" />
+          </div>
         </div>
-        <aside className="w-full lg:w-[300px]">
+        <aside className="hidden lg:block w-full lg:w-[300px]">
           <div className="sticky top-8">
             <AdSlot slotKey="sidebar" />
           </div>

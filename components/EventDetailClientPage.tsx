@@ -90,6 +90,9 @@ export default function EventDetailClientPage({ event }: { event: Event }) {
                                 </div>
                             </div>
                         </div>
+                        <div className="lg:hidden p-8 border-b border-gray-50 dark:border-gray-800 text-center">
+                            <AdSlot slotKey="sidebar" />
+                        </div>
 
                         {/* Description */}
                         {event.description && (
@@ -111,12 +114,12 @@ export default function EventDetailClientPage({ event }: { event: Event }) {
                 </div>
 
                 {/* Sidebar */}
-                <aside className="w-full lg:w-[300px]">
+                <aside className="hidden lg:block w-full lg:w-[300px]">
                     <div className="sticky top-24">
                         <AdSlot slotKey="sidebar" />
                     </div>
                 </aside>
             </div>
-        </div>
+        </div >
     )
 }

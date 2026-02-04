@@ -88,18 +88,22 @@ export default function KnowledgeArticleClient({ entry }: KnowledgeArticleClient
                 <img src={thumbnail || "/placeholder.svg"} alt={title} className="w-full h-auto object-cover max-h-[500px]" />
               </div>
             )}
+            <div className="lg:hidden mb-8">
+              <AdSlot slotKey="sidebar" />
+            </div>
 
             <div className="prose prose-lg dark:prose-invert max-w-none">
               <PortableText value={body} components={portableTextComponents} />
             </div>
           </article>
 
+
           <div className="my-12">
             <AdSlot slotKey="inline" />
           </div>
         </main>
 
-        <aside className="w-full lg:w-[300px]">
+        <aside className="hidden lg:block w-full lg:w-[300px]">
           <div className="sticky top-8">
             <AdSlot slotKey="sidebar" />
           </div>

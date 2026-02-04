@@ -98,6 +98,9 @@ export default function MethodologyPage() {
                                 </div>
                             ))}
                         </div>
+                        <div className="lg:hidden my-8">
+                            <AdSlot slotKey="sidebar" />
+                        </div>
                         <h2 className="text-xl font-semibold text-gray-900 dark:text-white mt-8 mb-4">{active.dataSourcesTitle}</h2>
                         <ul className="list-disc list-inside text-gray-600 dark:text-gray-300 space-y-2 mb-8">
                             {active.dataSources.map((source, i) => (
@@ -116,7 +119,7 @@ export default function MethodologyPage() {
                         </div>
                     </div>
                 </div>
-                <aside className="w-full lg:w-[300px]">
+                <aside className="hidden lg:block w-full lg:w-[300px]">
                     <div className="sticky top-8">
                         <AdSlot slotKey="sidebar" />
                     </div>

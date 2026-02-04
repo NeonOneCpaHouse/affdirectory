@@ -71,15 +71,24 @@ export default function PrivacyPage() {
                         <div className="my-8">
                             <AdSlot slotKey="inline" />
                         </div>
-                        {active.sections.map((section, i) => (
+                        {active.sections.slice(0, 1).map((section, i) => (
                             <div key={i}>
+                                <h2 className="text-xl font-semibold text-gray-900 dark:text-white mt-8 mb-4">{section.title}</h2>
+                                <p>{section.text}</p>
+                            </div>
+                        ))}
+                        <div className="lg:hidden my-8">
+                            <AdSlot slotKey="sidebar" />
+                        </div>
+                        {active.sections.slice(1).map((section, i) => (
+                            <div key={i + 1}>
                                 <h2 className="text-xl font-semibold text-gray-900 dark:text-white mt-8 mb-4">{section.title}</h2>
                                 <p>{section.text}</p>
                             </div>
                         ))}
                     </div>
                 </div>
-                <aside className="w-full lg:w-[300px]">
+                <aside className="hidden lg:block w-full lg:w-[300px]">
                     <div className="sticky top-8">
                         <AdSlot slotKey="sidebar" />
                     </div>

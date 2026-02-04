@@ -212,6 +212,9 @@ export default function UtmBuilderPage() {
                         </div>
 
                         {/* Optional Parameters */}
+                        <div className="lg:hidden my-8">
+                            <AdSlot slotKey="sidebar" />
+                        </div>
                         <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-6 shadow-sm">
                             <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">{loc("parameters")}</h3>
                             <div className="grid md:grid-cols-3 gap-4">
@@ -250,7 +253,7 @@ export default function UtmBuilderPage() {
                     </div>
                 </div>
 
-                <aside className="w-full lg:w-[300px]">
+                <aside className="hidden lg:block w-full lg:w-[300px]">
                     <div className="sticky top-8">
                         <AdSlot slotKey="sidebar" />
                     </div>

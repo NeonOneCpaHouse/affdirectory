@@ -136,6 +136,9 @@ export default function GuideArticleClient({ article, related }: { article: Arti
                   </span>
                   Implementation Checklist
                 </h3>
+                <div className="lg:hidden mb-12">
+                  <AdSlot slotKey="sidebar" />
+                </div>
                 <div className="grid sm:grid-cols-2 gap-4">
                   {checklist.map((item, i) => (
                     <div
@@ -153,6 +156,7 @@ export default function GuideArticleClient({ article, related }: { article: Arti
             )}
           </article>
 
+
           <div className="my-12">
             <AdSlot slotKey="inline" />
           </div>
@@ -169,7 +173,7 @@ export default function GuideArticleClient({ article, related }: { article: Arti
           )}
         </main>
 
-        <aside className="w-full lg:w-[300px]">
+        <aside className="hidden lg:block w-full lg:w-[300px]">
           <div className="sticky top-8 space-y-6">
             <AdSlot slotKey="sidebar" />
             <div className="bg-accent-600 rounded-xl p-6 text-white shadow-lg shadow-accent-200 dark:shadow-none">

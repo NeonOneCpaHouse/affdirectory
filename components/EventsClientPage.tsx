@@ -207,13 +207,24 @@ export default function EventsClientPage({ events }: { events: Event[] }) {
                 </div>
             </div>
 
+
+
             <div className="flex flex-col lg:flex-row gap-8">
                 {/* Main Content */}
                 <div className="flex-1 min-w-0">
                     {/* Grid */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
                         {filteredEvents.length > 0 ? (
-                            filteredEvents.map((event) => <EventCard key={event.id} event={event} />)
+                            filteredEvents.map((event, index) => (
+                                <div key={event.id}>
+                                    <EventCard event={event} />
+                                    {index === 1 && (
+                                        <div className="lg:hidden my-6">
+                                            <AdSlot slotKey="sidebar" />
+                                        </div>
+                                    )}
+                                </div>
+                            ))
                         ) : (
                             <div className="col-span-full py-20 text-center bg-gray-50 dark:bg-gray-800/20 rounded-[40px] border-2 border-dashed border-gray-100 dark:border-gray-800">
                                 <p className="text-xl text-gray-500 dark:text-gray-400 font-medium tracking-tight">
@@ -230,7 +241,7 @@ export default function EventsClientPage({ events }: { events: Event[] }) {
                 </div>
 
                 {/* Sidebar */}
-                <aside className="w-full lg:w-[300px]">
+                <aside className="hidden lg:block w-full lg:w-[300px]">
                     <div className="sticky top-24">
                         <AdSlot slotKey="sidebar" />
                     </div>

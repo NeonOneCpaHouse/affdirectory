@@ -131,12 +131,16 @@ export default function NewsArticleClient({ article, related }: { article: Artic
             </div>
           </article>
 
+
           <div className="my-12">
             <AdSlot slotKey="inline" />
           </div>
 
           {related.length > 0 && (
             <section className="mt-12 pt-12 border-t border-accent-100 dark:border-gray-800">
+              <div className="lg:hidden mb-12">
+                <AdSlot slotKey="sidebar" />
+              </div>
               <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">{t("article.related")}</h2>
               <div className="grid md:grid-cols-3 gap-6">
                 {related.map((a) => (
@@ -147,7 +151,7 @@ export default function NewsArticleClient({ article, related }: { article: Artic
           )}
         </main>
 
-        <aside className="w-full lg:w-[300px]">
+        <aside className="hidden lg:block w-full lg:w-[300px]">
           <div className="sticky top-8 space-y-6">
             <AdSlot slotKey="sidebar" />
             <div className="bg-accent-50 dark:bg-gray-800/50 rounded-xl p-6 border border-accent-100 dark:border-gray-700/50">

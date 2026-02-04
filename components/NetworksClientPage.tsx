@@ -89,10 +89,18 @@ export default function NetworksClientPage({ networks }: { networks: Network[] }
               <option value="minPayout">{t("common.sortByMinPayout")}</option>
             </select>
           </div>
+
+
+
           <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-4">
             {filtered.map((network, index) => (
               <>
                 <NetworkCard key={network.slug} network={network} />
+                {index === 1 && (
+                  <div className="lg:hidden md:hidden xl:hidden my-4 col-span-1">
+                    <AdSlot slotKey="sidebar" />
+                  </div>
+                )}
                 {index === 2 && (
                   <div className="md:col-span-2 xl:col-span-3 my-4">
                     <AdSlot slotKey="inline" />
@@ -102,7 +110,7 @@ export default function NetworksClientPage({ networks }: { networks: Network[] }
             ))}
           </div>
         </div>
-        <aside className="w-full lg:w-[300px]">
+        <aside className="hidden lg:block w-full lg:w-[300px]">
           <div className="sticky top-8">
             <AdSlot slotKey="sidebar" />
           </div>

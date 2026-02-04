@@ -52,6 +52,9 @@ export default function ContactPage() {
             <div className="flex flex-col lg:flex-row gap-8">
                 <div className="flex-1 min-w-0">
                     <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">{active.title}</h1>
+                    <div className="lg:hidden mb-8">
+                        <AdSlot slotKey="sidebar" />
+                    </div>
                     <div className="grid md:grid-cols-2 gap-8 mb-12">
                         <div>
                             <p className="text-gray-600 dark:text-gray-300 mb-6">{active.subtitle}</p>
@@ -95,7 +98,7 @@ export default function ContactPage() {
                         <AdSlot slotKey="inline" />
                     </div>
                 </div>
-                <aside className="w-full lg:w-[300px]">
+                <aside className="hidden lg:block w-full lg:w-[300px]">
                     <div className="sticky top-8">
                         <AdSlot slotKey="sidebar" />
                     </div>
