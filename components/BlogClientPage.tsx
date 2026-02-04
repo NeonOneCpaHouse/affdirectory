@@ -39,7 +39,7 @@ export default function BlogClientPage({ articles }: { articles: Article[] }) {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <Breadcrumbs items={[{ label: t("nav.blog") }]} />
       <div className="mb-8">
-        <AdSlot slotKey="leaderboard" />
+        <AdSlot slotKey="leaderboard" fullWidth />
       </div>
       <div className="flex flex-col lg:flex-row gap-8">
         <div className="flex-1 min-w-0">
@@ -49,7 +49,7 @@ export default function BlogClientPage({ articles }: { articles: Article[] }) {
           </p>
 
           <div className="space-y-12">
-            {groupedByCategory.map((group) => (
+            {groupedByCategory.map((group, index) => (
               <section key={group.value}>
                 <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">{t(group.label)}</h2>
                 <div className="grid md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6">
@@ -57,6 +57,11 @@ export default function BlogClientPage({ articles }: { articles: Article[] }) {
                     <ArticleCard key={article.slug} article={article} />
                   ))}
                 </div>
+                {index === 0 && (
+                  <div className="mt-12">
+                    <AdSlot slotKey="inline" />
+                  </div>
+                )}
               </section>
             ))}
           </div>

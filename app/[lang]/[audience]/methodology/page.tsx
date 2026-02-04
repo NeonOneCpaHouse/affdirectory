@@ -2,6 +2,7 @@
 
 import Breadcrumbs from '@/components/Breadcrumbs';
 import { useLanguage } from '@/context/LanguageContext';
+import AdSlot from '@/components/AdSlot';
 
 export default function MethodologyPage() {
     const { t, language } = useLanguage();
@@ -72,38 +73,54 @@ export default function MethodologyPage() {
     const active = content[language];
 
     return (
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <Breadcrumbs items={[{ label: t('nav.methodology') }]} />
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-6 font-primary">{active.title}</h1>
-            <div className="prose prose-gray dark:prose-invert max-w-none">
-                <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-6">
-                    {active.intro}
-                </p>
-                <h2 className="text-xl font-semibold text-gray-900 dark:text-white mt-8 mb-4">{active.scoringTitle}</h2>
-                <div className="space-y-4 mb-8">
-                    {active.metrics.map((metric, i) => (
-                        <div key={i} className="bg-white dark:bg-gray-800/50 border border-sky-200 dark:border-gray-700/50 rounded-xl p-5 shadow-sm">
-                            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">{metric.title}</h3>
-                            <p className="text-gray-500 dark:text-gray-400">{metric.description}</p>
+            <div className="mb-8">
+                <AdSlot slotKey="leaderboard" fullWidth />
+            </div>
+
+            <div className="flex flex-col lg:flex-row gap-8">
+                <div className="flex-1 min-w-0">
+                    <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-6 font-primary">{active.title}</h1>
+                    <div className="prose prose-gray dark:prose-invert max-w-none">
+                        <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-6">
+                            {active.intro}
+                        </p>
+                        <div className="my-8">
+                            <AdSlot slotKey="inline" />
                         </div>
-                    ))}
+                        <h2 className="text-xl font-semibold text-gray-900 dark:text-white mt-8 mb-4">{active.scoringTitle}</h2>
+                        <div className="space-y-4 mb-8">
+                            {active.metrics.map((metric, i) => (
+                                <div key={i} className="bg-white dark:bg-gray-800/50 border border-sky-200 dark:border-gray-700/50 rounded-xl p-5 shadow-sm">
+                                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">{metric.title}</h3>
+                                    <p className="text-gray-500 dark:text-gray-400">{metric.description}</p>
+                                </div>
+                            ))}
+                        </div>
+                        <h2 className="text-xl font-semibold text-gray-900 dark:text-white mt-8 mb-4">{active.dataSourcesTitle}</h2>
+                        <ul className="list-disc list-inside text-gray-600 dark:text-gray-300 space-y-2 mb-8">
+                            {active.dataSources.map((source, i) => (
+                                <li key={i}>{source}</li>
+                            ))}
+                        </ul>
+                        <h2 className="text-xl font-semibold text-gray-900 dark:text-white mt-8 mb-4">{active.updateTitle}</h2>
+                        <p className="text-gray-600 dark:text-gray-300">
+                            {active.updateText}
+                        </p>
+                        <div className="bg-yellow-50 dark:bg-yellow-500/10 border border-yellow-200 dark:border-yellow-500/20 rounded-xl p-5 mt-8">
+                            <h3 className="text-yellow-700 dark:text-yellow-400 font-semibold mb-2">{active.disclaimerTitle}</h3>
+                            <p className="text-gray-600 dark:text-gray-400 text-sm">
+                                {active.disclaimerText}
+                            </p>
+                        </div>
+                    </div>
                 </div>
-                <h2 className="text-xl font-semibold text-gray-900 dark:text-white mt-8 mb-4">{active.dataSourcesTitle}</h2>
-                <ul className="list-disc list-inside text-gray-600 dark:text-gray-300 space-y-2 mb-8">
-                    {active.dataSources.map((source, i) => (
-                        <li key={i}>{source}</li>
-                    ))}
-                </ul>
-                <h2 className="text-xl font-semibold text-gray-900 dark:text-white mt-8 mb-4">{active.updateTitle}</h2>
-                <p className="text-gray-600 dark:text-gray-300">
-                    {active.updateText}
-                </p>
-                <div className="bg-yellow-50 dark:bg-yellow-500/10 border border-yellow-200 dark:border-yellow-500/20 rounded-xl p-5 mt-8">
-                    <h3 className="text-yellow-700 dark:text-yellow-400 font-semibold mb-2">{active.disclaimerTitle}</h3>
-                    <p className="text-gray-600 dark:text-gray-400">
-                        {active.disclaimerText}
-                    </p>
-                </div>
+                <aside className="w-full lg:w-[300px]">
+                    <div className="sticky top-8">
+                        <AdSlot slotKey="sidebar" />
+                    </div>
+                </aside>
             </div>
         </div>
     );

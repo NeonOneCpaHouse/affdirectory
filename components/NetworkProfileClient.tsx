@@ -25,7 +25,7 @@ export default function NetworkProfileClient({
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <Breadcrumbs items={[{ label: t("nav.networks"), href: "/networks" }, { label: network.name }]} />
       <div className="mb-8">
-        <AdSlot slotKey="leaderboard" />
+        <AdSlot slotKey="leaderboard" fullWidth />
       </div>
       <div className="grid lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2 space-y-8">

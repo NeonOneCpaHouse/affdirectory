@@ -96,7 +96,7 @@ export default function NewsArticleClient({ article, related }: { article: Artic
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <Breadcrumbs items={[{ label: t("nav.news"), href: "/news" }, { label: title }]} />
       <div className="mb-8">
-        <AdSlot slotKey="leaderboard" />
+        <AdSlot slotKey="leaderboard" fullWidth />
       </div>
 
       <div className="flex flex-col lg:flex-row gap-8">

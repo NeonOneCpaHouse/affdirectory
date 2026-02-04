@@ -3,7 +3,7 @@ import EventsClientPage from "@/components/EventsClientPage"
 import { Metadata } from "next"
 
 export const metadata: Metadata = {
-    title: "Industry Events | AffDirectory",
+    title: "Industry Events | AffTraff",
     description: "Worldwide conferences and events for affiliate marketing and ad tech industry.",
 }
 

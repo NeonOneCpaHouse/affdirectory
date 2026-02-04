@@ -18,7 +18,7 @@ export default function NewsClientPage({ articles }: { articles: Article[] }) {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <Breadcrumbs items={[{ label: t("nav.news") }]} />
       <div className="mb-8">
-        <AdSlot slotKey="leaderboard" />
+        <AdSlot slotKey="leaderboard" fullWidth />
       </div>
       <div className="flex flex-col lg:flex-row gap-8">
         <div className="flex-1 min-w-0">
@@ -38,8 +38,15 @@ export default function NewsClientPage({ articles }: { articles: Article[] }) {
             ))}
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6">
-            {filtered.map((article) => (
-              <ArticleCard key={article.slug} article={article} />
+            {filtered.map((article, index) => (
+              <>
+                <ArticleCard key={article.slug} article={article} />
+                {index === 2 && (
+                  <div className="md:col-span-2 xl:col-span-3 my-4">
+                    <AdSlot slotKey="inline" />
+                  </div>
+                )}
+              </>
             ))}
           </div>
         </div>

@@ -1,10 +1,13 @@
 "use client"
 
 import { useLanguage } from "@/context/LanguageContext"
+import { useAudience } from "@/context/AudienceContext"
 import type { KnowledgeEntry } from "@/mock/knowledge"
 import { PortableText } from "@portabletext/react"
 import Link from "next/link"
 import { ArrowLeft } from "lucide-react"
+import AdSlot from "@/components/AdSlot"
+import Breadcrumbs from "@/components/Breadcrumbs"
 
 interface KnowledgeArticleClientProps {
   entry: KnowledgeEntry
@@ -66,33 +69,42 @@ export default function KnowledgeArticleClient({ entry }: KnowledgeArticleClient
     },
   }
 
+  const { audience } = useAudience()
+
   return (
-    <main className="min-h-screen">
-      <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Back Button */}
-        <Link
-          href="/knowledge-base"
-          className="inline-flex items-center gap-2 text-accent-600 hover:text-accent-700 mb-8 transition-colors"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          {t("knowledge.title")}
-        </Link>
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <Breadcrumbs items={[{ label: t("knowledge.title"), href: `/${language}/${audience}/knowledge-base` }, { label: title }]} />
+      <div className="mb-8">
+        <AdSlot slotKey="leaderboard" fullWidth />
+      </div>
 
-        {/* Title */}
-        <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-8">{title}</h1>
+      <div className="flex flex-col lg:flex-row gap-8">
+        <main className="flex-1 min-w-0">
+          <article>
+            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-8 leading-tight">{title}</h1>
 
-        {/* Thumbnail */}
-        {thumbnail && (
-          <div className="mb-8 rounded-xl overflow-hidden">
-            <img src={thumbnail || "/placeholder.svg"} alt={title} className="w-full h-auto" />
+            {thumbnail && (
+              <div className="mb-12 rounded-2xl overflow-hidden border border-accent-100 dark:border-gray-800 shadow-sm bg-gray-50 dark:bg-gray-900">
+                <img src={thumbnail || "/placeholder.svg"} alt={title} className="w-full h-auto object-cover max-h-[500px]" />
+              </div>
+            )}
+
+            <div className="prose prose-lg dark:prose-invert max-w-none">
+              <PortableText value={body} components={portableTextComponents} />
+            </div>
+          </article>
+
+          <div className="my-12">
+            <AdSlot slotKey="inline" />
           </div>
-        )}
+        </main>
 
-        {/* Body Content */}
-        <div className="prose prose-lg dark:prose-invert max-w-none">
-          <PortableText value={body} components={portableTextComponents} />
-        </div>
-      </article>
-    </main>
+        <aside className="w-full lg:w-[300px]">
+          <div className="sticky top-8">
+            <AdSlot slotKey="sidebar" />
+          </div>
+        </aside>
+      </div>
+    </div>
   )
 }

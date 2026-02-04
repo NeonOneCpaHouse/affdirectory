@@ -2,6 +2,7 @@
 
 import Breadcrumbs from '@/components/Breadcrumbs';
 import { useLanguage } from '@/context/LanguageContext';
+import AdSlot from '@/components/AdSlot';
 
 export default function PrivacyPage() {
     const { t, language } = useLanguage();
@@ -56,17 +57,33 @@ export default function PrivacyPage() {
     const active = content[language];
 
     return (
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <Breadcrumbs items={[{ label: t('nav.privacy') }]} />
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-6 font-primary">{active.title}</h1>
-            <div className="prose prose-gray dark:prose-invert max-w-none text-gray-600 dark:text-gray-300 space-y-4">
-                <p className="italic text-sm text-gray-500">{active.updated}</p>
-                {active.sections.map((section, i) => (
-                    <div key={i}>
-                        <h2 className="text-xl font-semibold text-gray-900 dark:text-white mt-8 mb-4">{section.title}</h2>
-                        <p>{section.text}</p>
+            <div className="mb-8">
+                <AdSlot slotKey="leaderboard" fullWidth />
+            </div>
+
+            <div className="flex flex-col lg:flex-row gap-8">
+                <div className="flex-1 min-w-0">
+                    <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-6 font-primary">{active.title}</h1>
+                    <div className="prose prose-gray dark:prose-invert max-w-none text-gray-600 dark:text-gray-300 space-y-4">
+                        <p className="italic text-sm text-gray-500">{active.updated}</p>
+                        <div className="my-8">
+                            <AdSlot slotKey="inline" />
+                        </div>
+                        {active.sections.map((section, i) => (
+                            <div key={i}>
+                                <h2 className="text-xl font-semibold text-gray-900 dark:text-white mt-8 mb-4">{section.title}</h2>
+                                <p>{section.text}</p>
+                            </div>
+                        ))}
                     </div>
-                ))}
+                </div>
+                <aside className="w-full lg:w-[300px]">
+                    <div className="sticky top-8">
+                        <AdSlot slotKey="sidebar" />
+                    </div>
+                </aside>
             </div>
         </div>
     );

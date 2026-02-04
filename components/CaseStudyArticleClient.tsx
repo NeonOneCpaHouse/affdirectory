@@ -97,6 +97,9 @@ export default function CaseStudyArticleClient({ article, related }: { article: 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <Breadcrumbs items={[{ label: "Case Studies", href: "/case-studies" }, { label: title }]} />
+      <div className="mb-8">
+        <AdSlot slotKey="leaderboard" fullWidth />
+      </div>
 
       <div className="flex flex-col lg:flex-row gap-8">
         <main className="flex-1 min-w-0">

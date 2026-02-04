@@ -6,6 +6,7 @@ import { useLanguage } from "@/context/LanguageContext"
 import { useAudience } from "@/context/AudienceContext"
 import Breadcrumbs from "@/components/Breadcrumbs"
 import { RefreshCw, Calculator, TrendingUp, DollarSign, Users, MousePointer, ShoppingCart, Percent } from "lucide-react"
+import AdSlot from "@/components/AdSlot"
 
 type Metrics = {
     roi: number | null
@@ -146,93 +147,106 @@ export default function MetricCalculatorPage() {
             ]} />
 
             <div className="mb-8">
-                <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">{loc("title")}</h1>
-                <p className="text-gray-500 dark:text-gray-400 max-w-3xl">{loc("subtitle")}</p>
+                <AdSlot slotKey="leaderboard" fullWidth />
             </div>
 
-            <div className="grid md:grid-cols-12 gap-8">
+            <div className="flex flex-col lg:flex-row gap-8">
+                <div className="flex-1 min-w-0">
+                    <div className="mb-8">
+                        <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">{loc("title")}</h1>
+                        <p className="text-gray-500 dark:text-gray-400 max-w-3xl">{loc("subtitle")}</p>
+                    </div>
 
-                {/* Left Column: Inputs */}
-                <div className="md:col-span-4 space-y-6">
-                    <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-6 shadow-sm sticky top-4">
-                        <div className="flex items-center justify-between mb-6">
-                            <h3 className="text-lg font-medium text-gray-900 dark:text-white">{loc("enterData")}</h3>
-                        </div>
-
-                        <div className="space-y-4">
-                            {[
-                                { id: "cost", value: cost, set: setCost, icon: <DollarSign size={16} /> },
-                                { id: "impressions", value: impressions, set: setImpressions, icon: <Users size={16} /> },
-                                { id: "clicks", value: clicks, set: setClicks, icon: <MousePointer size={16} /> },
-                                { id: "income", value: income, set: setIncome, icon: <TrendingUp size={16} /> },
-                                { id: "leads", value: leads, set: setLeads, icon: <CheckCircle size={16} /> }, // Need to import CheckCircle or use what we have
-                                { id: "sales", value: sales, set: setSales, icon: <ShoppingCart size={16} /> },
-                            ].map((item) => (
-                                <div key={item.id}>
-                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                                        {tInput(item.id as any)}
-                                    </label>
-                                    <div className="relative">
-                                        {/* Optional Icon inside input */}
-                                        <input
-                                            type="number"
-                                            min="0"
-                                            value={item.value}
-                                            onChange={(e) => item.set(e.target.value)}
-                                            placeholder="0"
-                                            className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-colors"
-                                        />
-                                    </div>
+                    <div className="grid md:grid-cols-12 gap-8">
+                        {/* Left Column: Inputs */}
+                        <div className="md:col-span-5 space-y-6">
+                            <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-6 shadow-sm">
+                                <div className="flex items-center justify-between mb-6">
+                                    <h3 className="text-lg font-medium text-gray-900 dark:text-white">{loc("enterData")}</h3>
                                 </div>
-                            ))}
+
+                                <div className="space-y-4">
+                                    {[
+                                        { id: "cost", value: cost, set: setCost, icon: <DollarSign size={16} /> },
+                                        { id: "impressions", value: impressions, set: setImpressions, icon: <Users size={16} /> },
+                                        { id: "clicks", value: clicks, set: setClicks, icon: <MousePointer size={16} /> },
+                                        { id: "income", value: income, set: setIncome, icon: <TrendingUp size={16} /> },
+                                        { id: "leads", value: leads, set: setLeads, icon: <CheckCircle size={16} /> },
+                                        { id: "sales", value: sales, set: setSales, icon: <ShoppingCart size={16} /> },
+                                    ].map((item) => (
+                                        <div key={item.id}>
+                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                                                {tInput(item.id as any)}
+                                            </label>
+                                            <input
+                                                type="number"
+                                                min="0"
+                                                value={item.value}
+                                                onChange={(e) => item.set(e.target.value)}
+                                                placeholder="0"
+                                                className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-colors"
+                                            />
+                                        </div>
+                                    ))}
+                                </div>
+
+                                <button
+                                    onClick={clearForm}
+                                    className="w-full mt-6 py-2 px-4 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors flex items-center justify-center gap-2"
+                                >
+                                    <RefreshCw size={16} />
+                                    {loc("reset")}
+                                </button>
+                            </div>
                         </div>
 
-                        <button
-                            onClick={clearForm}
-                            className="w-full mt-6 py-2 px-4 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors flex items-center justify-center gap-2"
-                        >
-                            <RefreshCw size={16} />
-                            {loc("reset")}
-                        </button>
+                        {/* Right Column: Results Grid */}
+                        <div className="md:col-span-7">
+                            <div className="grid sm:grid-cols-2 gap-4">
+                                {/* Metric Cards */}
+                                <MetricCard
+                                    label="ROI"
+                                    value={formatPercent(metrics.roi)}
+                                    desc={tMetric("roi")}
+                                    icon={<TrendingUp className="text-emerald-500" />}
+                                />
+                                <MetricCard
+                                    label="ROAS"
+                                    value={formatPercent(metrics.roas)}
+                                    desc={tMetric("roas")}
+                                    icon={<TrendingUp className="text-sky-500" />}
+                                />
+                                <MetricCard
+                                    label="Profit"
+                                    value={formatCurrency(metrics.profit)}
+                                    desc={tMetric("profit")}
+                                    icon={<DollarSign className={metrics.profit && metrics.profit > 0 ? "text-emerald-500" : "text-gray-400"} />}
+                                />
+
+                                <MetricCard label="CPM" value={formatCurrency(metrics.cpm)} desc={tMetric("cpm")} />
+                                <MetricCard label="CPC" value={formatCurrency(metrics.cpc)} desc={tMetric("cpc")} />
+                                <MetricCard label="CPA" value={formatCurrency(metrics.cpa)} desc={tMetric("cpa")} />
+
+                                <MetricCard label="CTR" value={formatPercent(metrics.ctr)} desc={tMetric("ctr")} />
+                                <MetricCard label="CTC" value={formatPercent(metrics.ctc)} desc={tMetric("ctc")} />
+                                <MetricCard label="CTB" value={formatPercent(metrics.ctb)} desc={tMetric("ctb")} />
+
+                                <MetricCard label="APV" value={formatCurrency(metrics.apv)} desc={tMetric("apv")} />
+                                <MetricCard label="APC" value={formatCurrency(metrics.apc)} desc={tMetric("apc")} />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="mt-12">
+                        <AdSlot slotKey="inline" />
                     </div>
                 </div>
 
-                {/* Right Column: Results Grid */}
-                <div className="md:col-span-8">
-                    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                        {/* Metric Cards */}
-                        <MetricCard
-                            label="ROI"
-                            value={formatPercent(metrics.roi)}
-                            desc={tMetric("roi")}
-                            icon={<TrendingUp className="text-emerald-500" />}
-                        />
-                        <MetricCard
-                            label="ROAS"
-                            value={formatPercent(metrics.roas)}
-                            desc={tMetric("roas")}
-                            icon={<TrendingUp className="text-sky-500" />}
-                        />
-                        <MetricCard
-                            label="Profit"
-                            value={formatCurrency(metrics.profit)}
-                            desc={tMetric("profit")}
-                            icon={<DollarSign className={metrics.profit && metrics.profit > 0 ? "text-emerald-500" : "text-gray-400"} />}
-                        />
-
-                        <MetricCard label="CPM" value={formatCurrency(metrics.cpm)} desc={tMetric("cpm")} />
-                        <MetricCard label="CPC" value={formatCurrency(metrics.cpc)} desc={tMetric("cpc")} />
-                        <MetricCard label="CPA" value={formatCurrency(metrics.cpa)} desc={tMetric("cpa")} />
-
-                        <MetricCard label="CTR" value={formatPercent(metrics.ctr)} desc={tMetric("ctr")} />
-                        <MetricCard label="CTC" value={formatPercent(metrics.ctc)} desc={tMetric("ctc")} />
-                        <MetricCard label="CTB" value={formatPercent(metrics.ctb)} desc={tMetric("ctb")} />
-
-                        <MetricCard label="APV" value={formatCurrency(metrics.apv)} desc={tMetric("apv")} />
-                        <MetricCard label="APC" value={formatCurrency(metrics.apc)} desc={tMetric("apc")} />
+                <aside className="w-full lg:w-[300px]">
+                    <div className="sticky top-8">
+                        <AdSlot slotKey="sidebar" />
                     </div>
-                </div>
-
+                </aside>
             </div>
         </div>
     )

@@ -5,6 +5,8 @@ import { useAudience } from "@/context/AudienceContext"
 import type { KnowledgeEntry, KnowledgeCategory } from "@/mock/knowledge"
 import { groupKnowledgeByCategory } from "@/mock/knowledge"
 import Link from "next/link"
+import AdSlot from "@/components/AdSlot"
+import Breadcrumbs from "@/components/Breadcrumbs"
 
 interface KnowledgeBaseClientPageProps {
   entries: KnowledgeEntry[]
@@ -39,43 +41,63 @@ export default function KnowledgeBaseClientPage({ entries }: KnowledgeBaseClient
 
   return (
     <main className="min-h-screen">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">{t("knowledge.title")}</h1>
-          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">{t("knowledge.description")}</p>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <Breadcrumbs items={[{ label: t("knowledge.title") }]} />
+        <div className="mb-8">
+          <AdSlot slotKey="leaderboard" fullWidth />
         </div>
 
-        {/* Categories and Terms */}
-        <div className="space-y-12">
-          {categoryOrder.map((category) => {
-            const categoryEntries = groupedEntries[category]
-            if (!categoryEntries || categoryEntries.length === 0) return null
+        <div className="flex flex-col lg:flex-row gap-8">
+          <div className="flex-1 min-w-0">
+            {/* Header */}
+            <div className="mb-12">
+              <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">{t("knowledge.title")}</h1>
+              <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl">{t("knowledge.description")}</p>
+            </div>
 
-            return (
-              <div key={category}>
-                {/* Category Title */}
-                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-                  {t(categoryTranslationKeys[category])}
-                </h2>
+            {/* Categories and Terms */}
+            <div className="space-y-12">
+              {categoryOrder.map((category, index) => {
+                const categoryEntries = groupedEntries[category]
+                if (!categoryEntries || categoryEntries.length === 0) return null
 
-                {/* Terms Grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                  {categoryEntries.map((entry) => (
-                    <Link
-                      key={entry.slug}
-                      href={`/${language}/${audience}/knowledge-base/${entry.slug}`}
-                      className="group bg-white dark:bg-gray-800/50 border border-accent-200 dark:border-gray-700/50 rounded-lg p-6 hover:border-accent-500 dark:hover:border-accent-500/50 hover:shadow-lg transition-all"
-                    >
-                      <h3 className="text-center font-medium text-gray-900 dark:text-white group-hover:text-accent-600 transition-colors">
-                        {entry.title[language] || entry.title.en}
-                      </h3>
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            )
-          })}
+                return (
+                  <div key={category}>
+                    {/* Category Title */}
+                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+                      {t(categoryTranslationKeys[category])}
+                    </h2>
+
+                    {/* Terms Grid */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                      {categoryEntries.map((entry) => (
+                        <Link
+                          key={entry.slug}
+                          href={`/${language}/${audience}/knowledge-base/${entry.slug}`}
+                          className="group bg-white dark:bg-gray-800/50 border border-accent-200 dark:border-gray-700/50 rounded-lg p-6 hover:border-accent-500 dark:hover:border-accent-500/50 hover:shadow-lg transition-all"
+                        >
+                          <h3 className="text-center font-medium text-gray-900 dark:text-white group-hover:text-accent-600 transition-colors">
+                            {entry.title[language] || entry.title.en}
+                          </h3>
+                        </Link>
+                      ))}
+                    </div>
+                    {index === 1 && (
+                      <div className="mt-12">
+                        <AdSlot slotKey="inline" />
+                      </div>
+                    )}
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+
+          <aside className="w-full lg:w-[300px]">
+            <div className="sticky top-8">
+              <AdSlot slotKey="sidebar" />
+            </div>
+          </aside>
         </div>
       </div>
     </main>

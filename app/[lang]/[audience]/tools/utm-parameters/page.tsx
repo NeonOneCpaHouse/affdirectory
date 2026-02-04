@@ -6,6 +6,7 @@ import { useLanguage } from "@/context/LanguageContext"
 import { useAudience } from "@/context/AudienceContext"
 import Breadcrumbs from "@/components/Breadcrumbs"
 import { Copy, Check, RefreshCw } from "lucide-react"
+import AdSlot from "@/components/AdSlot"
 
 export default function UtmBuilderPage() {
     const { t, language } = useLanguage()
@@ -121,128 +122,139 @@ export default function UtmBuilderPage() {
     }
 
     return (
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <Breadcrumbs items={[
                 { label: t("nav.tools"), href: `/${language}/${audience}/tools` },
                 { label: loc("title") }
             ]} />
 
             <div className="mb-8">
-                <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">{loc("title")}</h1>
-                <p className="text-gray-500 dark:text-gray-400">{loc("subtitle")}</p>
+                <AdSlot slotKey="leaderboard" fullWidth />
             </div>
 
-            <div className="grid gap-8 lg:grid-cols-3">
-                {/* Main Form Area */}
-                <div className="lg:col-span-3 space-y-6">
-
-                    {/* URL Input */}
-                    <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-6 shadow-sm">
-                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
-                            {loc("websiteUrl")} <span className="text-red-500">*</span>
-                        </label>
-                        <input
-                            type="text"
-                            value={baseUrl}
-                            onChange={(e) => setBaseUrl(e.target.value)}
-                            placeholder={loc("websiteUrlPlaceholder")}
-                            className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-colors"
-                        />
+            <div className="flex flex-col lg:flex-row gap-8">
+                <div className="flex-1 min-w-0">
+                    <div className="mb-8">
+                        <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">{loc("title")}</h1>
+                        <p className="text-gray-500 dark:text-gray-400">{loc("subtitle")}</p>
                     </div>
 
-                    {/* Source Presets */}
-                    <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-6 shadow-sm">
-                        <div className="flex items-center justify-between mb-4">
-                            <h3 className="text-lg font-medium text-gray-900 dark:text-white">{loc("trafficSource")}</h3>
-                            <button onClick={clearForm} className="text-sm text-gray-500 hover:text-red-500 flex items-center gap-1 transition-colors">
-                                <RefreshCw size={14} /> {loc("clear")}
-                            </button>
+                    <div className="space-y-6">
+                        {/* URL Input */}
+                        <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-6 shadow-sm">
+                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
+                                {loc("websiteUrl")} <span className="text-red-500">*</span>
+                            </label>
+                            <input
+                                type="text"
+                                value={baseUrl}
+                                onChange={(e) => setBaseUrl(e.target.value)}
+                                placeholder={loc("websiteUrlPlaceholder")}
+                                className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-colors"
+                            />
                         </div>
 
-                        <div className="mb-6">
-                            <span className="text-xs text-gray-500 uppercase font-semibold tracking-wider mb-2 block">{loc("presets")}</span>
-                            <div className="flex flex-wrap gap-2">
-                                {presets.map(preset => (
-                                    <button
-                                        key={preset.name}
-                                        onClick={() => applyPreset(preset)}
-                                        className={`px-3 py-1.5 text-sm rounded-lg border transition-all ${params.source === preset.source && params.medium === preset.medium
-                                            ? 'bg-sky-50 dark:bg-sky-900/30 border-sky-200 dark:border-sky-800 text-sky-700 dark:text-sky-300'
-                                            : 'bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700 hover:border-sky-300 dark:hover:border-sky-700 text-gray-700 dark:text-gray-300'
-                                            }`}
-                                    >
-                                        {preset.name}
-                                    </button>
-                                ))}
+                        {/* Source Presets */}
+                        <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-6 shadow-sm">
+                            <div className="flex items-center justify-between mb-4">
+                                <h3 className="text-lg font-medium text-gray-900 dark:text-white">{loc("trafficSource")}</h3>
+                                <button onClick={clearForm} className="text-sm text-gray-500 hover:text-red-500 flex items-center gap-1 transition-colors">
+                                    <RefreshCw size={14} /> {loc("clear")}
+                                </button>
+                            </div>
+
+                            <div className="mb-6">
+                                <span className="text-xs text-gray-500 uppercase font-semibold tracking-wider mb-2 block">{loc("presets")}</span>
+                                <div className="flex flex-wrap gap-2">
+                                    {presets.map(preset => (
+                                        <button
+                                            key={preset.name}
+                                            onClick={() => applyPreset(preset)}
+                                            className={`px-3 py-1.5 text-sm rounded-lg border transition-all ${params.source === preset.source && params.medium === preset.medium
+                                                ? 'bg-sky-50 dark:bg-sky-900/30 border-sky-200 dark:border-sky-800 text-sky-700 dark:text-sky-300'
+                                                : 'bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700 hover:border-sky-300 dark:hover:border-sky-700 text-gray-700 dark:text-gray-300'
+                                                }`}
+                                        >
+                                            {preset.name}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+
+                            <div className="grid md:grid-cols-2 gap-4">
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">{localizedText.source.label} <span className="text-red-500">*</span></label>
+                                    <input
+                                        type="text"
+                                        value={params.source}
+                                        onChange={(e) => handleParamChange("source", e.target.value)}
+                                        placeholder="google, newsletter, etc."
+                                        className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-colors"
+                                    />
+                                    <p className="mt-1 text-xs text-gray-400">{localizedText.source.help[language === 'ru' ? 'ru' : 'en']}</p>
+                                </div>
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">{localizedText.medium.label} <span className="text-red-500">*</span></label>
+                                    <input
+                                        type="text"
+                                        value={params.medium}
+                                        onChange={(e) => handleParamChange("medium", e.target.value)}
+                                        placeholder="cpc, banner, email, etc."
+                                        className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-colors"
+                                    />
+                                    <p className="mt-1 text-xs text-gray-400">{localizedText.medium.help[language === 'ru' ? 'ru' : 'en']}</p>
+                                </div>
                             </div>
                         </div>
 
-                        <div className="grid md:grid-cols-2 gap-4">
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">{localizedText.source.label} <span className="text-red-500">*</span></label>
-                                <input
-                                    type="text"
-                                    value={params.source}
-                                    onChange={(e) => handleParamChange("source", e.target.value)}
-                                    placeholder="google, newsletter, etc."
-                                    className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-colors"
-                                />
-                                <p className="mt-1 text-xs text-gray-400">{localizedText.source.help[language === 'ru' ? 'ru' : 'en']}</p>
-                            </div>
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">{localizedText.medium.label} <span className="text-red-500">*</span></label>
-                                <input
-                                    type="text"
-                                    value={params.medium}
-                                    onChange={(e) => handleParamChange("medium", e.target.value)}
-                                    placeholder="cpc, banner, email, etc."
-                                    className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-colors"
-                                />
-                                <p className="mt-1 text-xs text-gray-400">{localizedText.medium.help[language === 'ru' ? 'ru' : 'en']}</p>
-                            </div>
+                        <div className="my-8">
+                            <AdSlot slotKey="inline" />
                         </div>
-                    </div>
 
-                    {/* Optional Parameters */}
-                    <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-6 shadow-sm">
-                        <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">{loc("parameters")}</h3>
-                        <div className="grid md:grid-cols-3 gap-4">
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">{localizedText.campaign.label}</label>
-                                <input
-                                    type="text"
-                                    value={params.campaign}
-                                    onChange={(e) => handleParamChange("campaign", e.target.value)}
-                                    className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-colors"
-                                />
-                                <p className="mt-1 text-xs text-gray-400">{localizedText.campaign.help[language === 'ru' ? 'ru' : 'en']}</p>
-                            </div>
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">{localizedText.content.label}</label>
-                                <input
-                                    type="text"
-                                    value={params.content}
-                                    onChange={(e) => handleParamChange("content", e.target.value)}
-                                    className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-colors"
-                                />
-                                <p className="mt-1 text-xs text-gray-400">{localizedText.content.help[language === 'ru' ? 'ru' : 'en']}</p>
-                            </div>
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">{localizedText.term.label}</label>
-                                <input
-                                    type="text"
-                                    value={params.term}
-                                    onChange={(e) => handleParamChange("term", e.target.value)}
-                                    className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-colors"
-                                />
-                                <p className="mt-1 text-xs text-gray-400">{localizedText.term.help[language === 'ru' ? 'ru' : 'en']}</p>
+                        {/* Optional Parameters */}
+                        <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-6 shadow-sm">
+                            <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">{loc("parameters")}</h3>
+                            <div className="grid md:grid-cols-3 gap-4">
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">{localizedText.campaign.label}</label>
+                                    <input
+                                        type="text"
+                                        value={params.campaign}
+                                        onChange={(e) => handleParamChange("campaign", e.target.value)}
+                                        className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-colors"
+                                    />
+                                    <p className="mt-1 text-xs text-gray-400">{localizedText.campaign.help[language === 'ru' ? 'ru' : 'en']}</p>
+                                </div>
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">{localizedText.content.label}</label>
+                                    <input
+                                        type="text"
+                                        value={params.content}
+                                        onChange={(e) => handleParamChange("content", e.target.value)}
+                                        className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-colors"
+                                    />
+                                    <p className="mt-1 text-xs text-gray-400">{localizedText.content.help[language === 'ru' ? 'ru' : 'en']}</p>
+                                </div>
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">{localizedText.term.label}</label>
+                                    <input
+                                        type="text"
+                                        value={params.term}
+                                        onChange={(e) => handleParamChange("term", e.target.value)}
+                                        className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-colors"
+                                    />
+                                    <p className="mt-1 text-xs text-gray-400">{localizedText.term.help[language === 'ru' ? 'ru' : 'en']}</p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                {/* Floating Result (or bottom on mobile) */}
-                {/* We'll make it full width at bottom for now as per layout design matching the input width */}
+                <aside className="w-full lg:w-[300px]">
+                    <div className="sticky top-8">
+                        <AdSlot slotKey="sidebar" />
+                    </div>
+                </aside>
             </div>
 
             {/* Result Section */}
@@ -270,5 +282,5 @@ export default function UtmBuilderPage() {
                 </div>
             </div>
         </div>
-    )
+    );
 }

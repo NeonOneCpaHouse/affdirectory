@@ -44,8 +44,8 @@ export default function NetworksClientPage({ networks }: { networks: Network[] }
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <Breadcrumbs items={[{ label: t("nav.networks") }]} />
-      <div className="flex justify-center mb-8">
-        <AdSlot slotKey="leaderboard" />
+      <div className="mb-8">
+        <AdSlot slotKey="leaderboard" fullWidth />
       </div>
       <div className="flex flex-col lg:flex-row gap-8">
         <div className="flex-1 min-w-0">
@@ -90,8 +90,15 @@ export default function NetworksClientPage({ networks }: { networks: Network[] }
             </select>
           </div>
           <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-4">
-            {filtered.map((network) => (
-              <NetworkCard key={network.slug} network={network} />
+            {filtered.map((network, index) => (
+              <>
+                <NetworkCard key={network.slug} network={network} />
+                {index === 2 && (
+                  <div className="md:col-span-2 xl:col-span-3 my-4">
+                    <AdSlot slotKey="inline" />
+                  </div>
+                )}
+              </>
             ))}
           </div>
         </div>

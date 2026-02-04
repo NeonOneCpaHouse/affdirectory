@@ -14,7 +14,7 @@ export async function generateMetadata({
     if (!event) return { title: "Event Not Found" }
 
     return {
-        title: `${event.name} | AffDirectory Events`,
+        title: `${event.name} | AffTraff Events`,
         description: event.description,
     }
 }

@@ -3,7 +3,7 @@ import { getAllKnowledgeEntries } from "@/mock/knowledge"
 import KnowledgeBaseClientPage from "@/components/KnowledgeBaseClientPage"
 
 export const metadata = {
-  title: "Knowledge Base - AdDirectory",
+  title: "Knowledge Base - AffTraff",
   description: "Comprehensive glossary of advertising and monetization terms",
 }
 

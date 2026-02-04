@@ -13,12 +13,12 @@ export async function generateMetadata({
 
     if (!job) {
         return {
-            title: "Job Not Found - TraffDirector",
+            title: "Job Not Found - AffTraff",
         }
     }
 
     return {
-        title: `${job.title} at ${job.companyName} - TraffDirector`,
+        title: `${job.title} at ${job.companyName} - AffTraff`,
         description: `Hiring: ${job.title}. Apply now!`,
     }
 }

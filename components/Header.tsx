@@ -191,7 +191,7 @@ export default function Header() {
                     onFocus={() => setOpen(true)}
                     // onBlur={() => setTimeout(() => setOpen(false), 200)} // Delay to allow clicking items
                     placeholder={t("common.search")}
-                    className="w-48 lg:w-64 bg-accent-100 dark:bg-gray-800 border border-accent-200 dark:border-gray-700 rounded-lg px-4 py-2 text-sm text-gray-900 dark:text-gray-300 placeholder-gray-500 focus:outline-none focus:border-accent-500"
+                    className="w-48 lg:w-64 bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-2 text-sm text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-accent-500"
                   />
                   <button type="submit" className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-gray-400 hover:text-accent-600">
                     {isSearching ? <Loader2 className="w-4 h-4 animate-spin" /> : <Search className="w-4 h-4" />}
@@ -211,7 +211,7 @@ export default function Header() {
                       ) : results.length > 0 ? (
                         <div className="py-2">
                           <div className="px-3 pb-2 text-xs font-semibold text-gray-400 uppercase tracking-wider">
-                            Articles
+                            {t("common.articles")}
                           </div>
                           {results.map((article) => (
                             <Link
@@ -236,7 +236,7 @@ export default function Header() {
                               }}
                               className="w-full text-left px-4 py-2 text-sm text-accent-600 font-medium hover:bg-gray-50 dark:hover:bg-gray-800"
                             >
-                              View all {results.length} results
+                              {t("common.viewAllResults").replace("{count}", results.length.toString())}
                             </button>
                           </div>
                         </div>

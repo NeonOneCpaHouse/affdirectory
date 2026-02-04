@@ -3,7 +3,7 @@ import JobsClientPage from "@/components/JobsClientPage"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-    title: "Jobs - TraffDirector",
+    title: "Jobs - AffTraff",
     description: "Find the best jobs in affiliate marketing and ad tech.",
 }
 

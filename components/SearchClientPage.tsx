@@ -21,6 +21,9 @@ export default function SearchClientPage({ articles, query }: SearchClientPagePr
 
     return (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div className="mb-8">
+                <AdSlot slotKey="leaderboard" fullWidth />
+            </div>
             <div className="mb-10">
                 <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
                     {language === "ru" ? "Результаты поиска" : "Search Results"}
@@ -36,8 +39,15 @@ export default function SearchClientPage({ articles, query }: SearchClientPagePr
                 <div className="flex-1 min-w-0">
                     {articles.length > 0 ? (
                         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                            {articles.map((article) => (
-                                <ArticleCard key={article.slug} article={article} />
+                            {articles.map((article, index) => (
+                                <>
+                                    <ArticleCard key={article.slug} article={article} />
+                                    {index === 2 && (
+                                        <div className="md:col-span-2 lg:col-span-3 my-4">
+                                            <AdSlot slotKey="inline" />
+                                        </div>
+                                    )}
+                                </>
                             ))}
                         </div>
                     ) : (

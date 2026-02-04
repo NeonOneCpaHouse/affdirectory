@@ -183,6 +183,9 @@ export default function JobsClientPage({ jobs }: { jobs: Job[] }) {
 
     return (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div className="mb-8">
+                <AdSlot slotKey="leaderboard" fullWidth />
+            </div>
             {/* Header */}
             <div className="mb-10 text-center md:text-left">
                 <h1 className="text-4xl md:text-6xl font-black text-gray-900 dark:text-white mb-4 tracking-tight">
@@ -262,7 +265,16 @@ export default function JobsClientPage({ jobs }: { jobs: Job[] }) {
                 <div className="flex-1 min-w-0">
                     <div className="grid grid-cols-1 gap-6">
                         {filteredJobs.length > 0 ? (
-                            filteredJobs.map((job) => <JobCard key={job.id} job={job} />)
+                            filteredJobs.map((job, index) => (
+                                <div key={job.id}>
+                                    <JobCard job={job} />
+                                    {index === 2 && (
+                                        <div className="my-6">
+                                            <AdSlot slotKey="inline" />
+                                        </div>
+                                    )}
+                                </div>
+                            ))
                         ) : (
                             <div className="col-span-full text-center py-20 bg-gray-50/50 dark:bg-gray-800/20 rounded-[40px] border-2 border-dashed border-gray-100 dark:border-gray-800">
                                 <p className="text-xl font-bold text-gray-400 dark:text-gray-600">{t("jobs.noJobs")}</p>

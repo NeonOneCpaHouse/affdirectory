@@ -2,6 +2,7 @@
 
 import Breadcrumbs from '@/components/Breadcrumbs';
 import { useLanguage } from '@/context/LanguageContext';
+import AdSlot from '@/components/AdSlot';
 
 export default function ContactPage() {
     const { t, language } = useLanguage();
@@ -42,47 +43,63 @@ export default function ContactPage() {
     const active = content[language];
 
     return (
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <Breadcrumbs items={[{ label: t('nav.about') }]} />
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">{active.title}</h1>
-            <div className="grid md:grid-cols-2 gap-8">
-                <div>
-                    <p className="text-gray-600 dark:text-gray-300 mb-6">{active.subtitle}</p>
-                    <div className="space-y-4">
-                        <div className="bg-white dark:bg-gray-800/50 border border-sky-200 dark:border-gray-700/50 rounded-xl p-5 shadow-sm">
-                            <h3 className="text-gray-900 dark:text-white font-semibold mb-2">{active.general}</h3>
-                            <p className="text-gray-500 dark:text-gray-400">hello@addirectory.example</p>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <Breadcrumbs items={[{ label: t('nav.contact') }]} />
+            <div className="mb-8">
+                <AdSlot slotKey="leaderboard" fullWidth />
+            </div>
+
+            <div className="flex flex-col lg:flex-row gap-8">
+                <div className="flex-1 min-w-0">
+                    <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">{active.title}</h1>
+                    <div className="grid md:grid-cols-2 gap-8 mb-12">
+                        <div>
+                            <p className="text-gray-600 dark:text-gray-300 mb-6">{active.subtitle}</p>
+                            <div className="space-y-4">
+                                <div className="bg-white dark:bg-gray-800/50 border border-sky-200 dark:border-gray-700/50 rounded-xl p-5 shadow-sm">
+                                    <h3 className="text-gray-900 dark:text-white font-semibold mb-2">{active.general}</h3>
+                                    <p className="text-gray-500 dark:text-gray-400">hello@afftraff.example</p>
+                                </div>
+                                <div className="bg-white dark:bg-gray-800/50 border border-sky-200 dark:border-gray-700/50 rounded-xl p-5 shadow-sm">
+                                    <h3 className="text-gray-900 dark:text-white font-semibold mb-2">{active.advertising}</h3>
+                                    <p className="text-gray-500 dark:text-gray-400">ads@afftraff.example</p>
+                                </div>
+                                <div className="bg-white dark:bg-gray-800/50 border border-sky-200 dark:border-gray-700/50 rounded-xl p-5 shadow-sm">
+                                    <h3 className="text-gray-900 dark:text-white font-semibold mb-2">{active.press}</h3>
+                                    <p className="text-gray-500 dark:text-gray-400">press@afftraff.example</p>
+                                </div>
+                            </div>
                         </div>
-                        <div className="bg-white dark:bg-gray-800/50 border border-sky-200 dark:border-gray-700/50 rounded-xl p-5 shadow-sm">
-                            <h3 className="text-gray-900 dark:text-white font-semibold mb-2">{active.advertising}</h3>
-                            <p className="text-gray-500 dark:text-gray-400">ads@addirectory.example</p>
-                        </div>
-                        <div className="bg-white dark:bg-gray-800/50 border border-sky-200 dark:border-gray-700/50 rounded-xl p-5 shadow-sm">
-                            <h3 className="text-gray-900 dark:text-white font-semibold mb-2">{active.press}</h3>
-                            <p className="text-gray-500 dark:text-gray-400">press@addirectory.example</p>
+                        <div className="bg-white dark:bg-gray-800/50 border border-sky-200 dark:border-gray-700/50 rounded-xl p-6 shadow-sm">
+                            <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">{active.formTitle}</h2>
+                            <form className="space-y-4">
+                                <div>
+                                    <label className="block text-sm text-gray-500 dark:text-gray-400 mb-2">{active.nameLabel}</label>
+                                    <input type="text" className="w-full bg-sky-50 dark:bg-gray-900 border border-sky-200 dark:border-gray-700 rounded-lg px-4 py-3 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-sky-500/20" placeholder={active.namePlaceholder} />
+                                </div>
+                                <div>
+                                    <label className="block text-sm text-gray-500 dark:text-gray-400 mb-2">{active.emailLabel}</label>
+                                    <input type="email" className="w-full bg-sky-50 dark:bg-gray-900 border border-sky-200 dark:border-gray-700 rounded-lg px-4 py-3 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-sky-500/20" placeholder={active.emailPlaceholder} />
+                                </div>
+                                <div>
+                                    <label className="block text-sm text-gray-500 dark:text-gray-400 mb-2">{active.messageLabel}</label>
+                                    <textarea rows={4} className="w-full bg-sky-50 dark:bg-gray-900 border border-sky-200 dark:border-gray-700 rounded-lg px-4 py-3 text-gray-900 dark:text-white resize-none focus:outline-none focus:ring-2 focus:ring-sky-500/20" placeholder={active.messagePlaceholder} />
+                                </div>
+                                <button type="button" className="w-full bg-sky-600 dark:bg-blue-600 hover:bg-sky-700 dark:hover:bg-blue-700 text-white font-medium py-3 rounded-lg transition-colors shadow-sm">
+                                    {active.button}
+                                </button>
+                            </form>
                         </div>
                     </div>
+                    <div className="mb-12">
+                        <AdSlot slotKey="inline" />
+                    </div>
                 </div>
-                <div className="bg-white dark:bg-gray-800/50 border border-sky-200 dark:border-gray-700/50 rounded-xl p-6 shadow-sm">
-                    <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">{active.formTitle}</h2>
-                    <form className="space-y-4">
-                        <div>
-                            <label className="block text-sm text-gray-500 dark:text-gray-400 mb-2">{active.nameLabel}</label>
-                            <input type="text" className="w-full bg-sky-50 dark:bg-gray-900 border border-sky-200 dark:border-gray-700 rounded-lg px-4 py-3 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-sky-500/20" placeholder={active.namePlaceholder} />
-                        </div>
-                        <div>
-                            <label className="block text-sm text-gray-500 dark:text-gray-400 mb-2">{active.emailLabel}</label>
-                            <input type="email" className="w-full bg-sky-50 dark:bg-gray-900 border border-sky-200 dark:border-gray-700 rounded-lg px-4 py-3 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-sky-500/20" placeholder={active.emailPlaceholder} />
-                        </div>
-                        <div>
-                            <label className="block text-sm text-gray-500 dark:text-gray-400 mb-2">{active.messageLabel}</label>
-                            <textarea rows={4} className="w-full bg-sky-50 dark:bg-gray-900 border border-sky-200 dark:border-gray-700 rounded-lg px-4 py-3 text-gray-900 dark:text-white resize-none focus:outline-none focus:ring-2 focus:ring-sky-500/20" placeholder={active.messagePlaceholder} />
-                        </div>
-                        <button type="button" className="w-full bg-sky-600 dark:bg-blue-600 hover:bg-sky-700 dark:hover:bg-blue-700 text-white font-medium py-3 rounded-lg transition-colors shadow-sm">
-                            {active.button}
-                        </button>
-                    </form>
-                </div>
+                <aside className="w-full lg:w-[300px]">
+                    <div className="sticky top-8">
+                        <AdSlot slotKey="sidebar" />
+                    </div>
+                </aside>
             </div>
         </div>
     );

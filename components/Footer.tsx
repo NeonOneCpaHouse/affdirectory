@@ -148,7 +148,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="pt-8 border-t border-accent-200 dark:border-gray-800 text-center text-gray-500 text-sm">
-          © {new Date().getFullYear()} TraffDirector.
+          © {new Date().getFullYear()} AffTraff.
         </div>
       </div>
     </footer>
