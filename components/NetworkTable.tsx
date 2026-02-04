@@ -52,7 +52,7 @@ export default function NetworkTable({ networks, showRank = true, maxRows }: Net
                   ? "bg-gradient-to-r from-gray-50/50 to-transparent dark:from-gray-500/5 dark:to-transparent border-l-4 border-gray-300 dark:border-gray-400 shadow-[0_0_15px_rgba(156,163,175,0.12)] dark:shadow-[0_0_15px_rgba(156,163,175,0.15)] hover:shadow-[0_0_20px_rgba(156,163,175,0.2)] dark:hover:shadow-[0_0_20px_rgba(156,163,175,0.25)]"
                   : item.rank === 3
                     ? "bg-gradient-to-r from-orange-50/50 to-transparent dark:from-orange-500/5 dark:to-transparent border-l-4 border-orange-400 dark:border-orange-500 shadow-[0_0_15px_rgba(251,146,60,0.12)] dark:shadow-[0_0_15px_rgba(249,115,22,0.15)] hover:shadow-[0_0_20px_rgba(251,146,60,0.2)] dark:hover:shadow-[0_0_20px_rgba(249,115,22,0.25)]"
-                    : "hover:bg-accent-50 dark:hover:bg-gray-800/50"
+                    : "hover:bg-gray-100 dark:hover:bg-gray-800"
                 }`}
             >
               {showRank && (
