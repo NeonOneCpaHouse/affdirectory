@@ -16,9 +16,9 @@ interface KnowledgeArticleClientProps {
 export default function KnowledgeArticleClient({ entry }: KnowledgeArticleClientProps) {
   const { language, t } = useLanguage()
 
-  const title = entry.title[language] || entry.title.en
-  const body = entry.body[language] || entry.body.en
-  const thumbnail = entry.thumbnail?.[language] || entry.thumbnail?.en
+  const title = entry?.title?.[language] || entry?.title?.en || "Untitled"
+  const body = entry?.body?.[language] || entry?.body?.en || []
+  const thumbnail = entry?.thumbnail?.[language] || entry?.thumbnail?.en
 
   const portableTextComponents = {
     block: {
@@ -93,7 +93,11 @@ export default function KnowledgeArticleClient({ entry }: KnowledgeArticleClient
             </div>
 
             <div className="prose prose-lg dark:prose-invert max-w-none">
-              <PortableText value={body} components={portableTextComponents} />
+              {Array.isArray(body) && body.length > 0 ? (
+                <PortableText value={body} components={portableTextComponents} />
+              ) : (
+                <p className="text-gray-500 italic">No content available</p>
+              )}
             </div>
           </article>
 

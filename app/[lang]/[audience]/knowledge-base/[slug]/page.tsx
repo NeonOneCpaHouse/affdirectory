@@ -6,18 +6,39 @@ export async function generateStaticParams() {
   const affiliate = await getAllKnowledgeEntries("affiliate")
   const webmaster = await getAllKnowledgeEntries("webmaster")
   const entries = [...affiliate, ...webmaster]
-  return entries.map((entry) => ({
-    slug: entry.slug,
-  }))
+
+  const params: any[] = []
+
+  entries.forEach(entry => {
+    ["en", "ru"].forEach(lang => {
+      params.push({ lang, audience: "affiliate", slug: entry.slug })
+      params.push({ lang, audience: "webmaster", slug: entry.slug })
+    })
+  })
+
+  return params
 }
 
 export default async function KnowledgeEntryPage({ params }: { params: Promise<{ lang: string; audience: string; slug: string }> }) {
-  const { slug } = await params
-  const entry = await getKnowledgeBySlug(slug)
+  try {
+    const { slug } = await params
+    console.log(`[KB] Rendering article for slug: ${slug}`)
 
-  if (!entry) {
-    notFound()
+    const entry = await getKnowledgeBySlug(slug)
+
+    if (!entry) {
+      console.log(`[KB] Entry not found for slug: ${slug}`)
+      notFound()
+    }
+
+    return <KnowledgeArticleClient entry={entry} />
+  } catch (error) {
+    console.error(`[KB] Error rendering knowledge page:`, error)
+    return (
+      <div className="p-8 text-red-500">
+        <h1>Internal Server Error</h1>
+        <p>{error instanceof Error ? error.message : "Possible serialization or rendering error"}</p>
+      </div>
+    )
   }
-
-  return <KnowledgeArticleClient entry={entry} />
 }
