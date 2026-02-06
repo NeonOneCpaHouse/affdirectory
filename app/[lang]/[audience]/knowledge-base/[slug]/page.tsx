@@ -35,7 +35,14 @@ export default async function KnowledgeEntryPage({ params }: { params: Promise<{
     const allEntries = await getAllKnowledgeEntries(audience as "affiliate" | "webmaster")
     const relatedEntries = allEntries
       .filter(e => e.category === entry.category && e.slug !== entry.slug)
+      .sort((a, b) => {
+        const titleA = (a.title.en || "").toLowerCase()
+        const titleB = (b.title.en || "").toLowerCase()
+        return titleA.localeCompare(titleB)
+      })
       .slice(0, 5) // Limit to 5 related terms
+
+    console.log(`[KB] Found ${relatedEntries.length} related entries for category: ${entry.category}`)
 
     return <KnowledgeArticleClient entry={entry} relatedEntries={relatedEntries} />
   } catch (error) {

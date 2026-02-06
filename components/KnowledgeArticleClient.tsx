@@ -17,6 +17,9 @@ interface KnowledgeArticleClientProps {
 export default function KnowledgeArticleClient({ entry, relatedEntries = [] }: KnowledgeArticleClientProps) {
   const { language, t } = useLanguage()
 
+  console.log('[KB Client] Related entries count:', relatedEntries.length)
+  console.log('[KB Client] Related entries:', relatedEntries.map(e => e.title.en))
+
   const title = entry?.title?.[language] || entry?.title?.en || "Untitled"
   const body = entry?.body?.[language] || entry?.body?.en || []
   const thumbnail = entry?.thumbnail?.[language] || entry?.thumbnail?.en
