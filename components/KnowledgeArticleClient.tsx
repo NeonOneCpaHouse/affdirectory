@@ -83,6 +83,17 @@ export default function KnowledgeArticleClient({ entry }: KnowledgeArticleClient
           <article>
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-8 leading-tight">{title}</h1>
 
+            {entry?.overview?.[language] && (
+              <div className="mb-8 p-6 rounded-2xl bg-accent-50 dark:bg-accent-950/20 border border-accent-100 dark:border-accent-900/50">
+                <div className="flex gap-4">
+                  <div className="flex-shrink-0 w-1.5 rounded-full bg-accent-500" />
+                  <p className="text-lg text-gray-700 dark:text-gray-300 italic leading-relaxed">
+                    {entry.overview[language]}
+                  </p>
+                </div>
+              </div>
+            )}
+
             {thumbnail && (
               <div className="mb-12 rounded-2xl overflow-hidden border border-accent-100 dark:border-gray-800 shadow-sm bg-gray-50 dark:bg-gray-900">
                 <img src={thumbnail || "/placeholder.svg"} alt={title} className="w-full h-auto object-cover max-h-[500px]" />

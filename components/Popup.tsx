@@ -59,10 +59,10 @@ export default function Popup() {
             className={`fixed z-[9999] w-[320px] transition-all duration-300 
                 bottom-4 left-4 
                 max-sm:left-1/2 max-sm:-translate-x-1/2 max-sm:w-[calc(100vw-2rem)]
-                ${isClosing ? "opacity-0 translate-y-4" : "opacity-100 translate-y-0"
-                }`}
+                ${isClosing ? "opacity-0 translate-y-4" : "opacity-100 translate-y-0"}
+                `}
         >
-            <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl border border-gray-100 dark:border-gray-800 overflow-visible pt-10 relative">
+            <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl border border-gray-100 dark:border-gray-800 overflow-visible pt-10 relative max-sm:border-2 max-sm:border-accent-500 max-sm:shadow-[0_8px_32px_rgba(0,0,0,0.15)]">
                 {/* Logo - positioned above the card */}
                 {popup.logo && (
                     <div className="absolute -top-8 left-1/2 -translate-x-1/2">

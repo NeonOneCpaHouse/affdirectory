@@ -74,6 +74,15 @@ export const knowledge = defineType({
       ],
     }),
     defineField({
+      name: "overview",
+      title: "Overview (Callout)",
+      type: "object",
+      fields: [
+        { name: "en", title: "English Overview", type: "text" },
+        { name: "ru", title: "Russian Overview", type: "text" },
+      ],
+    }),
+    defineField({
       name: "body",
       title: "Body",
       type: "object",

@@ -18,6 +18,7 @@ export interface KnowledgeEntry {
   category: KnowledgeCategory
   body: Localized<PortableTextBlock[]>
   thumbnail?: Localized<string>
+  overview?: Localized<string>
 }
 
 export async function getAllKnowledgeEntries(audience: string = "affiliate"): Promise<KnowledgeEntry[]> {
@@ -29,7 +30,8 @@ export async function getAllKnowledgeEntries(audience: string = "affiliate"): Pr
     "thumbnail": {
       "en": thumbnail.en.asset->url,
       "ru": thumbnail.ru.asset->url
-    }
+    },
+    overview
   }`
 
   try {
@@ -52,7 +54,8 @@ export async function getKnowledgeByCategory(
     "thumbnail": {
       "en": thumbnail.en.asset->url,
       "ru": thumbnail.ru.asset->url
-    }
+    },
+    overview
   }`
 
   try {
@@ -72,7 +75,8 @@ export async function getKnowledgeBySlug(slug: string): Promise<KnowledgeEntry |
     "thumbnail": {
       "en": thumbnail.en.asset->url,
       "ru": thumbnail.ru.asset->url
-    }
+    },
+    overview
   }`
 
   try {

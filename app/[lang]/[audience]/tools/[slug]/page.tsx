@@ -48,7 +48,7 @@ function RPMCalculator() {
   const t = content[language]
 
   return (
-    <div className="bg-white dark:bg-gray-800/50 border border-sky-200 dark:border-gray-700/50 rounded-xl p-6 shadow-sm">
+    <div className="bg-white dark:bg-gray-800/50 border border-accent-200 dark:border-gray-700/50 rounded-xl p-6 shadow-sm">
       <div className="grid md:grid-cols-2 gap-6 mb-6">
         <div>
           <label className="block text-sm text-gray-500 dark:text-gray-400 mb-2">{t.pageviewsLabel}</label>
@@ -56,7 +56,7 @@ function RPMCalculator() {
             type="number"
             value={pageviews}
             onChange={(e) => setPageviews(Number(e.target.value))}
-            className="w-full bg-sky-50 dark:bg-gray-900 border border-sky-200 dark:border-gray-700 rounded-lg px-4 py-3 text-gray-900 dark:text-white"
+            className="w-full bg-accent-50 dark:bg-gray-900 border border-accent-200 dark:border-gray-700 rounded-lg px-4 py-3 text-gray-900 dark:text-white"
           />
         </div>
         <div>
@@ -66,13 +66,13 @@ function RPMCalculator() {
             step="0.1"
             value={cpm}
             onChange={(e) => setCpm(Number(e.target.value))}
-            className="w-full bg-sky-50 dark:bg-gray-900 border border-sky-200 dark:border-gray-700 rounded-lg px-4 py-3 text-gray-900 dark:text-white"
+            className="w-full bg-accent-50 dark:bg-gray-900 border border-accent-200 dark:border-gray-700 rounded-lg px-4 py-3 text-gray-900 dark:text-white"
           />
         </div>
       </div>
-      <div className="bg-sky-100 dark:bg-blue-500/10 border border-sky-300 dark:border-blue-500/20 rounded-xl p-6 text-center">
+      <div className="bg-accent-100 dark:bg-accent-500/10 border border-accent-300 dark:border-accent-500/20 rounded-xl p-6 text-center">
         <p className="text-gray-500 dark:text-gray-400 mb-2">{t.revenueLabel}</p>
-        <p className="text-4xl font-bold text-sky-600 dark:text-blue-400">
+        <p className="text-4xl font-bold text-accent-600 dark:text-accent-400">
           ${revenue.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
         </p>
       </div>
@@ -178,14 +178,14 @@ function AdFormatPicker() {
   const t = content[language]
 
   return (
-    <div className="bg-white dark:bg-gray-800/50 border border-sky-200 dark:border-gray-700/50 rounded-xl p-6 shadow-sm">
+    <div className="bg-white dark:bg-gray-800/50 border border-accent-200 dark:border-gray-700/50 rounded-xl p-6 shadow-sm">
       <div className="grid md:grid-cols-2 gap-6 mb-6">
         <div>
           <label className="block text-sm text-gray-500 dark:text-gray-400 mb-2">{t.siteTypeLabel}</label>
           <select
             value={siteType}
             onChange={(e) => setSiteType(e.target.value)}
-            className="w-full bg-sky-50 dark:bg-gray-900 border border-sky-200 dark:border-gray-700 rounded-lg px-4 py-3 text-gray-900 dark:text-white"
+            className="w-full bg-accent-50 dark:bg-gray-900 border border-accent-200 dark:border-gray-700 rounded-lg px-4 py-3 text-gray-900 dark:text-white"
           >
             <option value="">{t.selectPlaceholder}</option>
             <option value="news">{t.siteTypes.news}</option>
@@ -199,7 +199,7 @@ function AdFormatPicker() {
           <select
             value={traffic}
             onChange={(e) => setTraffic(e.target.value)}
-            className="w-full bg-sky-50 dark:bg-gray-900 border border-sky-200 dark:border-gray-700 rounded-lg px-4 py-3 text-gray-900 dark:text-white"
+            className="w-full bg-accent-50 dark:bg-gray-900 border border-accent-200 dark:border-gray-700 rounded-lg px-4 py-3 text-gray-900 dark:text-white"
           >
             <option value="">{t.selectPlaceholder}</option>
             <option value="low">{t.trafficLevels.low}</option>
@@ -263,14 +263,14 @@ function PreMonetizationChecklist() {
   const t = content[language]
 
   return (
-    <div className="bg-white dark:bg-gray-800/50 border border-sky-200 dark:border-gray-700/50 rounded-xl p-6 shadow-sm">
+    <div className="bg-white dark:bg-gray-800/50 border border-accent-200 dark:border-gray-700/50 rounded-xl p-6 shadow-sm">
       <p className="text-gray-500 dark:text-gray-400 mb-6">{t.description}</p>
       <ul className="space-y-3">
         {t.items.map((item, i) => (
           <li key={i} className="flex items-center gap-3">
             <input
               type="checkbox"
-              className="w-5 h-5 rounded border-sky-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-sky-600 dark:text-green-500 focus:ring-sky-500 dark:focus:ring-green-500"
+              className="w-5 h-5 rounded border-accent-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-accent-600 dark:text-accent-500 focus:ring-accent-500 dark:focus:ring-accent-500"
             />
             <span className="text-gray-700 dark:text-gray-300">{item}</span>
           </li>
@@ -339,12 +339,12 @@ function FormatDemo() {
   return (
     <div className="space-y-6">
       {/* Format Selector */}
-      <div className="bg-white dark:bg-gray-800/50 border border-sky-200 dark:border-gray-700/50 rounded-xl p-6 shadow-sm">
+      <div className="bg-white dark:bg-gray-800/50 border border-accent-200 dark:border-gray-700/50 rounded-xl p-6 shadow-sm">
         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">{t.selectFormat}</label>
         <select
           value={selectedFormat}
           onChange={(e) => setSelectedFormat(e.target.value)}
-          className="w-full bg-sky-50 dark:bg-gray-900 border border-sky-200 dark:border-gray-700 rounded-lg px-4 py-3 text-gray-900 dark:text-white"
+          className="w-full bg-accent-50 dark:bg-gray-900 border border-accent-200 dark:border-gray-700 rounded-lg px-4 py-3 text-gray-900 dark:text-white"
         >
           <option value="webPush">{t.formats.webPush}</option>
           <option value="inPagePush">{t.formats.inPagePush}</option>
@@ -361,7 +361,7 @@ function FormatDemo() {
       </div>
 
       {/* Demo Website Preview */}
-      <div className="bg-white dark:bg-gray-800/50 border border-sky-200 dark:border-gray-700/50 rounded-xl p-6 shadow-sm">
+      <div className="bg-white dark:bg-gray-800/50 border border-accent-200 dark:border-gray-700/50 rounded-xl p-6 shadow-sm">
         <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">{t.demoSite}</h3>
 
         {/* Demo Site Container */}
@@ -376,7 +376,7 @@ function FormatDemo() {
           {/* Demo Content */}
           <div className="p-6">
             <div className="max-w-3xl mx-auto">
-              <p className="text-xs text-sky-600 dark:text-blue-400 font-semibold mb-2">{t.demoContent.headline}</p>
+              <p className="text-xs text-accent-600 dark:text-accent-400 font-semibold mb-2">{t.demoContent.headline}</p>
               <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">{t.demoContent.title}</h2>
 
               {/* Display Ad - Sidebar */}
@@ -441,7 +441,7 @@ function FormatDemo() {
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et
                 dolore magna aliqua.
               </p>
-              <button className="text-sky-600 dark:text-blue-400 text-sm font-semibold hover:underline">
+              <button className="text-accent-600 dark:text-accent-400 text-sm font-semibold hover:underline">
                 {t.demoContent.readMore} →
               </button>
             </div>
@@ -528,7 +528,7 @@ function FormatDemo() {
           {selectedFormat === "domainRedirect" && (
             <div className="absolute inset-0 bg-white dark:bg-gray-900 flex items-center justify-center">
               <div className="text-center max-w-md px-4">
-                <div className="w-16 h-16 bg-sky-500 rounded-full flex items-center justify-center mx-auto mb-4 animate-pulse">
+                <div className="w-16 h-16 bg-accent-500 rounded-full flex items-center justify-center mx-auto mb-4 animate-pulse">
                   <span className="text-white text-2xl">↗</span>
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Redirecting...</h3>
