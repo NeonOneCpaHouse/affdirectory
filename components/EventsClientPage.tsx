@@ -133,7 +133,10 @@ export default function EventsClientPage({ events }: { events: Event[] }) {
                                 <button
                                     key={opt.value}
                                     type="button"
-                                    onClick={() => toggleOption(opt.value)}
+                                    onClick={(e) => {
+                                        e.stopPropagation()
+                                        toggleOption(opt.value)
+                                    }}
                                     className="w-full flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors text-left"
                                 >
                                     <div className={`w-5 h-5 rounded-lg border transition-all flex items-center justify-center shrink-0 ${value.includes(opt.value)
