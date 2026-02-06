@@ -84,10 +84,10 @@ export default function KnowledgeArticleClient({ entry }: KnowledgeArticleClient
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-8 leading-tight">{title}</h1>
 
             {entry?.overview?.[language] && (
-              <div className="mb-8 p-6 rounded-2xl bg-accent-50 dark:bg-accent-950/20 border border-accent-100 dark:border-accent-900/50">
-                <div className="flex gap-4">
-                  <div className="flex-shrink-0 w-1.5 rounded-full bg-accent-500" />
-                  <p className="text-lg text-gray-700 dark:text-gray-300 italic leading-relaxed">
+              <div className="mb-10 p-8 rounded-3xl bg-accent-50/80 dark:bg-accent-500/10 border-2 border-accent-200/60 dark:border-accent-500/30 shadow-sm backdrop-blur-sm">
+                <div className="flex gap-6">
+                  <div className="flex-shrink-0 w-2 rounded-full bg-accent-500" />
+                  <p className="text-xl text-gray-800 dark:text-gray-200 italic leading-relaxed font-medium">
                     {entry.overview[language]}
                   </p>
                 </div>
