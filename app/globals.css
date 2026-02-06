@@ -225,22 +225,22 @@ body {
 
 /* Callout component utilities */
 .bg-callout {
-  background: linear-gradient(135deg, color-mix(in srgb, var(--accent-50) 90%, transparent), color-mix(in srgb, var(--accent-100) 50%, transparent));
+  background: linear-gradient(135deg, color-mix(in srgb, var(--accent-50) 95%, transparent), color-mix(in srgb, var(--accent-200) 40%, transparent));
 }
 
 .dark .bg-callout {
-  background: linear-gradient(135deg, color-mix(in srgb, var(--accent-500) 10%, transparent), color-mix(in srgb, var(--accent-500) 5%, transparent));
+  background: linear-gradient(135deg, color-mix(in srgb, var(--accent-500) 15%, transparent), color-mix(in srgb, var(--accent-500) 8%, transparent));
 }
 
 .border-callout {
-  border-width: 1px;
-  border-color: color-mix(in srgb, var(--accent-200) 40%, transparent);
+  border-width: 1.5px;
+  border-color: color-mix(in srgb, var(--accent-300) 50%, transparent);
 }
 
 .dark .border-callout {
-  border-color: color-mix(in srgb, var(--accent-500) 20%, transparent);
+  border-color: color-mix(in srgb, var(--accent-500) 40%, transparent);
 }
 
 .shadow-callout {
-  box-shadow: 0 4px 6px -1px color-mix(in srgb, var(--accent-500) 5%, transparent), 0 2px 4px -2px color-mix(in srgb, var(--accent-500) 5%, transparent);
+  box-shadow: 0 4px 12px -1px color-mix(in srgb, var(--accent-500) 10%, transparent), 0 2px 6px -2px color-mix(in srgb, var(--accent-500) 10%, transparent);
 }
