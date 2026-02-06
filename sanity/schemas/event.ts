@@ -194,8 +194,15 @@ export default defineType({
     preview: {
         select: {
             title: "name.en",
-            subtitle: "category",
+            category: "category",
             media: "coverImage",
+        },
+        prepare({ title, category, media }) {
+            return {
+                title,
+                subtitle: Array.isArray(category) ? category.join(", ") : category,
+                media,
+            }
         },
     },
 })
