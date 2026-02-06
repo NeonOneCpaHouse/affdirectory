@@ -48,6 +48,10 @@ export default function KnowledgeBaseClientPage({ entries }: KnowledgeBaseClient
       (entry.title[language] || entry.title.en).toLowerCase().includes(searchQuery.toLowerCase())
 
     return matchesCategory && matchesSearch
+  }).sort((a, b) => {
+    const titleA = (a.title[language] || a.title.en).toLowerCase()
+    const titleB = (b.title[language] || b.title.en).toLowerCase()
+    return titleA.localeCompare(titleB, language === 'ru' ? 'ru' : 'en')
   })
 
   const handleApplyFilters = () => {
