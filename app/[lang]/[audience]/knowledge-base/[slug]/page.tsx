@@ -21,7 +21,7 @@ export async function generateStaticParams() {
 
 export default async function KnowledgeEntryPage({ params }: { params: Promise<{ lang: string; audience: string; slug: string }> }) {
   try {
-    const { slug } = await params
+    const { slug, audience } = await params
     console.log(`[KB] Rendering article for slug: ${slug}`)
 
     const entry = await getKnowledgeBySlug(slug)
@@ -31,9 +31,16 @@ export default async function KnowledgeEntryPage({ params }: { params: Promise<{
       notFound()
     }
 
-    return <KnowledgeArticleClient entry={entry} />
+    // Get related entries from the same category
+    const allEntries = await getAllKnowledgeEntries(audience as "affiliate" | "webmaster")
+    const relatedEntries = allEntries
+      .filter(e => e.category === entry.category && e.slug !== entry.slug)
+      .slice(0, 5) // Limit to 5 related terms
+
+    return <KnowledgeArticleClient entry={entry} relatedEntries={relatedEntries} />
   } catch (error) {
-    console.error(`[KB] Error rendering knowledge page for slug ${slug}:`, error)
+    const { slug: errorSlug } = await params
+    console.error(`[KB] Error rendering knowledge page for slug ${errorSlug}:`, error)
     return (
       <div className="p-8 text-red-500 border-2 border-red-500 rounded-lg m-4 bg-red-50 dark:bg-red-950/20">
         <h1 className="text-2xl font-bold mb-4">Internal Server Error</h1>

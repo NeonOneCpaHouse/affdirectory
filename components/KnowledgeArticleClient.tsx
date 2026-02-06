@@ -11,9 +11,10 @@ import Breadcrumbs from "@/components/Breadcrumbs"
 
 interface KnowledgeArticleClientProps {
   entry: KnowledgeEntry
+  relatedEntries?: KnowledgeEntry[]
 }
 
-export default function KnowledgeArticleClient({ entry }: KnowledgeArticleClientProps) {
+export default function KnowledgeArticleClient({ entry, relatedEntries = [] }: KnowledgeArticleClientProps) {
   const { language, t } = useLanguage()
 
   const title = entry?.title?.[language] || entry?.title?.en || "Untitled"
@@ -116,7 +117,28 @@ export default function KnowledgeArticleClient({ entry }: KnowledgeArticleClient
         </main>
 
         <aside className="hidden lg:block w-full lg:w-[300px]">
-          <div className="sticky top-8">
+          <div className="sticky top-8 space-y-6">
+            {/* Related Terms Section */}
+            {relatedEntries.length > 0 && (
+              <div className="bg-white dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700/50 rounded-2xl p-6">
+                <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">
+                  {language === "ru" ? "Связанные термины" : "Related Terms"}
+                </h3>
+                <ul className="space-y-3">
+                  {relatedEntries.map((relatedEntry) => (
+                    <li key={relatedEntry.slug}>
+                      <Link
+                        href={`/${language}/${audience}/knowledge-base/${relatedEntry.slug}`}
+                        className="text-sm text-accent-600 dark:text-accent-400 hover:text-accent-700 dark:hover:text-accent-300 hover:underline transition-colors"
+                      >
+                        {relatedEntry.title[language] || relatedEntry.title.en}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
             <AdSlot slotKey="sidebar" />
           </div>
         </aside>
