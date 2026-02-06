@@ -87,10 +87,12 @@ export default function EventsClientPage({ events }: { events: Event[] }) {
     }) => {
         const [isOpen, setIsOpen] = useState(false)
         const dropdownRef = useRef<HTMLDivElement>(null)
+        const menuRef = useRef<HTMLDivElement>(null)
 
         useEffect(() => {
             const handleClickOutside = (event: MouseEvent) => {
-                if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+                if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node) &&
+                    menuRef.current && !menuRef.current.contains(event.target as Node)) {
                     setIsOpen(false)
                 }
             }
@@ -128,7 +130,7 @@ export default function EventsClientPage({ events }: { events: Event[] }) {
                     </button>
 
                     {isOpen && (
-                        <div className="absolute z-[100] mt-2 w-full bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-2xl shadow-2xl py-2 max-h-60 overflow-y-auto animate-in fade-in zoom-in duration-200">
+                        <div ref={menuRef} className="absolute z-[100] mt-2 w-full bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-2xl shadow-2xl py-2 max-h-60 overflow-y-auto animate-in fade-in zoom-in duration-200">
                             {options.map((opt) => (
                                 <button
                                     key={opt.value}
