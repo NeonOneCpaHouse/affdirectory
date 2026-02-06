@@ -222,3 +222,25 @@ body {
   --tw-shadow-color: color-mix(in srgb, var(--accent-500) 20%, transparent);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
 }
+
+/* Callout component utilities */
+.bg-callout {
+  background: linear-gradient(135deg, color-mix(in srgb, var(--accent-50) 90%, transparent), color-mix(in srgb, var(--accent-100) 50%, transparent));
+}
+
+.dark .bg-callout {
+  background: linear-gradient(135deg, color-mix(in srgb, var(--accent-500) 10%, transparent), color-mix(in srgb, var(--accent-500) 5%, transparent));
+}
+
+.border-callout {
+  border-width: 1px;
+  border-color: color-mix(in srgb, var(--accent-200) 40%, transparent);
+}
+
+.dark .border-callout {
+  border-color: color-mix(in srgb, var(--accent-500) 20%, transparent);
+}
+
+.shadow-callout {
+  box-shadow: 0 4px 6px -1px color-mix(in srgb, var(--accent-500) 5%, transparent), 0 2px 4px -2px color-mix(in srgb, var(--accent-500) 5%, transparent);
+}
