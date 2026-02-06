@@ -8,6 +8,7 @@ import Link from "next/link"
 import { format } from "date-fns"
 import { ru, enUS } from "date-fns/locale"
 import AdSlot from "./AdSlot"
+import { PortableText } from "@portabletext/react"
 
 export default function EventDetailClientPage({ event }: { event: Event }) {
     const { t, language } = useLanguage()
@@ -39,15 +40,15 @@ export default function EventDetailClientPage({ event }: { event: Event }) {
                 <div className="flex-1 min-w-0">
                     <div className="bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-3xl overflow-hidden shadow-sm">
                         {/* Hero Image */}
-                        <div className="relative aspect-[21/9] w-full overflow-hidden">
+                        <div className="relative w-full">
                             {event.coverImage ? (
                                 <img
                                     src={event.coverImage}
                                     alt={event.name}
-                                    className="w-full h-full object-cover"
+                                    className="w-full h-auto"
                                 />
                             ) : (
-                                <div className="w-full h-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
+                                <div className="w-full aspect-[21/9] bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
                                     <Calendar className="w-16 h-16 text-gray-300" />
                                 </div>
                             )}
@@ -125,8 +126,12 @@ export default function EventDetailClientPage({ event }: { event: Event }) {
                                 <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6">
                                     {language === "ru" ? "Об ивенте" : "About the event"}
                                 </h2>
-                                <div className="prose dark:prose-invert max-w-none text-gray-600 dark:text-gray-400 text-lg leading-relaxed whitespace-pre-line">
-                                    {event.description}
+                                <div className="prose dark:prose-invert max-w-none text-gray-600 dark:text-gray-400 text-lg leading-relaxed">
+                                    {typeof event.description === 'string' ? (
+                                        <p className="whitespace-pre-line">{event.description}</p>
+                                    ) : (
+                                        <PortableText value={event.description} />
+                                    )}
                                 </div>
                             </div>
                         )}

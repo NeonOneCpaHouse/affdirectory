@@ -70,7 +70,14 @@ export default function EventCard({ event }: { event: Event }) {
 
                     {event.description && (
                         <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2 mt-3 leading-relaxed">
-                            {event.description}
+                            {typeof event.description === 'string'
+                                ? event.description
+                                : Array.isArray(event.description)
+                                    ? event.description
+                                        .filter((block: any) => block._type === 'block')
+                                        .map((block: any) => block.children?.map((child: any) => child.text).join('')).join(' ')
+                                    : ''
+                            }
                         </p>
                     )}
                 </div>

@@ -9,7 +9,7 @@ export interface Event {
     region: string
     category: string | string[]
     audience: string
-    description?: string
+    description?: string | any[]
     coverImage?: string
     ticketUrl?: string
 }

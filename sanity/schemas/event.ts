@@ -58,6 +58,7 @@ export default defineType({
                     { title: "Management", value: "Management" },
                     { title: "Analytics", value: "Analytics" },
                     { title: "B2B", value: "B2B" },
+                    { title: "Meetup / Митап", value: "Meetup" },
                 ],
             },
             validation: (Rule) => Rule.required().min(1),
