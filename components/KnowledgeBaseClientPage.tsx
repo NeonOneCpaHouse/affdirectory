@@ -222,11 +222,8 @@ export default function KnowledgeBaseClientPage({ entries }: KnowledgeBaseClient
                   <div key={entry.slug}>
                     <Link
                       href={`/${language}/${audience}/knowledge-base/${entry.slug}`}
-                      className="group bg-white dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700/50 rounded-2xl p-5 hover:border-accent-500 dark:hover:border-accent-500/50 hover:shadow-xl transition-all flex flex-col items-center gap-2.5"
+                      className="group bg-white dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700/50 rounded-2xl p-5 hover:border-accent-500 dark:hover:border-accent-500/50 hover:shadow-xl transition-all flex flex-col items-center justify-center"
                     >
-                      <span className="text-[10px] font-black uppercase tracking-widest text-accent-600 dark:text-accent-400">
-                        {t(categoryTranslationKeys[entry.category as KnowledgeCategory])}
-                      </span>
                       <h3 className="text-center font-bold text-gray-900 dark:text-white group-hover:text-accent-600 dark:group-hover:text-accent-400 transition-colors">
                         {entry.title[language] || entry.title.en}
                       </h3>
