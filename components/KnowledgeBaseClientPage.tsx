@@ -45,12 +45,12 @@ export default function KnowledgeBaseClientPage({ entries }: KnowledgeBaseClient
 
     const matchesSearch =
       searchQuery === "" ||
-      (entry.title[language] || entry.title.en).toLowerCase().includes(searchQuery.toLowerCase())
+      (entry.title?.[language] || entry.title?.en || "").toLowerCase().includes(searchQuery.toLowerCase())
 
     return matchesCategory && matchesSearch
   }).sort((a, b) => {
-    const titleA = (a.title[language] || a.title.en).toLowerCase()
-    const titleB = (b.title[language] || b.title.en).toLowerCase()
+    const titleA = (a.title?.[language] || a.title?.en || "").toLowerCase()
+    const titleB = (b.title?.[language] || b.title?.en || "").toLowerCase()
     return titleA.localeCompare(titleB, language === 'ru' ? 'ru' : 'en')
   })
 
