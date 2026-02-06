@@ -96,14 +96,15 @@ export default function KnowledgeBaseClientPage({ entries }: KnowledgeBaseClient
     const menuRef = useRef<HTMLDivElement>(null)
 
     useEffect(() => {
-      const handleClickOutside = (event: MouseEvent) => {
-        if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node) &&
-          menuRef.current && !menuRef.current.contains(event.target as Node)) {
-          setIsOpen(false)
-        }
-      }
-      document.addEventListener("mousedown", handleClickOutside)
-      return () => document.removeEventListener("mousedown", handleClickOutside)
+      // Temporarily disabled to test multi-select behavior
+      // const handleClickOutside = (event: MouseEvent) => {
+      //   if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node) &&
+      //     menuRef.current && !menuRef.current.contains(event.target as Node)) {
+      //     setIsOpen(false)
+      //   }
+      // }
+      // document.addEventListener("mousedown", handleClickOutside)
+      // return () => document.removeEventListener("mousedown", handleClickOutside)
     }, [])
 
     const toggleOption = (optValue: string) => {
