@@ -43,7 +43,8 @@ export default defineType({
         defineField({
             name: "category",
             title: "Category",
-            type: "string",
+            type: "array",
+            of: [{ type: "string" }],
             options: {
                 list: [
                     { title: "Affiliate", value: "Affiliate" },
@@ -59,7 +60,7 @@ export default defineType({
                     { title: "B2B", value: "B2B" },
                 ],
             },
-            validation: (Rule) => Rule.required(),
+            validation: (Rule) => Rule.required().min(1),
         }),
         defineField({
             name: "region",
@@ -95,8 +96,82 @@ export default defineType({
             title: "Description",
             type: "object",
             fields: [
-                { name: "en", title: "English", type: "text" },
-                { name: "ru", title: "Russian", type: "text" },
+                {
+                    name: "en",
+                    title: "English",
+                    type: "array",
+                    of: [
+                        {
+                            type: "block",
+                            styles: [
+                                { title: "Normal", value: "normal" },
+                                { title: "H2", value: "h2" },
+                                { title: "H3", value: "h3" },
+                                { title: "H4", value: "h4" },
+                                { title: "Quote", value: "blockquote" },
+                            ],
+                            marks: {
+                                decorators: [
+                                    { title: "Bold", value: "strong" },
+                                    { title: "Italic", value: "em" },
+                                    { title: "Underline", value: "underline" },
+                                ],
+                                annotations: [
+                                    {
+                                        name: "link",
+                                        type: "object",
+                                        title: "Link",
+                                        fields: [
+                                            {
+                                                name: "href",
+                                                type: "url",
+                                                title: "URL",
+                                            },
+                                        ],
+                                    },
+                                ],
+                            },
+                        },
+                    ],
+                },
+                {
+                    name: "ru",
+                    title: "Russian",
+                    type: "array",
+                    of: [
+                        {
+                            type: "block",
+                            styles: [
+                                { title: "Normal", value: "normal" },
+                                { title: "H2", value: "h2" },
+                                { title: "H3", value: "h3" },
+                                { title: "H4", value: "h4" },
+                                { title: "Quote", value: "blockquote" },
+                            ],
+                            marks: {
+                                decorators: [
+                                    { title: "Bold", value: "strong" },
+                                    { title: "Italic", value: "em" },
+                                    { title: "Underline", value: "underline" },
+                                ],
+                                annotations: [
+                                    {
+                                        name: "link",
+                                        type: "object",
+                                        title: "Link",
+                                        fields: [
+                                            {
+                                                name: "href",
+                                                type: "url",
+                                                title: "URL",
+                                            },
+                                        ],
+                                    },
+                                ],
+                            },
+                        },
+                    ],
+                },
             ],
         }),
         defineField({

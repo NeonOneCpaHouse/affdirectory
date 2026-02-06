@@ -55,7 +55,7 @@ export default function EventCard({ event }: { event: Event }) {
                             <MapPin className="w-4 h-4 text-accent-500" />
                             <span className="font-medium">{event.location}</span>
                         </div>
-                        <span className="px-2 py-0.5 bg-accent-50 dark:bg-accent-900/30 text-accent-600 text-[10px] font-bold rounded-full uppercase tracking-wider">
+                        <span className="px-2.5 py-1 bg-accent-50 dark:bg-accent-900/30 text-accent-600 text-xs font-bold rounded-full uppercase tracking-wider">
                             {event.category}
                         </span>
                     </div>
