@@ -3,7 +3,7 @@
 import type { Event } from "@/mock/events"
 import { useLanguage } from "@/context/LanguageContext"
 import { useAudience } from "@/context/AudienceContext"
-import { Calendar, MapPin, Tag, ChevronLeft, Building2 } from "lucide-react"
+import { Calendar, MapPin, Tag, ChevronLeft, Building2, Ticket } from "lucide-react"
 import Link from "next/link"
 import { format } from "date-fns"
 import { ru, enUS } from "date-fns/locale"
@@ -59,9 +59,19 @@ export default function EventDetailClientPage({ event }: { event: Event }) {
                                 <h1 className="text-3xl md:text-4xl font-black text-gray-900 dark:text-white leading-tight">
                                     {event.name}
                                 </h1>
-                                <span className="px-3 py-1 bg-accent-600 text-white text-[10px] font-bold rounded-full uppercase tracking-wider shadow-sm shrink-0">
-                                    {event.category}
-                                </span>
+                                <div className="flex flex-wrap gap-2">
+                                    {Array.isArray(event.category) ? (
+                                        event.category.map((cat, index) => (
+                                            <span key={index} className="px-3 py-1 bg-accent-600 text-white text-[10px] font-bold rounded-full uppercase tracking-wider shadow-sm shrink-0">
+                                                {cat}
+                                            </span>
+                                        ))
+                                    ) : (
+                                        <span className="px-3 py-1 bg-accent-600 text-white text-[10px] font-bold rounded-full uppercase tracking-wider shadow-sm shrink-0">
+                                            {event.category}
+                                        </span>
+                                    )}
+                                </div>
                             </div>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -89,6 +99,21 @@ export default function EventDetailClientPage({ event }: { event: Event }) {
                                     </div>
                                 </div>
                             </div>
+
+                            {/* Buy Tickets Button */}
+                            {event.ticketUrl && (
+                                <div className="mt-6">
+                                    <a
+                                        href={event.ticketUrl}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-flex items-center justify-center gap-2 w-full md:w-auto px-8 py-4 bg-accent-600 hover:bg-accent-700 text-white font-bold text-lg rounded-2xl transition-all shadow-lg shadow-accent-500/20 active:scale-95"
+                                    >
+                                        <Ticket className="w-5 h-5" />
+                                        {language === "ru" ? "Купить Билеты" : "Buy Tickets"}
+                                    </a>
+                                </div>
+                            )}
                         </div>
                         <div className="lg:hidden p-8 border-b border-gray-50 dark:border-gray-800 text-center">
                             <AdSlot slotKey="sidebar" />

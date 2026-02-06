@@ -175,6 +175,12 @@ export default defineType({
             ],
         }),
         defineField({
+            name: "ticketUrl",
+            title: "Ticket URL",
+            type: "url",
+            description: "Link to buy tickets for this event",
+        }),
+        defineField({
             name: "coverImage",
             title: "Cover Image",
             type: "image",

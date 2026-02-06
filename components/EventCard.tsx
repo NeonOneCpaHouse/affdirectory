@@ -55,9 +55,17 @@ export default function EventCard({ event }: { event: Event }) {
                             <MapPin className="w-4 h-4 text-accent-500" />
                             <span className="font-medium">{event.location}</span>
                         </div>
-                        <span className="px-2.5 py-1 bg-accent-50 dark:bg-accent-900/30 text-accent-600 text-xs font-bold rounded-full uppercase tracking-wider">
-                            {event.category}
-                        </span>
+                        {Array.isArray(event.category) ? (
+                            event.category.map((cat, index) => (
+                                <span key={index} className="px-2.5 py-1 bg-accent-50 dark:bg-accent-900/30 text-accent-600 text-xs font-bold rounded-full uppercase tracking-wider">
+                                    {cat}
+                                </span>
+                            ))
+                        ) : (
+                            <span className="px-2.5 py-1 bg-accent-50 dark:bg-accent-900/30 text-accent-600 text-xs font-bold rounded-full uppercase tracking-wider">
+                                {event.category}
+                            </span>
+                        )}
                     </div>
 
                     {event.description && (

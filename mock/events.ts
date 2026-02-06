@@ -7,10 +7,11 @@ export interface Event {
     date: string
     location: string
     region: string
-    category: string
+    category: string | string[]
     audience: string
     description?: string
     coverImage?: string
+    ticketUrl?: string
 }
 
 export async function getEvents(audience: string, language: string): Promise<Event[]> {
@@ -24,7 +25,8 @@ export async function getEvents(audience: string, language: string): Promise<Eve
     category,
     audience,
     "description": description[$language],
-    "coverImage": coverImage.asset->url
+    "coverImage": coverImage.asset->url,
+    ticketUrl
   }`
 
     try {
@@ -47,7 +49,8 @@ export async function getEventBySlug(slug: string, language: string): Promise<Ev
     category,
     audience,
     "description": description[$language],
-    "coverImage": coverImage.asset->url
+    "coverImage": coverImage.asset->url,
+    ticketUrl
   }`
 
     try {

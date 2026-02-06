@@ -109,7 +109,10 @@ export default function EventsClientPage({ events }: { events: Event[] }) {
 
     const filteredEvents = events.filter((event) => {
         const matchesRegion = appliedFilters.region.length === 0 || appliedFilters.region.includes(event.region)
-        const matchesCategory = appliedFilters.category.length === 0 || appliedFilters.category.includes(event.category)
+        // Handle multi-category: check if any event category matches any selected filter
+        const eventCategories = Array.isArray(event.category) ? event.category : [event.category]
+        const matchesCategory = appliedFilters.category.length === 0 ||
+            eventCategories.some(cat => appliedFilters.category.includes(cat))
 
         let matchesMonth = true
         if (appliedFilters.month.length > 0) {
@@ -145,7 +148,12 @@ export default function EventsClientPage({ events }: { events: Event[] }) {
         { value: "online", label: t("events.reg.online") },
     ]
 
-    const categories = Array.from(new Set(events.map(e => e.category))).map(cat => ({
+    // Extract unique categories from all events (flattening arrays)
+    const categories = Array.from(
+        new Set(
+            events.flatMap(e => Array.isArray(e.category) ? e.category : [e.category])
+        )
+    ).map(cat => ({
         value: cat,
         label: cat
     }))
