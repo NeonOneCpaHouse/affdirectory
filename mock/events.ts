@@ -15,7 +15,7 @@ export interface Event {
 }
 
 export async function getEvents(audience: string, language: string): Promise<Event[]> {
-    const query = `*[_type == "event" && (audience == $audience || audience == "both") && defined(slug.current)] | order(date asc) {
+    const query = `*[_type == "event" && (audience == $audience || audience == "both") && defined(slug.current) && date >= now()] | order(date asc) {
     "id": _id,
     "slug": slug.current,
     "name": name[$language],

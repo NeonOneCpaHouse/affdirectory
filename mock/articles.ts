@@ -24,6 +24,7 @@ export interface Article {
     results: string
     lessons: string
   }>
+  views?: number
 }
 
 export async function getArticles(audience: string = "affiliate"): Promise<Article[]> {
@@ -41,7 +42,8 @@ export async function getArticles(audience: string = "affiliate"): Promise<Artic
     },
     readingTime,
     checklist,
-    caseStudySections
+    caseStudySections,
+    "views": coalesce(views, 0)
   }`
 
   try {
@@ -67,7 +69,8 @@ export async function getArticlesByType(type: ArticleType, audience: string = "a
     },
     readingTime,
     checklist,
-    caseStudySections
+    caseStudySections,
+    "views": coalesce(views, 0)
   }`
 
   try {
@@ -93,7 +96,8 @@ export async function getArticleBySlug(slug: string): Promise<Article | undefine
     },
     readingTime,
     checklist,
-    caseStudySections
+    caseStudySections,
+    "views": coalesce(views, 0)
   }`
 
   try {
@@ -119,7 +123,8 @@ export async function getBlogArticles(audience: string = "affiliate"): Promise<A
     },
     readingTime,
     checklist,
-    caseStudySections
+    caseStudySections,
+    "views": coalesce(views, 0)
   }`
 
   try {
@@ -145,7 +150,8 @@ export async function getBlogArticlesByCategory(category: BlogCategory, audience
     },
     readingTime,
     checklist,
-    caseStudySections
+    caseStudySections,
+    "views": coalesce(views, 0)
   }`
 
   try {
@@ -169,7 +175,8 @@ export async function getLatestNews(count = 6, audience: string = "affiliate"): 
       "en": thumbnail.en.asset->url,
       "ru": thumbnail.ru.asset->url
     },
-    readingTime
+    readingTime,
+    "views": coalesce(views, 0)
   }`
 
   try {
@@ -210,7 +217,8 @@ export async function getRelatedArticles(
       "en": thumbnail.en.asset->url,
       "ru": thumbnail.ru.asset->url
     },
-    readingTime
+    readingTime,
+    "views": coalesce(views, 0)
   }`
 
   try {
@@ -258,7 +266,8 @@ export async function searchArticles(
       "en": thumbnail.en.asset->url,
       "ru": thumbnail.ru.asset->url
     },
-    readingTime
+    readingTime,
+    "views": coalesce(views, 0)
   }`
 
   try {

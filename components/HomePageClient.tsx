@@ -40,7 +40,7 @@ export default function HomePageClient({
                 {t("common.viewAll")} →
               </Link>
             </div>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-4">
               {news.map((article) => (
                 <ArticleCard key={article.slug} article={article} />
               ))}
@@ -76,7 +76,7 @@ export default function HomePageClient({
                 {t("common.viewAll")} →
               </Link>
             </div>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-4">
               {guides.map((article) => (
                 <ArticleCard key={article.slug} article={article} />
               ))}
@@ -97,7 +97,7 @@ export default function HomePageClient({
                 {t("common.viewAll")} →
               </Link>
             </div>
-            <div className="grid md:grid-cols-3 gap-4">
+            <div className="grid md:grid-cols-2 gap-4">
               {cases.map((article) => (
                 <ArticleCard key={article.slug} article={article} />
               ))}

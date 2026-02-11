@@ -283,6 +283,13 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: "views",
+      title: "Views",
+      type: "number",
+      initialValue: 0,
+      readOnly: true,
+    }),
+    defineField({
       name: "readingTime",
       title: "Reading Time (minutes)",
       type: "number",
