@@ -244,6 +244,7 @@ const uiTranslations: Record<Language, Record<string, string>> = {
     "knowledge.financial": "Financial Terms",
     "common.articles": "Articles",
     "common.viewAllResults": "View all {count} results",
+    "common.socials": "Socials",
   },
   ru: {
     "nav.affiliate": "Арбитражник",
@@ -420,5 +421,6 @@ const uiTranslations: Record<Language, Record<string, string>> = {
     "knowledge.financial": "Финансовые Термины",
     "common.articles": "Статьи",
     "common.viewAllResults": "Посмотреть все результаты",
+    "common.socials": "Социальные сети",
   },
 }
