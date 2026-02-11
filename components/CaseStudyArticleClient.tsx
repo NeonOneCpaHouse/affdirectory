@@ -96,7 +96,7 @@ export default function CaseStudyArticleClient({ article, related }: { article: 
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <Breadcrumbs items={[{ label: "Case Studies", href: "/case-studies" }, { label: title }]} />
+      <Breadcrumbs items={[{ label: t("nav.blog"), href: `/${language}/affiliate/blog` }, { label: title }]} />
       <div className="mb-8">
         <AdSlot slotKey="leaderboard" fullWidth />
       </div>
@@ -114,7 +114,7 @@ export default function CaseStudyArticleClient({ article, related }: { article: 
             <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-8 leading-tight">{title}</h1>
 
             {thumbnail && (
-              <div className="mb-12 rounded-2xl overflow-hidden aspect-video border border-accent-100 dark:border-gray-800 shadow-lg relative bg-accent-900 group">
+              <div className="mb-4 rounded-2xl overflow-hidden aspect-video border border-accent-100 dark:border-gray-800 shadow-lg relative bg-accent-900 group">
                 <img
                   src={thumbnail || "/placeholder.svg"}
                   alt={title}
@@ -128,6 +128,20 @@ export default function CaseStudyArticleClient({ article, related }: { article: 
                     <h2 className="text-2xl md:text-3xl font-bold text-white max-w-2xl">{title}</h2>
                   </div>
                 </div>
+              </div>
+            )}
+
+            {/* Tags below cover image */}
+            {article.tags && article.tags.length > 0 && (
+              <div className="flex flex-wrap gap-2 mb-8">
+                {article.tags.map((tag) => (
+                  <span
+                    key={tag.slug}
+                    className="px-3 py-1 text-xs font-medium rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 border border-gray-200 dark:border-gray-700"
+                  >
+                    {tag.name[language] || tag.name.en}
+                  </span>
+                ))}
               </div>
             )}
 

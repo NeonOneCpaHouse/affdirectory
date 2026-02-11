@@ -94,7 +94,7 @@ export default function GuideArticleClient({ article, related }: { article: Arti
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <Breadcrumbs items={[{ label: t("nav.guides"), href: "/guides" }, { label: title }]} />
+      <Breadcrumbs items={[{ label: t("nav.blog"), href: `/${language}/affiliate/blog` }, { label: title }]} />
       <div className="mb-8">
         <AdSlot slotKey="leaderboard" fullWidth />
       </div>
@@ -107,6 +107,20 @@ export default function GuideArticleClient({ article, related }: { article: Arti
               {article.readingTime && <span className="text-sm text-gray-500">{article.readingTime} min read</span>}
             </div>
             <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">{title}</h1>
+
+            {/* Tags below title */}
+            {article.tags && article.tags.length > 0 && (
+              <div className="flex flex-wrap gap-2 mb-8">
+                {article.tags.map((tag) => (
+                  <span
+                    key={tag.slug}
+                    className="px-3 py-1 text-xs font-medium rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 border border-gray-200 dark:border-gray-700"
+                  >
+                    {tag.name[language] || tag.name.en}
+                  </span>
+                ))}
+              </div>
+            )}
 
             <div className="prose dark:prose-invert max-w-none">
               {Array.isArray(body) && body.length > 0 ? (

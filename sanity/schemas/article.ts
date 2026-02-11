@@ -40,40 +40,49 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "type",
-      title: "Type",
-      type: "string",
-      options: {
-        list: [
-          { title: "Blog", value: "blog" },
-          { title: "Guide", value: "guide" },
-          { title: "Case Study", value: "case" },
-        ],
-      },
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
       name: "category",
       title: "Category",
       type: "string",
       options: {
         list: [
-          // Blog categories
-          { title: "News", value: "news" },
-          { title: "Case Studies", value: "case-studies" },
-          { title: "Google", value: "google" },
-          { title: "Monetization", value: "monetization" },
-          { title: "SEO", value: "seo" },
-          { title: "Tools", value: "tools" },
-          { title: "AI", value: "ai" },
-          // Guide categories
-          { title: "Monetization Formats", value: "monetization-formats" },
-          { title: "Optimization", value: "optimization" },
-          { title: "Technical", value: "technical" },
-          { title: "Scaling", value: "scaling" },
+          { title: "News / Новости", value: "news" },
+          { title: "Reviews / Обзоры", value: "reviews" },
+          { title: "Case Studies / Кейсы", value: "case-studies" },
+          { title: "Guides / Гайды", value: "guides" },
+          { title: "Trends / Тренды", value: "trends" },
         ],
       },
       validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "tags",
+      title: "Tags",
+      type: "array",
+      of: [
+        {
+          type: "reference",
+          to: [{ type: "articleTag" }],
+          options: {
+            filter: ({ document }: any) => {
+              const audience = document?.audience
+              const category = document?.category
+              if (audience && category) {
+                return {
+                  filter: "audience == $audience && category == $category",
+                  params: { audience, category },
+                }
+              }
+              if (audience) {
+                return {
+                  filter: "audience == $audience",
+                  params: { audience },
+                }
+              }
+              return {}
+            },
+          },
+        },
+      ],
     }),
     defineField({
       name: "date",
@@ -338,7 +347,21 @@ export default defineType({
   preview: {
     select: {
       title: "title.en",
-      subtitle: "type",
+      audience: "audience",
+      category: "category",
+    },
+    prepare({ title, audience, category }) {
+      const categoryLabels: Record<string, string> = {
+        news: "News",
+        reviews: "Reviews",
+        "case-studies": "Case Studies",
+        guides: "Guides",
+        trends: "Trends",
+      }
+      return {
+        title: title || "Untitled",
+        subtitle: `${audience || "—"} → ${categoryLabels[category] || category || "—"}`,
+      }
     },
   },
 })

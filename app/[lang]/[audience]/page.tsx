@@ -1,12 +1,14 @@
 import HomePageClient from "@/components/HomePageClient"
-import { getLatestNews, getLatestGuides, getCaseStudies } from "@/mock/articles"
+import { getArticlesByCategory } from "@/mock/articles"
 
 export default async function HomePage({ params }: { params: Promise<{ lang: string; audience: string }> }) {
   const { audience } = await params
 
-  const news = await getLatestNews(3, audience)
-  const guides = await getLatestGuides(3, audience)
-  const cases = await getCaseStudies(3, audience)
+  const [news, guides, cases] = await Promise.all([
+    getArticlesByCategory("news", audience),
+    getArticlesByCategory("guides", audience),
+    getArticlesByCategory("case-studies", audience),
+  ])
 
-  return <HomePageClient news={news} guides={guides} cases={cases} />
+  return <HomePageClient news={news.slice(0, 3)} guides={guides.slice(0, 3)} cases={cases.slice(0, 3)} />
 }

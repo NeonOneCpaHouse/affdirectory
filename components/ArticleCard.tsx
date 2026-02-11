@@ -8,31 +8,27 @@ import { Eye, Clock, ArrowUpRight, BookOpen } from "lucide-react"
 
 const categoryLabels: Record<string, Record<string, string>> = {
   en: {
-    news: "News", "case-studies": "Case Studies", google: "Google",
-    monetization: "Monetization", seo: "SEO", tools: "Tools", ai: "AI",
-    "monetization-formats": "Monetization Formats", optimization: "Optimization",
-    technical: "Technical", scaling: "Scaling",
+    news: "News",
+    reviews: "Reviews",
+    "case-studies": "Case Studies",
+    guides: "Guides",
+    trends: "Trends",
   },
   ru: {
-    news: "Новости", "case-studies": "Кейсы", google: "Google",
-    monetization: "Монетизация", seo: "SEO", tools: "Инструменты", ai: "AI",
-    "monetization-formats": "Форматы Монетизации", optimization: "Оптимизация",
-    technical: "Техническое", scaling: "Масштабирование",
+    news: "Новости",
+    reviews: "Обзоры",
+    "case-studies": "Кейсы",
+    guides: "Гайды",
+    trends: "Тренды",
   },
 }
 
 const categoryColors: Record<string, string> = {
   news: "from-sky-500 to-blue-600",
+  reviews: "from-purple-500 to-fuchsia-600",
   "case-studies": "from-indigo-500 to-violet-600",
-  google: "from-red-500 to-rose-600",
-  monetization: "from-purple-500 to-fuchsia-600",
-  seo: "from-green-500 to-emerald-600",
-  tools: "from-amber-500 to-orange-600",
-  ai: "from-pink-500 to-rose-600",
-  "monetization-formats": "from-violet-500 to-purple-600",
-  optimization: "from-teal-500 to-cyan-600",
-  technical: "from-blue-500 to-indigo-600",
-  scaling: "from-emerald-500 to-green-600",
+  guides: "from-emerald-500 to-green-600",
+  trends: "from-amber-500 to-orange-600",
 }
 
 export default function ArticleCard({ article }: { article: Article }) {
@@ -46,9 +42,6 @@ export default function ArticleCard({ article }: { article: Article }) {
 
   const getArticlePath = () => {
     const prefix = `/${language}/${audience}`
-    if (article.type === "blog") return `${prefix}/blog/${article.slug}`
-    if (article.type === "case") return `${prefix}/blog/case-studies/${article.slug}`
-    if (article.type === "guide") return `${prefix}/guides/${article.slug}`
     return `${prefix}/blog/${article.slug}`
   }
 
@@ -97,6 +90,20 @@ export default function ArticleCard({ article }: { article: Article }) {
         <h3 className="text-lg font-bold text-gray-900 dark:text-white group-hover:text-accent-600 transition-colors line-clamp-2 leading-snug">
           {title}
         </h3>
+
+        {/* Tags */}
+        {article.tags && article.tags.length > 0 && (
+          <div className="flex flex-wrap gap-1.5 mt-3">
+            {article.tags.slice(0, 3).map((tag) => (
+              <span
+                key={tag.slug}
+                className="px-2 py-0.5 text-[10px] font-medium rounded-full bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 border border-gray-200 dark:border-gray-700"
+              >
+                {tag.name[language] || tag.name.en}
+              </span>
+            ))}
+          </div>
+        )}
 
         {/* Footer */}
         <div className="flex items-center justify-between mt-auto pt-5">

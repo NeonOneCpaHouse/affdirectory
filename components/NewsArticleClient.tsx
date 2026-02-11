@@ -94,7 +94,7 @@ export default function NewsArticleClient({ article, related }: { article: Artic
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <Breadcrumbs items={[{ label: t("nav.news"), href: "/news" }, { label: title }]} />
+      <Breadcrumbs items={[{ label: t("nav.blog"), href: `/${language}/${article.category ? "affiliate" : "affiliate"}/blog` }, { label: title }]} />
       <div className="mb-8">
         <AdSlot slotKey="leaderboard" fullWidth />
       </div>
@@ -114,12 +114,25 @@ export default function NewsArticleClient({ article, related }: { article: Artic
             </div>
             <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">{title}</h1>
             {thumbnail && (
-              <div className="mb-8 rounded-2xl overflow-hidden border border-accent-100 dark:border-gray-800 shadow-sm">
+              <div className="mb-4 rounded-2xl overflow-hidden border border-accent-100 dark:border-gray-800 shadow-sm">
                 <img
                   src={thumbnail || "/placeholder.svg"}
                   alt={title}
                   className="w-full h-auto object-cover max-h-[500px]"
                 />
+              </div>
+            )}
+            {/* Tags below cover image */}
+            {article.tags && article.tags.length > 0 && (
+              <div className="flex flex-wrap gap-2 mb-8">
+                {article.tags.map((tag) => (
+                  <span
+                    key={tag.slug}
+                    className="px-3 py-1 text-xs font-medium rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 border border-gray-200 dark:border-gray-700"
+                  >
+                    {tag.name[language] || tag.name.en}
+                  </span>
+                ))}
               </div>
             )}
             <div className="prose dark:prose-invert max-w-none">
