@@ -101,20 +101,32 @@ export default function GuideArticleClient({ article, related }: { article: Arti
 
       <div className="flex flex-col lg:flex-row gap-8">
         <main className="flex-1 min-w-0">
-          <article>
-            <div className="flex items-center gap-4 mb-4">
+          <article className="bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-[32px] p-8 md:p-12 shadow-sm">
+            <div className="flex items-center gap-4 mb-6">
               <TagPills tags={[article.category]} variant="category" />
-              {article.readingTime && <span className="text-sm text-gray-500">{article.readingTime} min read</span>}
+              {article.readingTime && <span className="text-sm text-gray-500 font-medium">{article.readingTime} min read</span>}
             </div>
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">{title}</h1>
 
-            {/* Tags below title */}
+            <h1 className="text-3xl md:text-5xl font-bold text-gray-900 dark:text-white mb-8 leading-tight">{title}</h1>
+
+            {/* Thumbnail - added missing check */}
+            {article.thumbnail && (article.thumbnail[language] || article.thumbnail["en"]) && (
+              <div className="mb-8 rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-800 shadow-sm">
+                <img
+                  src={article.thumbnail[language] || article.thumbnail["en"] || "/placeholder.svg"}
+                  alt={title}
+                  className="w-full h-auto object-cover max-h-[600px]"
+                />
+              </div>
+            )}
+
+            {/* Tags below title/image */}
             {article.tags && article.tags.length > 0 && (
-              <div className="flex flex-wrap gap-2 mb-8">
+              <div className="flex flex-wrap gap-2 mb-10">
                 {article.tags.map((tag) => (
                   <span
                     key={tag.slug}
-                    className="px-3 py-1 text-xs font-medium rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 border border-gray-200 dark:border-gray-700"
+                    className="px-3 py-1 text-xs font-medium rounded-full bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-400 border border-gray-100 dark:border-gray-700"
                   >
                     {tag.name[language] || tag.name.en}
                   </span>
@@ -122,7 +134,7 @@ export default function GuideArticleClient({ article, related }: { article: Arti
               </div>
             )}
 
-            <div className="prose dark:prose-invert max-w-none">
+            <div className="prose prose-lg dark:prose-invert max-w-none prose-headings:font-bold prose-a:text-accent-600 hover:prose-a:text-accent-700">
               {Array.isArray(body) && body.length > 0 ? (
                 <PortableText value={body} components={portableTextComponents} />
               ) : (
@@ -131,7 +143,7 @@ export default function GuideArticleClient({ article, related }: { article: Arti
             </div>
 
             {checklist && checklist.length > 0 && (
-              <div className="mt-10 p-8 bg-accent-50 dark:bg-accent-500/10 rounded-2xl border border-accent-100 dark:border-accent-500/20 shadow-sm relative overflow-hidden group">
+              <div className="mt-12 p-8 bg-accent-50 dark:bg-accent-500/10 rounded-2xl border border-accent-100 dark:border-accent-500/20 shadow-sm relative overflow-hidden group">
                 <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:scale-110 transition-transform duration-500">
                   <svg className="w-24 h-24 text-accent-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path

@@ -103,18 +103,18 @@ export default function CaseStudyArticleClient({ article, related }: { article: 
 
       <div className="flex flex-col lg:flex-row gap-8">
         <main className="flex-1 min-w-0">
-          <article>
-            <time className="text-sm text-gray-500 mb-4 block">
+          <article className="bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-[32px] p-8 md:p-12 shadow-sm">
+            <time className="text-sm text-gray-500 font-medium mb-4 block">
               {new Date(article.date).toLocaleDateString(language === "ru" ? "ru-RU" : "en-US", {
                 year: "numeric",
                 month: "long",
                 day: "numeric",
               })}
             </time>
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-8 leading-tight">{title}</h1>
+            <h1 className="text-3xl md:text-5xl font-bold text-gray-900 dark:text-white mb-8 leading-tight">{title}</h1>
 
             {thumbnail && (
-              <div className="mb-4 rounded-2xl overflow-hidden aspect-video border border-accent-100 dark:border-gray-800 shadow-lg relative bg-accent-900 group">
+              <div className="mb-8 rounded-2xl overflow-hidden aspect-video border border-gray-100 dark:border-gray-800 shadow-lg relative bg-accent-900 group">
                 <img
                   src={thumbnail || "/placeholder.svg"}
                   alt={title}
@@ -133,11 +133,11 @@ export default function CaseStudyArticleClient({ article, related }: { article: 
 
             {/* Tags below cover image */}
             {article.tags && article.tags.length > 0 && (
-              <div className="flex flex-wrap gap-2 mb-8">
+              <div className="flex flex-wrap gap-2 mb-10">
                 {article.tags.map((tag) => (
                   <span
                     key={tag.slug}
-                    className="px-3 py-1 text-xs font-medium rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 border border-gray-200 dark:border-gray-700"
+                    className="px-3 py-1 text-xs font-medium rounded-full bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-400 border border-gray-100 dark:border-gray-700"
                   >
                     {tag.name[language] || tag.name.en}
                   </span>
@@ -188,7 +188,7 @@ export default function CaseStudyArticleClient({ article, related }: { article: 
               </div>
             )}
 
-            <div className="prose dark:prose-invert max-w-none">
+            <div className="prose prose-lg dark:prose-invert max-w-none prose-headings:font-bold prose-a:text-accent-600 hover:prose-a:text-accent-700">
               {Array.isArray(body) && body.length > 0 ? (
                 <PortableText value={body} components={portableTextComponents} />
               ) : (

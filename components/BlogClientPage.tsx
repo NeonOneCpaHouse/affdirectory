@@ -109,7 +109,7 @@ export default function BlogClientPage({ articles, tagsByCategory }: BlogClientP
 
           {/* Articles Grid */}
           {filtered.length > 0 ? (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-6">
               {filtered.map((article) => (
                 <ArticleCard key={article.slug} article={article} />
               ))}
