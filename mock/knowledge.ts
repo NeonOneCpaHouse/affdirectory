@@ -2,7 +2,16 @@ import { client } from "@/lib/sanity"
 import type { Localized } from "@/types"
 import type { PortableTextBlock } from "@portabletext/types"
 
-export type KnowledgeCategory =
+export type AffiliateKnowledgeCategory =
+  | "marketing"
+  | "analytics"
+  | "vertical"
+  | "targeting"
+  | "advertisement"
+  | "format"
+  | "affiliate"
+
+export type WebmasterKnowledgeCategory =
   | "traffic"
   | "monetization-models"
   | "ad-formats"
@@ -11,6 +20,8 @@ export type KnowledgeCategory =
   | "technical"
   | "webmaster"
   | "financial"
+
+export type KnowledgeCategory = AffiliateKnowledgeCategory | WebmasterKnowledgeCategory
 
 export interface KnowledgeEntry {
   slug: string
@@ -87,23 +98,15 @@ export async function getKnowledgeBySlug(slug: string): Promise<KnowledgeEntry |
   }
 }
 
-export function groupKnowledgeByCategory(entries: KnowledgeEntry[]): Record<KnowledgeCategory, KnowledgeEntry[]> {
-  const grouped: Record<string, KnowledgeEntry[]> = {
-    traffic: [],
-    "monetization-models": [],
-    "ad-formats": [],
-    metrics: [],
-    "ad-networks": [],
-    technical: [],
-    webmaster: [],
-    financial: [],
-  }
+export function groupKnowledgeByCategory(entries: KnowledgeEntry[]): Record<string, KnowledgeEntry[]> {
+  const grouped: Record<string, KnowledgeEntry[]> = {}
 
   entries.forEach((entry) => {
-    if (grouped[entry.category]) {
-      grouped[entry.category].push(entry)
+    if (!grouped[entry.category]) {
+      grouped[entry.category] = []
     }
+    grouped[entry.category].push(entry)
   })
 
-  return grouped as Record<KnowledgeCategory, KnowledgeEntry[]>
+  return grouped
 }

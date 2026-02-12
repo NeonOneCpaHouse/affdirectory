@@ -42,6 +42,15 @@ export const knowledge = defineType({
       type: "string",
       options: {
         list: [
+          // Affiliate categories
+          { title: "Маркетинг / Marketing", value: "marketing" },
+          { title: "Аналитика / Analytics", value: "analytics" },
+          { title: "Вертикаль / Vertical", value: "vertical" },
+          { title: "Таргетинг / Targeting", value: "targeting" },
+          { title: "Реклама / Advertisement", value: "advertisement" },
+          { title: "Формат / Format", value: "format" },
+          { title: "Арбитраж / Affiliate", value: "affiliate" },
+          // Webmaster categories
           { title: "Traffic & Audience", value: "traffic" },
           { title: "Monetization Models", value: "monetization-models" },
           { title: "Ad Formats", value: "ad-formats" },
@@ -52,7 +61,36 @@ export const knowledge = defineType({
           { title: "Financial Terms", value: "financial" },
         ],
       },
-      validation: (rule) => rule.required(),
+      validation: (rule) =>
+        rule.required().custom((value, context) => {
+          const audience = (context.document as any)?.audience
+          const affiliateCategories = [
+            "marketing",
+            "analytics",
+            "vertical",
+            "targeting",
+            "advertisement",
+            "format",
+            "affiliate",
+          ]
+          const webmasterCategories = [
+            "traffic",
+            "monetization-models",
+            "ad-formats",
+            "metrics",
+            "ad-networks",
+            "technical",
+            "webmaster",
+            "financial",
+          ]
+          if (audience === "affiliate" && !affiliateCategories.includes(value as string)) {
+            return "Please select a category valid for the Affiliate audience"
+          }
+          if (audience === "webmaster" && !webmasterCategories.includes(value as string)) {
+            return "Please select a category valid for the Webmaster audience"
+          }
+          return true
+        }),
     }),
     defineField({
       name: "thumbnail",

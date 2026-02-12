@@ -13,7 +13,17 @@ interface KnowledgeBaseClientPageProps {
   entries: KnowledgeEntry[]
 }
 
-const categoryTranslationKeys: Record<KnowledgeCategory, string> = {
+const affiliateCategoryTranslationKeys: Record<string, string> = {
+  marketing: "knowledge.marketing",
+  analytics: "knowledge.analytics",
+  vertical: "knowledge.vertical",
+  targeting: "knowledge.targeting",
+  advertisement: "knowledge.advertisement",
+  format: "knowledge.format",
+  affiliate: "knowledge.affiliate",
+}
+
+const webmasterCategoryTranslationKeys: Record<string, string> = {
   traffic: "knowledge.traffic",
   "monetization-models": "knowledge.monetizationModels",
   "ad-formats": "knowledge.adFormats",
@@ -150,16 +160,12 @@ export default function KnowledgeBaseClientPage({ entries }: KnowledgeBaseClient
     setSearchQuery("")
   }
 
-  const categories = [
-    { value: "traffic", label: t("knowledge.traffic") },
-    { value: "monetization-models", label: t("knowledge.monetizationModels") },
-    { value: "ad-formats", label: t("knowledge.adFormats") },
-    { value: "metrics", label: t("knowledge.metrics") },
-    { value: "ad-networks", label: t("knowledge.adNetworks") },
-    { value: "technical", label: t("knowledge.technical") },
-    { value: "webmaster", label: t("knowledge.webmaster") },
-    { value: "financial", label: t("knowledge.financial") },
-  ]
+  const isAffiliate = audience === "affiliate"
+  const categoryKeys = isAffiliate ? affiliateCategoryTranslationKeys : webmasterCategoryTranslationKeys
+  const categories = Object.entries(categoryKeys).map(([value, translationKey]) => ({
+    value,
+    label: t(translationKey),
+  }))
 
   return (
     <main className="min-h-screen">
