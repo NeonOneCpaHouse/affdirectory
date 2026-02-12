@@ -7,6 +7,7 @@ import Breadcrumbs from "@/components/Breadcrumbs"
 import ArticleCard from "@/components/ArticleCard"
 import type { Article, ArticleCategory, ArticleTag } from "@/mock/articles"
 import { useLanguage } from "@/context/LanguageContext"
+import { getTagVariants } from "@/lib/utils"
 
 const categories: { value: ArticleCategory | "all"; labelKey: string }[] = [
   { value: "all", labelKey: "blog.allPosts" },
@@ -89,21 +90,27 @@ export default function BlogClientPage({ articles, tagsByCategory }: BlogClientP
           {/* Tag Cloud */}
           {activeTags.length > 0 && (
             <div className="flex flex-wrap gap-2 mb-8">
-              {activeTags.map((tag) => (
-                <button
-                  key={tag.slug}
-                  onClick={() => handleTagClick(tag.slug)}
-                  className={`
+              {activeTags.map((tag) => {
+                const variants = getTagVariants(tag.name.en)
+                const hoverClasses = variants.solid.split(" ").map((c) => `hover:${c}`).join(" ")
+                const isActive = activeTag === tag.slug
+
+                return (
+                  <button
+                    key={tag.slug}
+                    onClick={() => handleTagClick(tag.slug)}
+                    className={`
                     px-3 py-1.5 text-xs font-medium rounded-full border transition-all
-                    ${activeTag === tag.slug
-                      ? "bg-accent-600 text-white border-accent-600 shadow-sm"
-                      : "bg-gray-50 dark:bg-gray-800/50 text-gray-600 dark:text-gray-400 border-gray-200 dark:border-gray-700 hover:border-accent-400 hover:text-accent-600 dark:hover:text-accent-400"
-                    }
+                    ${isActive
+                        ? `${variants.solid} shadow-sm`
+                        : `${variants.faint} border-transparent ${hoverClasses}`
+                      }
                   `}
-                >
-                  {tag.name[language] || tag.name.en}
-                </button>
-              ))}
+                  >
+                    {tag.name[language] || tag.name.en}
+                  </button>
+                )
+              })}
             </div>
           )}
 
