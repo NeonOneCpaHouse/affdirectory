@@ -75,6 +75,7 @@ export default defineType({
                     { title: "Ближний Восток/Middle East", value: "middle_east" },
                     { title: "Латинская Америка/ Latin America", value: "latin_america" },
                     { title: "Азия/Asia", value: "asia" },
+                    { title: "Африка/Africa", value: "africa" },
                     { title: "Online/Online", value: "online" },
                 ],
             },
