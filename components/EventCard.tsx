@@ -7,6 +7,7 @@ import { Calendar, MapPin, Tag } from "lucide-react"
 import { useLanguage } from "@/context/LanguageContext"
 import { format } from "date-fns"
 import { ru, enUS } from "date-fns/locale"
+import { getCategoryColor } from "@/lib/utils"
 
 export default function EventCard({ event }: { event: Event }) {
     const { language } = useLanguage()
@@ -58,12 +59,12 @@ export default function EventCard({ event }: { event: Event }) {
                         <div className="flex flex-wrap gap-2">
                             {Array.isArray(event.category) ? (
                                 event.category.map((cat, index) => (
-                                    <span key={index} className="px-2.5 py-1 bg-accent-50 dark:bg-accent-900/30 text-accent-600 text-xs font-bold rounded-full uppercase tracking-wider">
+                                    <span key={index} className={`px-2.5 py-1 ${getCategoryColor(cat)} text-xs font-bold rounded-full uppercase tracking-wider`}>
                                         {cat}
                                     </span>
                                 ))
                             ) : (
-                                <span className="px-2.5 py-1 bg-accent-50 dark:bg-accent-900/30 text-accent-600 text-xs font-bold rounded-full uppercase tracking-wider">
+                                <span className={`px-2.5 py-1 ${getCategoryColor(event.category)} text-xs font-bold rounded-full uppercase tracking-wider`}>
                                     {event.category}
                                 </span>
                             )}

@@ -9,6 +9,7 @@ import { format } from "date-fns"
 import { ru, enUS } from "date-fns/locale"
 import AdSlot from "./AdSlot"
 import { PortableText } from "@portabletext/react"
+import { getCategoryColor } from "@/lib/utils"
 
 export default function EventDetailClientPage({ event }: { event: Event }) {
     const { t, language } = useLanguage()
@@ -79,12 +80,12 @@ export default function EventDetailClientPage({ event }: { event: Event }) {
                                 <div className="flex flex-wrap gap-2">
                                     {Array.isArray(event.category) ? (
                                         event.category.map((cat, index) => (
-                                            <span key={index} className="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 text-[10px] font-bold rounded-full uppercase tracking-wider">
+                                            <span key={index} className={`px-3 py-1 ${getCategoryColor(cat)} text-[10px] font-bold rounded-full uppercase tracking-wider shadow-sm shrink-0`}>
                                                 {cat}
                                             </span>
                                         ))
                                     ) : (
-                                        <span className="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 text-[10px] font-bold rounded-full uppercase tracking-wider">
+                                        <span className={`px-3 py-1 ${getCategoryColor(event.category)} text-[10px] font-bold rounded-full uppercase tracking-wider shadow-sm shrink-0`}>
                                             {event.category}
                                         </span>
                                     )}
