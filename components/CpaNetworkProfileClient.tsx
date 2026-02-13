@@ -6,20 +6,25 @@ import RatingStars from "@/components/RatingStars"
 import type { CpaNetwork } from "@/mock/cpaNetworks"
 import { verticalLabels, type VerticalKey } from "@/mock/cpaNetworks"
 import { useLanguage } from "@/context/LanguageContext"
-import { PortableText } from "@portabletext/react"
+import RichText from "@/components/RichText"
+import { Send, Facebook, Instagram, Youtube, Linkedin, MessageCircle, Users, MessageSquare } from "lucide-react"
 
-const socialIcons: Record<string, { label: string; icon: string }> = {
-    telegram: { label: "Telegram", icon: "✈️" },
-    facebook: { label: "Facebook", icon: "📘" },
-    instagram: { label: "Instagram", icon: "📷" },
-    youtube: { label: "YouTube", icon: "▶️" },
-    linkedin: { label: "LinkedIn", icon: "💼" },
+const socialIcons: Record<string, { label: string; icon: React.ElementType }> = {
+    telegram: { label: "Telegram", icon: Send },
+    facebook: { label: "Facebook", icon: Facebook },
+    instagram: { label: "Instagram", icon: Instagram },
+    youtube: { label: "YouTube", icon: Youtube },
+    linkedin: { label: "LinkedIn", icon: Linkedin },
+    twitter: { label: "Twitter", icon: MessageSquare }, // default fallback or Twitter icon (not in default set? 'Twitter' is usually there, let's check or use MessageSquare)
 }
 
-const platformIcons: Record<string, string> = {
-    telegram: "✈️",
-    whatsapp: "💬",
-    teams: "🟦",
+// Support platform icons
+const platformIcons: Record<string, React.ElementType> = {
+    telegram: Send,
+    whatsapp: MessageCircle,
+    teams: Users,
+    skype: MessageSquare,
+    email: MessageSquare,
 }
 
 const ratingTooltips: Record<string, Record<string, string>> = {
@@ -156,18 +161,19 @@ export default function CpaNetworkProfileClient({
                             )}
                             {network.socials && Object.entries(network.socials).map(([key, url]) => {
                                 if (!url) return null
-                                const social = socialIcons[key]
+                                const social = socialIcons[key.toLowerCase()]
                                 if (!social) return null
+                                const Icon = social.icon
                                 return (
                                     <a
                                         key={key}
                                         href={url}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="text-lg hover:opacity-75 transition-opacity"
+                                        className="text-gray-400 hover:text-accent-600 transition-colors"
                                         title={social.label}
                                     >
-                                        {social.icon}
+                                        <Icon className="w-5 h-5" />
                                     </a>
                                 )
                             })}
@@ -226,33 +232,38 @@ export default function CpaNetworkProfileClient({
                                 {language === "ru" ? "Поддержка" : "Support"}
                             </h2>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                {network.support.map((contact, idx) => (
-                                    <a
-                                        key={idx}
-                                        href={contact.url}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="flex items-center gap-3 p-3 bg-accent-50 dark:bg-gray-900/50 rounded-lg hover:bg-accent-100 dark:hover:bg-gray-800 transition-colors"
-                                    >
-                                        {contact.avatar ? (
-                                            <img
-                                                src={contact.avatar}
-                                                alt="Support"
-                                                className="w-10 h-10 rounded-full object-cover"
-                                            />
-                                        ) : (
-                                            <div className="w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-sm">
-                                                👤
+                                {network.support.map((contact, idx) => {
+                                    const PlatformIcon = platformIcons[contact.platform.toLowerCase()] || MessageSquare
+                                    return (
+                                        <a
+                                            key={idx}
+                                            href={contact.url}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="flex items-center gap-3 p-3 bg-accent-50 dark:bg-gray-900/50 rounded-lg hover:bg-accent-100 dark:hover:bg-gray-800 transition-colors"
+                                        >
+                                            {contact.avatar ? (
+                                                <img
+                                                    src={contact.avatar}
+                                                    alt="Support"
+                                                    className="w-10 h-10 rounded-full object-cover"
+                                                />
+                                            ) : (
+                                                <div className="w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-sm text-gray-500">
+                                                    <Users className="w-5 h-5" />
+                                                </div>
+                                            )}
+                                            <div>
+                                                <span className="text-gray-900 dark:text-white">
+                                                    <PlatformIcon className="w-5 h-5 inline-block mr-2 text-accent-600" />
+                                                </span>
+                                                <span className="text-sm text-gray-600 dark:text-gray-300 capitalize">
+                                                    {contact.platform}
+                                                </span>
                                             </div>
-                                        )}
-                                        <div>
-                                            <span className="text-lg">{platformIcons[contact.platform] || "💬"}</span>
-                                            <span className="ml-2 text-sm text-gray-600 dark:text-gray-300 capitalize">
-                                                {contact.platform}
-                                            </span>
-                                        </div>
-                                    </a>
-                                ))}
+                                        </a>
+                                    )
+                                })}
                             </div>
                         </div>
                     )}
@@ -297,9 +308,7 @@ export default function CpaNetworkProfileClient({
                             <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
                                 {language === "ru" ? "Обзор" : "Review"}
                             </h2>
-                            <div className="prose dark:prose-invert max-w-none text-gray-600 dark:text-gray-300">
-                                <PortableText value={reviewContent} />
-                            </div>
+                            <RichText value={reviewContent} />
                         </div>
                     )}
 
