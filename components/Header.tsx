@@ -111,6 +111,47 @@ function NavItem({ label, href, items }: NavItemProps) {
   )
 }
 
+function MobileSubGroup({ title, items, color, onNavigate }: { title: string, items: DropdownItem[], color: string, onNavigate: () => void }) {
+  const [isOpen, setIsOpen] = useState(false)
+  return (
+    <div className="ml-2 border-l-2 border-gray-100 dark:border-gray-800 pl-3 my-1">
+      <button
+        onClick={(e) => {
+          e.stopPropagation()
+          setIsOpen(!isOpen)
+        }}
+        className={`w-full flex items-center justify-between text-sm font-semibold ${color} py-2`}
+      >
+        {title}
+        <ChevronDown className={cn("w-3 h-3 transition-transform", isOpen && "rotate-180")} />
+      </button>
+      {isOpen && (
+        <div className="flex flex-col gap-1 mt-1">
+          {items.map((item) => {
+            // Strip suffixes for cleaner mobile view
+            const shortLabel = item.label
+              .replace(/ Ad Networks?$/i, '')
+              .replace(/ CPA Networks?$/i, '')
+              .replace(/ CPA-сети$/i, '')
+              .replace(/ рекламные сети$/i, '')
+
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={onNavigate}
+                className="text-sm text-gray-600 dark:text-gray-400 hover:text-accent-600 dark:hover:text-white transition-colors py-1.5 block"
+              >
+                {shortLabel}
+              </Link>
+            )
+          })}
+        </div>
+      )}
+    </div>
+  )
+}
+
 function MobileNavItem({ label, href, items, onNavigate }: NavItemProps & { onNavigate: () => void }) {
   const [isOpen, setIsOpen] = useState(false)
 
@@ -119,15 +160,18 @@ function MobileNavItem({ label, href, items, onNavigate }: NavItemProps & { onNa
       <Link
         href={href}
         onClick={onNavigate}
-        className="text-base text-gray-700 dark:text-gray-300 hover:text-accent-600 dark:hover:text-white transition-colors py-2"
+        className="text-base text-gray-700 dark:text-gray-300 hover:text-accent-600 dark:hover:text-white transition-colors py-2 block border-b border-gray-50 dark:border-gray-800/50"
       >
         {label}
       </Link>
     )
   }
 
+  // Check if this is the Rankings menu (large number of items)
+  const isMegaMenu = items.length > 8
+
   return (
-    <div>
+    <div className="border-b border-gray-50 dark:border-gray-800/50 pb-1">
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="w-full flex items-center justify-between text-base text-gray-700 dark:text-gray-300 hover:text-accent-600 dark:hover:text-white transition-colors py-2"
@@ -135,18 +179,58 @@ function MobileNavItem({ label, href, items, onNavigate }: NavItemProps & { onNa
         {label}
         <ChevronDown className={cn("w-4 h-4 transition-transform", isOpen && "rotate-180")} />
       </button>
+
       {isOpen && (
-        <div className="flex flex-col gap-2 ml-4 mt-2">
-          {items.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              onClick={onNavigate}
-              className="text-sm text-gray-600 dark:text-gray-400 hover:text-accent-600 dark:hover:text-white transition-colors py-1.5"
-            >
-              {item.label}
-            </Link>
-          ))}
+        <div className="flex flex-col gap-1 ml-2 mt-1">
+          {isMegaMenu ? (
+            // Grouped sub-menus for Rankings
+            (() => {
+              const adItems = items.filter(i => i.href.includes('-ad-networks'))
+              const cpaItems = items.filter(i => i.href.includes('-cpa-networks'))
+              const serviceItems = items.filter(i => !i.href.includes('-ad-networks') && !i.href.includes('-cpa-networks'))
+
+              return (
+                <>
+                  {adItems.length > 0 && (
+                    <MobileSubGroup
+                      title={label.includes('Рейтинги') ? 'Рекл. сети' : 'Ad Networks'}
+                      items={adItems}
+                      color="text-blue-600 dark:text-blue-400"
+                      onNavigate={onNavigate}
+                    />
+                  )}
+                  {cpaItems.length > 0 && (
+                    <MobileSubGroup
+                      title={label.includes('Рейтинги') ? 'CPA-сети' : 'CPA Networks'}
+                      items={cpaItems}
+                      color="text-purple-600 dark:text-purple-400"
+                      onNavigate={onNavigate}
+                    />
+                  )}
+                  {serviceItems.length > 0 && (
+                    <MobileSubGroup
+                      title={label.includes('Рейтинги') ? 'Сервисы' : 'Services'}
+                      items={serviceItems}
+                      color="text-emerald-600 dark:text-emerald-400"
+                      onNavigate={onNavigate}
+                    />
+                  )}
+                </>
+              )
+            })()
+          ) : (
+            // Standard flat list for other menus
+            items.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={onNavigate}
+                className="text-sm text-gray-600 dark:text-gray-400 hover:text-accent-600 dark:hover:text-white transition-colors py-2 pl-4 border-l border-gray-100 dark:border-gray-800 block"
+              >
+                {item.label}
+              </Link>
+            ))
+          )}
         </div>
       )}
     </div>
