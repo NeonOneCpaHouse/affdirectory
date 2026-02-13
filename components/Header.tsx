@@ -57,27 +57,35 @@ function NavItem({ label, href, items }: NavItemProps) {
             <div className="bg-white dark:bg-gray-900 border border-accent-200 dark:border-gray-700 rounded-xl shadow-xl p-5 min-w-[540px]">
               <div className="grid grid-cols-3 gap-6">
                 {(() => {
-                  // Group items by category markers in their labels
-                  const adItems = items.filter(i => i.label.toLowerCase().includes('ad network'))
-                  const cpaItems = items.filter(i => i.label.toLowerCase().includes('cpa'))
-                  const serviceItems = items.filter(i => !i.label.toLowerCase().includes('ad network') && !i.label.toLowerCase().includes('cpa'))
+                  // Group items by href slugs (works for any language)
+                  const adItems = items.filter(i => i.href.includes('-ad-networks'))
+                  const cpaItems = items.filter(i => i.href.includes('-cpa-networks'))
+                  const serviceItems = items.filter(i => !i.href.includes('-ad-networks') && !i.href.includes('-cpa-networks'))
                   const groups = [
-                    { title: 'Ad Networks', color: 'text-blue-500', items: adItems },
-                    { title: 'CPA Networks', color: 'text-purple-500', items: cpaItems },
-                    { title: 'Services', color: 'text-emerald-500', items: serviceItems },
+                    { title: 'Ad Networks', titleRu: 'Рекл. сети', color: 'text-blue-500', items: adItems },
+                    { title: 'CPA Networks', titleRu: 'CPA-сети', color: 'text-purple-500', items: cpaItems },
+                    { title: 'Services', titleRu: 'Сервисы', color: 'text-emerald-500', items: serviceItems },
                   ].filter(g => g.items.length > 0)
                   return groups.map((group) => (
                     <div key={group.title}>
                       <p className={`text-xs font-bold uppercase tracking-wider mb-2 ${group.color}`}>{group.title}</p>
-                      {group.items.map((item) => (
-                        <Link
-                          key={item.href}
-                          href={item.href}
-                          className="block px-2 py-1.5 text-sm text-gray-600 dark:text-gray-400 hover:bg-accent-50 dark:hover:bg-gray-800 hover:text-accent-600 dark:hover:text-white transition-colors rounded-md"
-                        >
-                          {item.label.replace(/ Ad Networks?/i, '').replace(/ CPA Networks?/i, '')}
-                        </Link>
-                      ))}
+                      {group.items.map((item) => {
+                        // Strip the category suffix from label for brevity
+                        const shortLabel = item.label
+                          .replace(/ Ad Networks?$/i, '')
+                          .replace(/ CPA Networks?$/i, '')
+                          .replace(/ CPA-сети$/i, '')
+                          .replace(/ рекламные сети$/i, '')
+                        return (
+                          <Link
+                            key={item.href}
+                            href={item.href}
+                            className="block px-2 py-1.5 text-sm text-gray-600 dark:text-gray-400 hover:bg-accent-50 dark:hover:bg-gray-800 hover:text-accent-600 dark:hover:text-white transition-colors rounded-md"
+                          >
+                            {shortLabel}
+                          </Link>
+                        )
+                      })}
                     </div>
                   ))
                 })()}
