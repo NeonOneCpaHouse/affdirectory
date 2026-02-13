@@ -2,7 +2,7 @@ import { defineField, defineType } from "sanity"
 
 export default defineType({
   name: "network",
-  title: "Network",
+  title: "Ad Network",
   type: "document",
   fields: [
     defineField({
@@ -55,6 +55,27 @@ export default defineType({
       title: "Signup URL",
       type: "url",
       description: "Publisher signup URL",
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "adFormat",
+      title: "Ad Formats (for ranking pages)",
+      type: "array",
+      of: [{ type: "string" }],
+      options: {
+        list: [
+          { title: "Push", value: "push" },
+          { title: "Popunder", value: "popunder" },
+          { title: "In-Page", value: "inPage" },
+          { title: "Banner", value: "banner" },
+          { title: "Telegram", value: "telegram" },
+          { title: "Display", value: "display" },
+          { title: "Native", value: "native" },
+          { title: "Mobile", value: "mobile" },
+          { title: "Video", value: "video" },
+        ],
+      },
+      description: "Select which ranking sub-pages this network should appear on",
       validation: (Rule) => Rule.required(),
     }),
     defineField({

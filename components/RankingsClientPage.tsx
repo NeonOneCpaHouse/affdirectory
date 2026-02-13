@@ -3,11 +3,11 @@
 import Link from "next/link"
 import AdSlot from "@/components/AdSlot"
 import Breadcrumbs from "@/components/Breadcrumbs"
-import type { FormatRanking } from "@/mock/rankings"
+import type { RankingCategory } from "@/mock/rankings"
 import { useLanguage } from "@/context/LanguageContext"
 import { useAudience } from "@/context/AudienceContext"
 
-export default function RankingsClientPage({ rankings }: { rankings: FormatRanking[] }) {
+export default function RankingsClientPage({ categories }: { categories: RankingCategory[] }) {
   const { t, language } = useLanguage()
   const { audience } = useAudience()
 
@@ -25,38 +25,45 @@ export default function RankingsClientPage({ rankings }: { rankings: FormatRanki
           <div className="lg:hidden mb-8">
             <AdSlot slotKey="sidebar" />
           </div>
-          <div className="grid md:grid-cols-2 gap-4 mb-8">
-            {rankings.map((ranking) => {
-              const label = ranking.label[language] || ranking.label["en"]
-              return (
-                <Link
-                  key={ranking.slug}
-                  href={`/${language}/${audience}/rankings/${ranking.slug}`}
-                  className="block bg-white dark:bg-gray-800/50 border border-accent-200 dark:border-gray-700/50 rounded-xl p-6 hover:border-accent-500 dark:hover:border-accent-500/50 transition-all group shadow-sm"
-                >
-                  <h2 className="text-xl font-semibold text-gray-900 dark:text-white group-hover:text-accent-600 transition-colors mb-2">
-                    {t("rankings.bestNetworks").replace("{format}", label)}
-                  </h2>
-                  <p className="text-gray-500 dark:text-gray-400 mb-4">
-                    {t("rankings.networksRanked").replace("{count}", ranking.networks.length.toString())}
-                  </p>
-                  <div className="space-y-2">
-                    {ranking.networks.slice(0, 3).map((item) => (
-                      <div key={item.network.slug} className="flex items-center justify-between text-sm">
-                        <span className="text-gray-600 dark:text-gray-300">
-                          #{item.rank} {item.network.name}
-                        </span>
-                        <span className="text-yellow-600 dark:text-yellow-400">{item.score.toFixed(1)} ★</span>
-                      </div>
-                    ))}
+
+          {categories.map((category, catIdx) => {
+            const catLabel = category.label[language] || category.label["en"]
+            return (
+              <div key={category.key} className="mb-12">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className={`w-1 h-8 rounded-full ${catIdx === 0 ? "bg-blue-500" : catIdx === 1 ? "bg-purple-500" : "bg-emerald-500"
+                    }`} />
+                  <h2 className="text-2xl font-bold text-gray-900 dark:text-white">{catLabel}</h2>
+                </div>
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {category.subcategories.map((sub) => {
+                    const subLabel = sub.label[language] || sub.label["en"]
+                    return (
+                      <Link
+                        key={sub.slug}
+                        href={`/${language}/${audience}/rankings/${sub.slug}`}
+                        className="block bg-white dark:bg-gray-800/50 border border-accent-200 dark:border-gray-700/50 rounded-xl p-5 hover:border-accent-500 dark:hover:border-accent-500/50 transition-all group shadow-sm"
+                      >
+                        <h3 className="text-lg font-semibold text-gray-900 dark:text-white group-hover:text-accent-600 transition-colors mb-1">
+                          {subLabel}
+                        </h3>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">
+                          {sub.itemCount > 0
+                            ? `${sub.itemCount} ${language === "ru" ? "в рейтинге" : "ranked"}`
+                            : language === "ru" ? "Скоро" : "Coming soon"}
+                        </p>
+                      </Link>
+                    )
+                  })}
+                </div>
+                {catIdx < categories.length - 1 && (
+                  <div className="mt-8">
+                    <AdSlot slotKey="inline" />
                   </div>
-                </Link>
-              )
-            })}
-          </div>
-          <div className="mb-12">
-            <AdSlot slotKey="inline" />
-          </div>
+                )}
+              </div>
+            )
+          })}
           <div className="lg:hidden mb-8">
             <AdSlot slotKey="sidebar" />
           </div>

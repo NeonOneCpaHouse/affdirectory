@@ -51,18 +51,52 @@ function NavItem({ label, href, items }: NavItemProps) {
         <ChevronDown className={cn("w-3 h-3 transition-transform", isOpen && "rotate-180")} />
       </Link>
       {isOpen && (
-        <div className="absolute top-full left-0 pt-2 z-50">
-          <div className="bg-white dark:bg-gray-900 border border-accent-200 dark:border-gray-700 rounded-lg shadow-lg py-2 min-w-[180px]">
-            {items.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 hover:bg-accent-50 dark:hover:bg-gray-800 hover:text-accent-600 dark:hover:text-white transition-colors"
-              >
-                {item.label}
-              </Link>
-            ))}
-          </div>
+        <div className={`absolute top-full pt-2 z-50 ${items.length > 8 ? 'left-1/2 -translate-x-1/2' : 'left-0'}`}>
+          {items.length > 8 ? (
+            /* Mega-menu for Rankings */
+            <div className="bg-white dark:bg-gray-900 border border-accent-200 dark:border-gray-700 rounded-xl shadow-xl p-5 min-w-[540px]">
+              <div className="grid grid-cols-3 gap-6">
+                {(() => {
+                  // Group items by category markers in their labels
+                  const adItems = items.filter(i => i.label.toLowerCase().includes('ad network'))
+                  const cpaItems = items.filter(i => i.label.toLowerCase().includes('cpa'))
+                  const serviceItems = items.filter(i => !i.label.toLowerCase().includes('ad network') && !i.label.toLowerCase().includes('cpa'))
+                  const groups = [
+                    { title: 'Ad Networks', color: 'text-blue-500', items: adItems },
+                    { title: 'CPA Networks', color: 'text-purple-500', items: cpaItems },
+                    { title: 'Services', color: 'text-emerald-500', items: serviceItems },
+                  ].filter(g => g.items.length > 0)
+                  return groups.map((group) => (
+                    <div key={group.title}>
+                      <p className={`text-xs font-bold uppercase tracking-wider mb-2 ${group.color}`}>{group.title}</p>
+                      {group.items.map((item) => (
+                        <Link
+                          key={item.href}
+                          href={item.href}
+                          className="block px-2 py-1.5 text-sm text-gray-600 dark:text-gray-400 hover:bg-accent-50 dark:hover:bg-gray-800 hover:text-accent-600 dark:hover:text-white transition-colors rounded-md"
+                        >
+                          {item.label.replace(/ Ad Networks?/i, '').replace(/ CPA Networks?/i, '')}
+                        </Link>
+                      ))}
+                    </div>
+                  ))
+                })()}
+              </div>
+            </div>
+          ) : (
+            /* Standard dropdown */
+            <div className="bg-white dark:bg-gray-900 border border-accent-200 dark:border-gray-700 rounded-lg shadow-lg py-2 min-w-[180px]">
+              {items.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 hover:bg-accent-50 dark:hover:bg-gray-800 hover:text-accent-600 dark:hover:text-white transition-colors"
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </div>
+          )}
         </div>
       )}
     </div>

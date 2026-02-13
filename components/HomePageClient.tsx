@@ -3,7 +3,7 @@
 import Link from "next/link"
 import AdSlot from "@/components/AdSlot"
 import ArticleCard from "@/components/ArticleCard"
-import NetworkTableWrapper from "@/components/NetworkTableWrapper"
+import RankingsPreview from "@/components/RankingsPreview"
 import { useLanguage } from "@/context/LanguageContext"
 import { useAudience } from "@/context/AudienceContext"
 import type { Article } from "@/mock/articles"
@@ -57,7 +57,7 @@ export default function HomePageClient({
                 {t("common.viewRankings")} →
               </Link>
             </div>
-            <NetworkTableWrapper />
+            <RankingsPreview />
           </section>
 
 

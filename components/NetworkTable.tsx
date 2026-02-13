@@ -1,13 +1,13 @@
 "use client"
 
 import Link from "next/link"
-import type { RankedNetwork } from "@/mock/rankings"
+import type { RankedAdNetwork } from "@/mock/rankings"
 import RatingStars from "./RatingStars"
 import { useLanguage } from "@/context/LanguageContext"
 import { useAudience } from "@/context/AudienceContext"
 
 interface NetworkTableProps {
-  networks: RankedNetwork[]
+  networks: RankedAdNetwork[]
   showRank?: boolean
   maxRows?: number
 }

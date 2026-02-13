@@ -20,12 +20,24 @@ export type FormatKey =
   | "domainRedirect"
   | "interstitial"
 
+export type AdFormatKey =
+  | "push"
+  | "popunder"
+  | "inPage"
+  | "banner"
+  | "telegram"
+  | "display"
+  | "native"
+  | "mobile"
+  | "video"
+
 export interface Network {
   slug: string
   name: string
   logo?: string
   websiteUrl: string
   signupUrl: string
+  adFormat?: AdFormatKey[]
   formatsSupported: FormatKey[]
   geos: Localized<string[]>
   payoutFrequency: string
@@ -49,23 +61,18 @@ export const formatLabels: Record<FormatKey, Localized<string>> = {
   video: { en: "Video", ru: "Видео" },
   domainRedirect: { en: "Domain Redirect", ru: "Доменный трафик" },
   interstitial: { en: "Interstitial", ru: "Интерстишиал" },
-  // New categories mappings
-  adNetworks: { en: "Ad Networks", ru: "Рекламные сети" },
-  cpaNetworks: { en: "CPA Networks", ru: "CPA-сети" },
-  services: { en: "Services", ru: "Сервисы" },
-  antidetect: { en: "Antidetect Browsers", ru: "Антидетект-браузеры" },
-  spyTools: { en: "Spy Tools", ru: "Spy сервисы" },
-  cloaking: { en: "Cloaking", ru: "Клоакинг" },
-  proxy: { en: "Proxy", ru: "Прокси" },
-  trackers: { en: "Trackers", ru: "Трекеры" },
-  pwa: { en: "PWA", ru: "PWA" },
-  payment: { en: "Payment", ru: "Платежки" },
-  trafficMonetization: { en: "Traffic Monetization", ru: "Монетизация трафика" },
-  seo: { en: "SEO", ru: "SEO" },
-  ddosProtection: { en: "DDoS Protection", ru: "Защита от DDos-атак" },
-  cms: { en: "CMS", ru: "Системы управления контентом" },
-  testing: { en: "Testing", ru: "Тест сайтов и приложений" },
-  hostings: { en: "Hostings", ru: "Хостинги" },
+}
+
+export const adFormatLabels: Record<AdFormatKey, Localized<string>> = {
+  push: { en: "Push Ad Networks", ru: "Push рекламные сети" },
+  popunder: { en: "Popunder Ad Networks", ru: "Попандер рекламные сети" },
+  inPage: { en: "In-Page Ad Networks", ru: "In-Page рекламные сети" },
+  banner: { en: "Banner Ad Networks", ru: "Баннерные рекламные сети" },
+  telegram: { en: "Telegram Ad Networks", ru: "Telegram рекламные сети" },
+  display: { en: "Display Ad Networks", ru: "Display рекламные сети" },
+  native: { en: "Native Ad Networks", ru: "Нативные рекламные сети" },
+  mobile: { en: "Mobile Ad Networks", ru: "Мобильные рекламные сети" },
+  video: { en: "Video Ad Networks", ru: "Видео рекламные сети" },
 }
 
 export async function getNetworks(audience: string = "affiliate"): Promise<Network[]> {
@@ -75,6 +82,7 @@ export async function getNetworks(audience: string = "affiliate"): Promise<Netwo
     "logo": logo.asset->url,
     websiteUrl,
     signupUrl,
+    adFormat,
     formatsSupported,
     geos,
     payoutFrequency,
@@ -89,7 +97,7 @@ export async function getNetworks(audience: string = "affiliate"): Promise<Netwo
   try {
     return await client.fetch(query, { audience }, { next: { revalidate: 0 } })
   } catch (error) {
-    console.error("[v0] Failed to fetch networks from Sanity:", error)
+    console.error("Failed to fetch networks from Sanity:", error)
     return []
   }
 }
@@ -101,6 +109,7 @@ export async function getNetworkBySlug(slug: string): Promise<Network | undefine
     "logo": logo.asset->url,
     websiteUrl,
     signupUrl,
+    adFormat,
     formatsSupported,
     geos,
     payoutFrequency,
@@ -115,9 +124,14 @@ export async function getNetworkBySlug(slug: string): Promise<Network | undefine
   try {
     return await client.fetch(query, { slug }, { next: { revalidate: 0 } })
   } catch (error) {
-    console.error("[v0] Failed to fetch network by slug from Sanity:", error)
+    console.error("Failed to fetch network by slug from Sanity:", error)
     return undefined
   }
+}
+
+export async function getNetworksByAdFormat(adFormat: AdFormatKey, audience: string = "affiliate"): Promise<Network[]> {
+  const allNetworks = await getNetworks(audience)
+  return allNetworks.filter((n) => n.adFormat?.includes(adFormat))
 }
 
 export async function getNetworksByFormat(format: FormatKey, audience: string = "affiliate"): Promise<Network[]> {
