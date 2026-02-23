@@ -212,9 +212,6 @@ export default function UtmBuilderPage() {
                         </div>
 
                         {/* Optional Parameters */}
-                        <div className="lg:hidden my-8">
-                            <AdSlot slotKey="sidebar" />
-                        </div>
                         <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-6 shadow-sm">
                             <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">{loc("parameters")}</h3>
                             <div className="grid md:grid-cols-3 gap-4">
@@ -249,6 +246,10 @@ export default function UtmBuilderPage() {
                                     <p className="mt-1 text-xs text-gray-400">{localizedText.term.help[language === 'ru' ? 'ru' : 'en']}</p>
                                 </div>
                             </div>
+                        </div>
+
+                        <div className="lg:hidden my-8">
+                            <AdSlot slotKey="sidebar" />
                         </div>
                     </div>
                 </div>

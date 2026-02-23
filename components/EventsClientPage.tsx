@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useRef, useEffect } from "react"
+import React, { useState, useRef, useEffect } from "react"
 import type { Event } from "@/mock/events"
 import { useLanguage } from "@/context/LanguageContext"
 import EventCard from "./EventCard"
@@ -224,16 +224,18 @@ export default function EventsClientPage({ events }: { events: Event[] }) {
                     {/* Grid */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
                         {filteredEvents.length > 0 ? (
-                            filteredEvents.map((event, index) => (
-                                <div key={event.id}>
-                                    <EventCard event={event} />
-                                    {index === 1 && (
-                                        <div className="lg:hidden my-6">
-                                            <AdSlot slotKey="sidebar" />
-                                        </div>
-                                    )}
-                                </div>
-                            ))
+                            <>
+                                {filteredEvents.map((event, index) => (
+                                    <React.Fragment key={event.id}>
+                                        <EventCard event={event} />
+                                        {index === 1 && (
+                                            <div className="col-span-1 md:col-span-2 lg:hidden w-full flex justify-center my-2">
+                                                <AdSlot slotKey="sidebar" />
+                                            </div>
+                                        )}
+                                    </React.Fragment>
+                                ))}
+                            </>
                         ) : (
                             <div className="col-span-full py-20 text-center bg-gray-50 dark:bg-gray-800/20 rounded-[40px] border-2 border-dashed border-gray-100 dark:border-gray-800">
                                 <p className="text-xl text-gray-500 dark:text-gray-400 font-medium tracking-tight">

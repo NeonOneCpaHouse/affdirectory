@@ -187,25 +187,25 @@ export default function KnowledgeBaseClientPage({ entries }: KnowledgeBaseClient
             />
           </div>
 
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 border-t border-gray-50 dark:border-gray-800">
-            <div className="flex gap-4 w-full sm:w-auto">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4 pt-6 border-t border-gray-50 dark:border-gray-800">
+            <div className="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
               <button
                 onClick={handleApplyFilters}
-                className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-8 py-3 bg-accent-600 hover:bg-accent-700 text-white font-bold rounded-2xl transition-all shadow-lg shadow-accent-500/20 active:scale-95"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3 bg-accent-600 hover:bg-accent-700 text-white font-bold rounded-2xl transition-all shadow-lg shadow-accent-500/20 active:scale-95"
               >
                 <Filter className="w-4 h-4" />
                 {t("jobs.applyFilters")}
               </button>
               <button
                 onClick={handleResetFilters}
-                className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-8 py-3 bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-400 font-bold rounded-2xl transition-all active:scale-95"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3 bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-400 font-bold rounded-2xl transition-all active:scale-95"
               >
                 <RotateCcw className="w-4 h-4" />
                 {t("jobs.resetFilters")}
               </button>
             </div>
 
-            <div className="relative w-full sm:max-w-xs">
+            <div className="relative w-full md:max-w-xs">
               <input
                 type="text"
                 placeholder={language === "ru" ? "Поиск терминов..." : "Search terms..."}
