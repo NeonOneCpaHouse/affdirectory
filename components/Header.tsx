@@ -15,6 +15,7 @@ import AudienceToggle from "./AudienceToggle"
 import { useLanguage } from "@/context/LanguageContext"
 import { useAudience } from "@/context/AudienceContext"
 import { cn } from "@/lib/utils"
+import { urlFor } from "@/lib/sanity"
 
 interface DropdownItem {
   label: string
@@ -237,7 +238,7 @@ function MobileNavItem({ label, href, items, onNavigate }: NavItemProps & { onNa
   )
 }
 
-export default function Header() {
+export default function Header({ branding }: { branding?: any }) {
   const { t, language } = useLanguage()
   const { audience } = useAudience()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -291,12 +292,26 @@ export default function Header() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Top Row: Logo, Search, Controls */}
           <div className="flex items-center justify-between h-16 border-b border-gray-100 dark:border-gray-800">
-            <Link href={getPath("/")} className="text-xl font-bold text-gray-900 dark:text-white">
-              <span className="text-accent-600">Aff</span>Traff
-            </Link>
+            <div className="flex items-center">
+              <Link href={getPath("/")} className="text-xl font-bold text-gray-900 dark:text-white">
+                <span className="text-accent-600">Aff</span>Traff
+              </Link>
+              {branding && branding.logo && branding.url && (
+                <div className="flex items-center gap-2 ml-3">
+                  <X className="w-4 h-4 text-gray-400" />
+                  <a href={branding.url} target="_blank" rel="noopener noreferrer">
+                    <img
+                      src={urlFor(branding.logo).height(32).url()}
+                      alt={branding.title || "Partner Logo"}
+                      className="h-8 w-auto object-contain"
+                    />
+                  </a>
+                </div>
+              )}
+            </div>
 
             <div className="flex items-center gap-3">
-              <div className="hidden sm:block relative">
+              <div className="hidden md:block relative">
                 <form
                   onSubmit={(e) => {
                     e.preventDefault()
@@ -325,7 +340,7 @@ export default function Header() {
                 </form>
 
                 {/* Instant Search Dropdown */}
-                {open && debouncedQuery.length >= 2 && (
+                {open && debouncedQuery.length >= 2 && !mobileMenuOpen && (
                   <>
                     <div
                       className="fixed inset-0 z-40"
@@ -375,8 +390,10 @@ export default function Header() {
                   </>
                 )}
               </div>
-              <AudienceToggle />
-              <div className="flex items-center gap-2">
+              <div className="hidden md:block">
+                <AudienceToggle />
+              </div>
+              <div className="hidden md:flex items-center gap-2">
                 <ThemeToggle />
                 <LanguageToggle />
               </div>
@@ -412,13 +429,27 @@ export default function Header() {
           />
           <div className="fixed top-0 left-0 bottom-0 w-[280px] sm:w-[340px] bg-white dark:bg-gray-900 z-[101] shadow-xl overflow-y-auto md:hidden border-r border-gray-200 dark:border-gray-700 transition-transform duration-300 ease-out transform translate-x-0">
             <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
-              <Link
-                href={getPath("/")}
-                className="text-xl font-bold text-gray-900 dark:text-white"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                <span className="text-accent-600">Aff</span>Traff
-              </Link>
+              <div className="flex items-center">
+                <Link
+                  href={getPath("/")}
+                  className="text-xl font-bold text-gray-900 dark:text-white"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <span className="text-accent-600">Aff</span>Traff
+                </Link>
+                {branding && branding.logo && branding.url && (
+                  <div className="flex items-center gap-1.5 ml-2.5">
+                    <X className="w-3 h-3 text-gray-400" />
+                    <a href={branding.url} target="_blank" rel="noopener noreferrer">
+                      <img
+                        src={urlFor(branding.logo).height(24).url()}
+                        alt={branding.title || "Partner Logo"}
+                        className="h-6 w-auto object-contain"
+                      />
+                    </a>
+                  </div>
+                )}
+              </div>
               <button
                 onClick={() => setMobileMenuOpen(false)}
                 className="p-2 text-gray-600 dark:text-gray-300 hover:text-accent-600 dark:hover:text-white"
@@ -428,6 +459,103 @@ export default function Header() {
               </button>
             </div>
             <nav className="flex flex-col gap-4 p-6">
+              {/* Mobile controls */}
+              <div className="flex flex-col gap-4 pb-4 border-b border-gray-100 dark:border-gray-800">
+                {/* Search */}
+                <div className="relative">
+                  <form
+                    onSubmit={(e) => {
+                      e.preventDefault()
+                      if (query.trim()) {
+                        setOpen(false)
+                        router.push(`/${language}/${audience}/search?q=${encodeURIComponent(query)}`)
+                        setMobileMenuOpen(false)
+                      }
+                    }}
+                    className="relative"
+                  >
+                    <input
+                      type="text"
+                      value={query}
+                      onChange={(e) => {
+                        setQuery(e.target.value)
+                        setOpen(true)
+                      }}
+                      onFocus={() => setOpen(true)}
+                      placeholder={t("common.search")}
+                      className="w-full bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-2 text-sm text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-accent-500"
+                    />
+                    <button type="submit" className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-gray-400 hover:text-accent-600">
+                      {isSearching ? <Loader2 className="w-4 h-4 animate-spin" /> : <Search className="w-4 h-4" />}
+                    </button>
+                  </form>
+
+                  {/* Instant Search Dropdown */}
+                  {open && debouncedQuery.length >= 2 && mobileMenuOpen && (
+                    <>
+                      <div
+                        className="fixed inset-0 z-40 bg-transparent"
+                        onClick={() => setOpen(false)}
+                      />
+                      <div className="absolute top-full left-0 right-0 mt-2 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg shadow-xl z-50 overflow-hidden max-h-[50vh] overflow-y-auto">
+                        {isSearching ? (
+                          <div className="p-4 text-center text-gray-500 text-sm">Searching...</div>
+                        ) : results.length > 0 ? (
+                          <div className="py-2">
+                            <div className="px-3 pb-2 text-xs font-semibold text-gray-400 uppercase tracking-wider">
+                              {t("common.articles")}
+                            </div>
+                            {results.map((article) => (
+                              <Link
+                                key={article.slug}
+                                href={`/${language}/${audience}/blog/${article.slug}`}
+                                onClick={() => {
+                                  setOpen(false)
+                                  setMobileMenuOpen(false)
+                                }}
+                                className="block px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+                              >
+                                <div className="text-sm font-medium text-gray-900 dark:text-gray-100 line-clamp-1">
+                                  {typeof article.title === 'string' ? article.title : (article.title as any)[language] || (article.title as any)['en']}
+                                </div>
+                                <div className="text-xs text-gray-500 mt-0.5 line-clamp-1">
+                                  {new Date(article.date).toLocaleDateString()}
+                                </div>
+                              </Link>
+                            ))}
+                            <div className="border-t border-gray-100 dark:border-gray-800 mt-1 pt-1">
+                              <button
+                                onClick={() => {
+                                  setOpen(false)
+                                  setMobileMenuOpen(false)
+                                  router.push(`/${language}/${audience}/search?q=${encodeURIComponent(query)}`)
+                                }}
+                                className="w-full text-left px-4 py-2 text-sm text-accent-600 font-medium hover:bg-gray-50 dark:hover:bg-gray-800"
+                              >
+                                {t("common.viewAllResults").replace("{count}", results.length.toString())}
+                              </button>
+                            </div>
+                          </div>
+                        ) : (
+                          <div className="p-4 text-center text-gray-500 text-sm">
+                            No results found for "{debouncedQuery}"
+                          </div>
+                        )}
+                      </div>
+                    </>
+                  )}
+                </div>
+
+                {/* Mobile Toggles */}
+                <div className="flex items-center justify-between">
+                  <AudienceToggle />
+                  <div className="flex items-center gap-2">
+                    <ThemeToggle />
+                    <LanguageToggle />
+                  </div>
+                </div>
+              </div>
+
               {navItems.map((item) => (
                 <MobileNavItem key={item.href} {...item} onNavigate={() => setMobileMenuOpen(false)} />
               ))}

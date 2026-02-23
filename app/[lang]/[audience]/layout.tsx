@@ -4,6 +4,7 @@ import Footer from "@/components/Footer"
 import Popup from "@/components/Popup"
 import { LanguageProvider } from "@/context/LanguageContext"
 import { AudienceProvider } from "@/context/AudienceContext"
+import { client } from "@/lib/sanity" // Added import
 
 export default async function Layout({
     children,
@@ -13,6 +14,8 @@ export default async function Layout({
     params: Promise<{ lang: string; audience: string }>
 }) {
     const { lang, audience } = await params
+
+    const branding = await client.fetch(`*[_type == "branding" && audience == $audience][0]`, { audience })
 
     return (
         // We should probably init the providers with the params if we want to be strict,
@@ -32,7 +35,7 @@ export default async function Layout({
 
         <AudienceProvider initialAudience={audience}>
             <LanguageProvider initialLanguage={lang}>
-                <Header />
+                <Header branding={branding} />
                 <main>{children}</main>
                 <Footer />
                 <Popup />
