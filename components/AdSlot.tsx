@@ -12,6 +12,9 @@ interface AdSlotProps {
 }
 
 export default function AdSlot({ slotKey, className = "", fullWidth = false }: AdSlotProps) {
+  // Toggle ads on/off via NEXT_PUBLIC_ADS_ENABLED env var
+  if (process.env.NEXT_PUBLIC_ADS_ENABLED !== "true") return null
+
   const { language } = useLanguage()
   const { audience } = useAudience()
   const [ad, setAd] = useState<AdCreative | undefined>(undefined)
