@@ -69,8 +69,8 @@ function SubSlider<T extends string>({
             key={key}
             onClick={() => onChange(key)}
             className={`whitespace-nowrap px-3 py-2 sm:px-4 rounded-md text-sm font-medium transition-colors ${active === key
-                ? "bg-accent-600 text-white shadow-sm"
-                : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-200 dark:hover:bg-gray-700"
+              ? "bg-accent-600 text-white shadow-sm"
+              : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-200 dark:hover:bg-gray-700"
               }`}
           >
             {labels[key]?.[language] || labels[key]?.en || key}
@@ -82,14 +82,14 @@ function SubSlider<T extends string>({
 }
 
 export default function HomePageClient({
-  news,
+  latestArticles,
   guides,
   cases,
   reviews,
   events,
   jobs,
 }: {
-  news: Article[]
+  latestArticles: Article[]
   guides: Article[]
   cases: Article[]
   reviews: Article[]
@@ -161,19 +161,21 @@ export default function HomePageClient({
         <div className="flex-1 min-w-0">
 
           {/* ── News ── */}
-          <section className="mb-12">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white">{t("home.industryUpdates")}</h2>
-              <Link href={getPath("/blog")} className="text-accent-600 hover:text-accent-700 text-sm font-medium">
-                {t("common.viewAll")} →
-              </Link>
-            </div>
-            <div className="grid md:grid-cols-2 gap-4">
-              {news.map((article) => (
-                <ArticleCard key={article.slug} article={article} />
-              ))}
-            </div>
-          </section>
+          {latestArticles.length > 0 && (
+            <section className="mb-12">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-white">{t("home.industryUpdates")}</h2>
+                <Link href={getPath("/blog")} className="text-accent-600 hover:text-accent-700 text-sm font-medium">
+                  {t("common.viewAll")} →
+                </Link>
+              </div>
+              <div className="grid md:grid-cols-2 gap-4">
+                {latestArticles.map((article) => (
+                  <ArticleCard key={article.slug} article={article} />
+                ))}
+              </div>
+            </section>
+          )}
 
           {/* ── Top Ad Networks ── */}
           <section className="mb-12">
@@ -241,19 +243,21 @@ export default function HomePageClient({
           </section>
 
           {/* ── Guides ── */}
-          <section className="mb-12">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white">{t("home.trendingGuides")}</h2>
-              <Link href={getPath("/guides")} className="text-accent-600 hover:text-accent-700 text-sm font-medium">
-                {t("common.viewAll")} →
-              </Link>
-            </div>
-            <div className="grid md:grid-cols-2 gap-4">
-              {guides.map((article) => (
-                <ArticleCard key={article.slug} article={article} />
-              ))}
-            </div>
-          </section>
+          {guides.length > 0 && (
+            <section className="mb-12">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-white">{t("home.trendingGuides")}</h2>
+                <Link href={getPath("/guides")} className="text-accent-600 hover:text-accent-700 text-sm font-medium">
+                  {t("common.viewAll")} →
+                </Link>
+              </div>
+              <div className="grid md:grid-cols-2 gap-4">
+                {guides.map((article) => (
+                  <ArticleCard key={article.slug} article={article} />
+                ))}
+              </div>
+            </section>
+          )}
 
           <div className="lg:hidden mb-12">
             <AdSlot slotKey="sidebar" />
@@ -281,73 +285,63 @@ export default function HomePageClient({
           </section>
 
           {/* ── Events ── */}
-          <section className="mb-12">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-                {language === "ru" ? "Ивенты" : "Upcoming Events"}
-              </h2>
-              <Link href={getPath("/events")} className="text-accent-600 hover:text-accent-700 text-sm font-medium">
-                {t("common.viewAll")} →
-              </Link>
-            </div>
-            {events.length > 0 ? (
+          {events.length > 0 && (
+            <section className="mb-12">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+                  {language === "ru" ? "Ивенты" : "Upcoming Events"}
+                </h2>
+                <Link href={getPath("/events")} className="text-accent-600 hover:text-accent-700 text-sm font-medium">
+                  {t("common.viewAll")} →
+                </Link>
+              </div>
               <div className="grid md:grid-cols-2 gap-4">
                 {events.map((event) => (
                   <EventCard key={event.slug} event={event} />
                 ))}
               </div>
-            ) : (
-              <div className="bg-white dark:bg-gray-800/30 border border-accent-200 dark:border-gray-700/50 rounded-xl p-8 text-center">
-                <p className="text-gray-400 text-sm">
-                  {language === "ru" ? "Нет предстоящих ивентов" : "No upcoming events"}
-                </p>
-              </div>
-            )}
-          </section>
+            </section>
+          )}
 
           <div className="mb-12">
             <AdSlot slotKey="inline" />
           </div>
 
           {/* ── Case Studies ── */}
-          <section className="mb-12">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white">{t("home.caseStudies")}</h2>
-              <Link href={getPath("/blog?cat=case-studies")} className="text-accent-600 hover:text-accent-700 text-sm font-medium">
-                {t("common.viewAll")} →
-              </Link>
-            </div>
-            <div className="grid md:grid-cols-2 gap-4">
-              {cases.map((article) => (
-                <ArticleCard key={article.slug} article={article} />
-              ))}
-            </div>
-          </section>
+          {cases.length > 0 && (
+            <section className="mb-12">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-white">{t("home.caseStudies")}</h2>
+                <Link href={getPath("/blog?cat=case-studies")} className="text-accent-600 hover:text-accent-700 text-sm font-medium">
+                  {t("common.viewAll")} →
+                </Link>
+              </div>
+              <div className="grid md:grid-cols-2 gap-4">
+                {cases.map((article) => (
+                  <ArticleCard key={article.slug} article={article} />
+                ))}
+              </div>
+            </section>
+          )}
 
           {/* ── Jobs ── */}
-          <section className="mb-12">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-                {language === "ru" ? "Вакансии" : "Latest Jobs"}
-              </h2>
-              <Link href={getPath("/jobs")} className="text-accent-600 hover:text-accent-700 text-sm font-medium">
-                {t("common.viewAll")} →
-              </Link>
-            </div>
-            {jobs.length > 0 ? (
+          {jobs.length > 0 && (
+            <section className="mb-12">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+                  {language === "ru" ? "Вакансии" : "Latest Jobs"}
+                </h2>
+                <Link href={getPath("/jobs")} className="text-accent-600 hover:text-accent-700 text-sm font-medium">
+                  {t("common.viewAll")} →
+                </Link>
+              </div>
               <div className="grid gap-4">
                 {jobs.map((job) => (
                   <JobCard key={job.slug} job={job} />
                 ))}
               </div>
-            ) : (
-              <div className="bg-white dark:bg-gray-800/30 border border-accent-200 dark:border-gray-700/50 rounded-xl p-8 text-center">
-                <p className="text-gray-400 text-sm">
-                  {language === "ru" ? "Нет вакансий" : "No job listings yet"}
-                </p>
-              </div>
-            )}
-          </section>
+            </section>
+          )}
 
         </div>
 
