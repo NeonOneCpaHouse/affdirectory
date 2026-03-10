@@ -4,7 +4,7 @@ import Link from "next/link"
 import type { Article } from "@/mock/articles"
 import { useLanguage } from "@/context/LanguageContext"
 import { useAudience } from "@/context/AudienceContext"
-import { Eye, Clock, ArrowUpRight, BookOpen } from "lucide-react"
+import { Clock, ArrowUpRight, BookOpen } from "lucide-react"
 
 const categoryLabels: Record<string, Record<string, string>> = {
   en: {
@@ -118,10 +118,6 @@ export default function ArticleCard({ article }: { article: Article }) {
                 <span className="font-medium">{article.readingTime} min</span>
               </>
             )}
-          </div>
-          <div className="flex items-center gap-1.5 text-xs text-gray-400 dark:text-gray-500">
-            <Eye className="w-3.5 h-3.5" />
-            <span className="font-medium">{article.views || 0}</span>
           </div>
         </div>
       </div>
