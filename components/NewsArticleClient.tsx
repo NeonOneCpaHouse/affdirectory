@@ -171,18 +171,6 @@ export default function NewsArticleClient({ article, related }: { article: Artic
         <aside className="hidden lg:block w-full lg:w-[300px]">
           <div className="sticky top-8 space-y-6">
             <AdSlot slotKey="sidebar" />
-            <div className="bg-accent-50 dark:bg-gray-800/50 rounded-xl p-6 border border-accent-100 dark:border-gray-700/50">
-              <h3 className="font-semibold text-gray-900 dark:text-white mb-3">{t("common.newsletter")}</h3>
-              <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">{t("common.newsletterDesc")}</p>
-              <input
-                type="email"
-                placeholder={t("common.emailAddress")}
-                className="w-full bg-white dark:bg-gray-800 border border-accent-200 dark:border-gray-700 rounded-lg px-4 py-2 text-sm mb-3"
-              />
-              <button className="w-full bg-accent-600 text-white font-medium py-2 rounded-lg text-sm hover:bg-accent-700 transition-colors">
-                {t("common.subscribe")}
-              </button>
-            </div>
           </div>
         </aside>
       </div>

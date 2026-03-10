@@ -202,15 +202,6 @@ export default function GuideArticleClient({ article, related }: { article: Arti
         <aside className="hidden lg:block w-full lg:w-[300px]">
           <div className="sticky top-8 space-y-6">
             <AdSlot slotKey="sidebar" />
-            <div className="bg-accent-600 rounded-xl p-6 text-white shadow-lg shadow-accent-200 dark:shadow-none">
-              <h3 className="font-bold text-lg mb-2">Need Help?</h3>
-              <p className="text-accent-50 text-sm mb-4 opacity-90">
-                Get a free consultation on optimizing your ad stack from our experts.
-              </p>
-              <button className="w-full bg-white text-accent-600 font-bold py-3 rounded-lg text-sm hover:bg-accent-50 transition-colors shadow-sm">
-                Book Free Call
-              </button>
-            </div>
           </div>
         </aside>
       </div>
