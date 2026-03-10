@@ -1,5 +1,7 @@
 "use client"
 
+import { useEffect } from "react"
+
 import AdSlot from "@/components/AdSlot"
 import Breadcrumbs from "@/components/Breadcrumbs"
 import ArticleCard from "@/components/ArticleCard"
@@ -17,6 +19,14 @@ export default function NewsArticleClient({ article, related }: { article: Artic
   const thumbnail = article.thumbnail?.[language] || article.thumbnail?.["en"]
 
   console.log("[v0] NewsArticleClient - body type:", typeof body, "isArray:", Array.isArray(body))
+
+  useEffect(() => {
+    fetch("/api/views", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ slug: article.slug }),
+    }).catch(() => { })
+  }, [article.slug])
 
   const portableTextComponents = {
     types: {
