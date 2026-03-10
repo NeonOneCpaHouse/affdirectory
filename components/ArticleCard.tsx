@@ -73,7 +73,7 @@ export default function ArticleCard({ article }: { article: Article }) {
         <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
         {/* Category badge - floating on image */}
-        <div className="absolute top-4 left-4">
+        <div className="absolute bottom-4 left-4">
           <span className={`inline-flex items-center px-3 py-1.5 bg-gradient-to-r ${catGradient} text-white text-[10px] font-black uppercase tracking-wider rounded-full shadow-lg`}>
             {catLabel}
           </span>
