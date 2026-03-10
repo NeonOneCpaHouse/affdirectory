@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect } from "react"
+import Link from "next/link"
 
 import AdSlot from "@/components/AdSlot"
 import Breadcrumbs from "@/components/Breadcrumbs"
@@ -8,11 +9,14 @@ import ArticleCard from "@/components/ArticleCard"
 import TagPills from "@/components/TagPills"
 import type { Article } from "@/mock/articles"
 import { useLanguage } from "@/context/LanguageContext"
+import { useAudience } from "@/context/AudienceContext"
+import { getTagVariants } from "@/lib/utils"
 import { PortableText } from "@portabletext/react"
 import { urlForImage } from "@/lib/sanity"
 
 export default function GuideArticleClient({ article, related }: { article: Article; related: Article[] }) {
   const { language, t } = useLanguage()
+  const { audience } = useAudience()
 
   const title = article.title[language] || article.title["en"]
   const body = article.body?.[language] || article.body?.["en"] || []
@@ -133,14 +137,18 @@ export default function GuideArticleClient({ article, related }: { article: Arti
             {/* Tags below title/image */}
             {article.tags && article.tags.length > 0 && (
               <div className="flex flex-wrap gap-2 mb-10">
-                {article.tags.map((tag) => (
-                  <span
-                    key={tag.slug}
-                    className="px-3 py-1 text-xs font-medium rounded-full bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-400 border border-gray-100 dark:border-gray-700"
-                  >
-                    {tag.name[language] || tag.name.en}
-                  </span>
-                ))}
+                {article.tags.map((tag) => {
+                  const variants = getTagVariants(tag.name.en)
+                  return (
+                    <Link
+                      key={tag.slug}
+                      href={`/${language}/${audience}/blog?tag=${tag.slug}`}
+                      className={`px-3 py-1 text-xs font-medium rounded-full border transition-all hover:scale-105 ${variants.faint}`}
+                    >
+                      {tag.name[language] || tag.name.en}
+                    </Link>
+                  )
+                })}
               </div>
             )}
 

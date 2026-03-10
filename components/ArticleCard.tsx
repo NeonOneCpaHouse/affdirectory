@@ -1,9 +1,11 @@
 "use client"
 
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import type { Article } from "@/mock/articles"
 import { useLanguage } from "@/context/LanguageContext"
 import { useAudience } from "@/context/AudienceContext"
+import { getTagVariants } from "@/lib/utils"
 import { Clock, ArrowUpRight, BookOpen } from "lucide-react"
 
 const categoryLabels: Record<string, Record<string, string>> = {
@@ -34,6 +36,7 @@ const categoryColors: Record<string, string> = {
 export default function ArticleCard({ article }: { article: Article }) {
   const { language } = useLanguage()
   const { audience } = useAudience()
+  const router = useRouter()
 
   const title = article.title[language] || article.title["en"]
   const thumbnail = article.thumbnail?.[language] || article.thumbnail?.["en"]
@@ -94,14 +97,22 @@ export default function ArticleCard({ article }: { article: Article }) {
         {/* Tags */}
         {article.tags && article.tags.length > 0 && (
           <div className="flex flex-wrap gap-1.5 mt-3">
-            {article.tags.slice(0, 3).map((tag) => (
-              <span
-                key={tag.slug}
-                className="px-2 py-0.5 text-[10px] font-medium rounded-full bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 border border-gray-200 dark:border-gray-700"
-              >
-                {tag.name[language] || tag.name.en}
-              </span>
-            ))}
+            {article.tags.slice(0, 3).map((tag) => {
+              const variants = getTagVariants(tag.name.en)
+              return (
+                <span
+                  key={tag.slug}
+                  onClick={(e) => {
+                    e.preventDefault()
+                    e.stopPropagation()
+                    router.push(`/${language}/${audience}/blog?tag=${tag.slug}`)
+                  }}
+                  className={`px-2 py-0.5 text-[10px] font-medium rounded-full border cursor-pointer transition-all hover:scale-105 ${variants.faint}`}
+                >
+                  {tag.name[language] || tag.name.en}
+                </span>
+              )
+            })}
           </div>
         )}
 
