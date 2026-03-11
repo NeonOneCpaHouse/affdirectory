@@ -73,7 +73,7 @@ export default function NetworkTable({ networks, showRank = true, maxRows }: Net
               )}
               <td className="px-4 py-4">
                 <Link
-                  href={`/${language}/${audience}/networks/${item.network.slug}`}
+                  href={`/${language}/${audience}/networks/${item.network.adFormat?.[0] || "push"}/${item.network.slug}`}
                   className="flex items-center gap-3 text-gray-900 dark:text-white hover:text-accent-600 font-medium"
                 >
                   {item.network.logo && item.network.logo.trim() !== "" && (
@@ -95,7 +95,7 @@ export default function NetworkTable({ networks, showRank = true, maxRows }: Net
               <td className="px-4 py-4 text-gray-500 dark:text-gray-400 text-sm">{item.network.payoutFrequency}</td>
               <td className="px-4 py-4">
                 <Link
-                  href={`/${language}/${audience}/networks/${item.network.slug}`}
+                  href={`/${language}/${audience}/networks/${item.network.adFormat?.[0] || "push"}/${item.network.slug}`}
                   className="text-accent-600 hover:text-accent-700 text-sm font-medium"
                 >
                   {t("common.more")} →

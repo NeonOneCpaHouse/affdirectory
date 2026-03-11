@@ -6,6 +6,7 @@ import RatingStars from "@/components/RatingStars"
 import type { CpaNetwork } from "@/mock/cpaNetworks"
 import { verticalLabels, type VerticalKey } from "@/mock/cpaNetworks"
 import { useLanguage } from "@/context/LanguageContext"
+import { useAudience } from "@/context/AudienceContext"
 import RichText from "@/components/RichText"
 import { Send, Facebook, Instagram, Youtube, Linkedin, MessageCircle, Users, MessageSquare } from "lucide-react"
 
@@ -56,11 +57,15 @@ const ratingLabels: Record<string, Record<string, string>> = {
 export default function CpaNetworkProfileClient({
     network,
     alternatives,
+    category,
 }: {
     network: CpaNetwork
     alternatives: CpaNetwork[]
+    category: VerticalKey
 }) {
     const { language, t } = useLanguage()
+    const { audience } = useAudience()
+    const categoryLabel = verticalLabels[category]?.[language] || verticalLabels[category]?.["en"] || category
 
     const name = network.name?.[language] || network.name?.["en"] || ""
     const minWithdraw = network.minWithdraw?.[language] || network.minWithdraw?.["en"] || "—"
@@ -73,7 +78,11 @@ export default function CpaNetworkProfileClient({
 
     return (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <Breadcrumbs items={[{ label: "CPA Networks", href: "/cpa-networks" }, { label: name }]} />
+            <Breadcrumbs items={[
+                { label: language === "ru" ? "CPA сети" : "CPA Networks", href: "/cpa-networks" },
+                { label: categoryLabel, href: `/cpa-networks/${category}` },
+                { label: name },
+            ]} />
             <div className="mb-8">
                 <AdSlot slotKey="leaderboard" fullWidth />
             </div>
@@ -344,7 +353,7 @@ export default function CpaNetworkProfileClient({
                                         return (
                                             <a
                                                 key={alt.slug}
-                                                href={`/${language}/affiliate/cpa-networks/${alt.slug}`}
+                                                href={`/${language}/${audience}/cpa-networks/${alt.vertical?.[0] || category}/${alt.slug}`}
                                                 className="block bg-white dark:bg-gray-800/50 border border-accent-200 dark:border-gray-700/50 rounded-lg p-3 hover:border-accent-500 transition-colors"
                                             >
                                                 <div className="flex items-center gap-3">

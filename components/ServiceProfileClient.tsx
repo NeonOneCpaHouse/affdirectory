@@ -6,6 +6,7 @@ import RatingStars from "@/components/RatingStars"
 import type { Service } from "@/mock/services"
 import { serviceTypeLabels, type ServiceTypeKey } from "@/mock/services"
 import { useLanguage } from "@/context/LanguageContext"
+import { useAudience } from "@/context/AudienceContext"
 import RichText from "@/components/RichText"
 import { Send, Facebook, Instagram, Youtube, Linkedin, MessageCircle, Users, MessageSquare } from "lucide-react"
 
@@ -56,11 +57,15 @@ const ratingLabels: Record<string, Record<string, string>> = {
 export default function ServiceProfileClient({
     service,
     alternatives,
+    category,
 }: {
     service: Service
     alternatives: Service[]
+    category: ServiceTypeKey
 }) {
     const { language } = useLanguage()
+    const { audience } = useAudience()
+    const categoryLabel = serviceTypeLabels[category]?.[language] || serviceTypeLabels[category]?.["en"] || category
 
     const name = service.name?.[language] || service.name?.["en"] || ""
     const trialPeriod = service.trialPeriod?.[language] || service.trialPeriod?.["en"] || "—"
@@ -73,7 +78,11 @@ export default function ServiceProfileClient({
 
     return (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <Breadcrumbs items={[{ label: language === "ru" ? "Сервисы" : "Services", href: "/services" }, { label: name }]} />
+            <Breadcrumbs items={[
+                { label: language === "ru" ? "Сервисы" : "Services", href: "/services" },
+                { label: categoryLabel, href: `/services/${category}` },
+                { label: name },
+            ]} />
             <div className="mb-8">
                 <AdSlot slotKey="leaderboard" fullWidth />
             </div>
@@ -318,7 +327,7 @@ export default function ServiceProfileClient({
                                         return (
                                             <a
                                                 key={alt.slug}
-                                                href={`/${language}/affiliate/services/${alt.slug}`}
+                                                href={`/${language}/${audience}/services/${alt.serviceType}/${alt.slug}`}
                                                 className="block bg-white dark:bg-gray-800/50 border border-accent-200 dark:border-gray-700/50 rounded-lg p-3 hover:border-accent-500 transition-colors"
                                             >
                                                 <div className="flex items-center gap-3">

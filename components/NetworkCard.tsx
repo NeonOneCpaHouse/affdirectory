@@ -26,7 +26,7 @@ export default function NetworkCard({ network }: NetworkCardProps) {
 
   return (
     <Link
-      href={`/${language}/${audience}/networks/${network.slug}`}
+      href={`/${language}/${audience}/networks/${network.adFormat?.[0] || "push"}/${network.slug}`}
       className="block bg-white/20 dark:bg-gray-800/20 backdrop-blur-lg border border-accent-200 dark:border-gray-700/50 rounded-xl p-5 hover:border-accent-500 dark:hover:border-accent-500/50 hover:bg-accent-50 dark:hover:bg-gray-800/30 transition-all group shadow-sm"
     >
       <div className="flex items-start justify-between mb-3">

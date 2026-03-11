@@ -76,7 +76,7 @@ export default function CpaNetworkTable({ networks, showRank = true, maxRows }: 
                                 )}
                                 <td className="px-4 py-4">
                                     <Link
-                                        href={`/${language}/${audience}/cpa-networks/${item.network.slug}`}
+                                        href={`/${language}/${audience}/cpa-networks/${item.network.vertical?.[0] || "other"}/${item.network.slug}`}
                                         className="flex items-center gap-3 text-gray-900 dark:text-white hover:text-accent-600 font-medium"
                                     >
                                         {item.network.logo && item.network.logo.trim() !== "" && (
@@ -100,7 +100,7 @@ export default function CpaNetworkTable({ networks, showRank = true, maxRows }: 
                                 </td>
                                 <td className="px-4 py-4">
                                     <Link
-                                        href={`/${language}/${audience}/cpa-networks/${item.network.slug}`}
+                                        href={`/${language}/${audience}/cpa-networks/${item.network.vertical?.[0] || "other"}/${item.network.slug}`}
                                         className="text-accent-600 hover:text-accent-700 text-sm font-medium"
                                     >
                                         {language === "ru" ? "Подробнее" : "More"} →
