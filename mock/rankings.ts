@@ -74,6 +74,10 @@ const serviceTypeSlugs: Record<ServiceTypeKey, string> = {
   trackers: "trackers",
   payments: "payments",
   pwa: "pwa-tools",
+  seo: "seo",
+  ddos: "ddos-protection",
+  cms: "cms",
+  hosting: "hostings",
 }
 
 // ─── Reverse slug maps ─────────────────────────────────────────
@@ -137,7 +141,7 @@ export async function getServiceRanking(serviceType: ServiceTypeKey, audience: s
 export async function getAllRankingCategories(audience: string = "affiliate"): Promise<RankingCategory[]> {
   const adFormats: AdFormatKey[] = ["push", "popunder", "inPage", "banner", "telegram", "display", "native", "mobile", "video"]
   const verticals: VerticalKey[] = ["gambling", "betting", "dating", "crypto", "finance", "sweeps", "installs", "nutra", "adult", "multivertical", "other"]
-  const serviceTypes: ServiceTypeKey[] = ["antidetect", "spyTools", "proxy", "trackers", "payments", "pwa"]
+  const serviceTypes: ServiceTypeKey[] = ["antidetect", "spyTools", "proxy", "trackers", "payments", "pwa", "seo", "ddos", "cms", "hosting"]
 
   const [adNetworkSubs, cpaSubs, serviceSubs] = await Promise.all([
     Promise.all(
