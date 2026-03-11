@@ -19,8 +19,8 @@ import { urlFor } from "@/lib/sanity"
 
 function groupMegaMenuItems(items: DropdownItem[], audience: string, language: string) {
   if (audience === "webmaster") {
-    const monetizationItems = items.filter(i => i.href.includes('-ad-networks') || i.href.includes('/monetization/'))
-    const serviceItems = items.filter(i => !i.href.includes('-ad-networks') && !i.href.includes('/monetization/'))
+    const monetizationItems = items.filter(i => i.href.includes('/networks') || i.href.includes('/monetization/'))
+    const serviceItems = items.filter(i => !i.href.includes('/networks') && !i.href.includes('/monetization/'))
     return [
       { title: 'Monetization', titleRu: 'Монетизация', color: 'text-blue-500', items: monetizationItems },
       { title: 'Services', titleRu: 'Сервисы', color: 'text-emerald-500', items: serviceItems },
@@ -74,37 +74,38 @@ function NavItem({ label, href, items, audience = "affiliate", language = "en" }
         <ChevronDown className={cn("w-3 h-3 transition-transform", isOpen && "rotate-180")} />
       </Link>
       {isOpen && (
-        <div className={`absolute top-full pt-2 z-50 ${items.length > 8 ? 'left-1/2 -translate-x-1/2' : 'left-0'}`}>
-          {items.length > 8 ? (
+        <div className={`absolute top-full pt-2 z-50 ${items.length > 5 ? 'left-1/2 -translate-x-1/2' : 'left-0'}`}>
+          {items.length > 5 ? (
             /* Mega-menu for Rankings */
             <div className="bg-white dark:bg-gray-900 border border-accent-200 dark:border-gray-700 rounded-xl shadow-xl p-5 min-w-[540px]">
-              <div className="grid grid-cols-3 gap-6">
-                {(() => {
-                  const groups = groupMegaMenuItems(items, audience, language)
-                  return groups.map((group) => (
-                    <div key={group.title}>
-                      <p className={`text-xs font-bold uppercase tracking-wider mb-2 ${group.color}`}>{group.title}</p>
-                      {group.items.map((item) => {
-                        // Strip the category suffix from label for brevity
-                        const shortLabel = item.label
-                          .replace(/ Ad Networks?$/i, '')
-                          .replace(/ CPA Networks?$/i, '')
-                          .replace(/ CPA-сети$/i, '')
-                          .replace(/ рекламные сети$/i, '')
-                        return (
-                          <Link
-                            key={item.href}
-                            href={item.href}
-                            className="block px-2 py-1.5 text-sm text-gray-600 dark:text-gray-400 hover:bg-accent-50 dark:hover:bg-gray-800 hover:text-accent-600 dark:hover:text-white transition-colors rounded-md"
-                          >
-                            {shortLabel}
-                          </Link>
-                        )
-                      })}
-                    </div>
-                  ))
-                })()}
-              </div>
+              {(() => {
+                const groups = groupMegaMenuItems(items, audience, language)
+                return (
+                  <div className={`grid gap-6 ${groups.length >= 3 ? 'grid-cols-3' : 'grid-cols-2'}`}>
+                    {groups.map((group) => (
+                      <div key={group.title}>
+                        <p className={`text-xs font-bold uppercase tracking-wider mb-2 ${group.color}`}>{group.title}</p>
+                        {group.items.map((item) => {
+                          const shortLabel = item.label
+                            .replace(/ Ad Networks?$/i, '')
+                            .replace(/ CPA Networks?$/i, '')
+                            .replace(/ CPA-сети$/i, '')
+                            .replace(/ рекламные сети$/i, '')
+                          return (
+                            <Link
+                              key={item.href}
+                              href={item.href}
+                              className="block px-2 py-1.5 text-sm text-gray-600 dark:text-gray-400 hover:bg-accent-50 dark:hover:bg-gray-800 hover:text-accent-600 dark:hover:text-white transition-colors rounded-md"
+                            >
+                              {shortLabel}
+                            </Link>
+                          )
+                        })}
+                      </div>
+                    ))}
+                  </div>
+                )
+              })()}
             </div>
           ) : (
             /* Standard dropdown */
@@ -183,7 +184,7 @@ function MobileNavItem({ label, href, items, onNavigate, audience = "affiliate",
   }
 
   // Check if this is the Rankings menu (large number of items)
-  const isMegaMenu = items.length > 8
+  const isMegaMenu = items.length > 5
 
   return (
     <div className="border-b border-gray-50 dark:border-gray-800/50 pb-1">

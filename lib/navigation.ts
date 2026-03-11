@@ -93,12 +93,8 @@ export const WEBMASTER_NAVIGATION: NavigationConfig = [
         label: { en: "Rankings", ru: "Рейтинги" },
         href: "/rankings",
         items: [
-            // ── Monetization: Ad Networks ──
-            { label: { en: "Push Ad Networks", ru: "Push рекламные сети" }, href: "/rankings/push-ad-networks" },
-            { label: { en: "Popunder Ad Networks", ru: "Попандер рекламные сети" }, href: "/rankings/popunder-ad-networks" },
-            { label: { en: "Display Ad Networks", ru: "Display рекламные сети" }, href: "/rankings/display-ad-networks" },
-            { label: { en: "Native Ad Networks", ru: "Нативные рекламные сети" }, href: "/rankings/native-ad-networks" },
-            // ── Monetization: Other ──
+            // ── Monetization ──
+            { label: { en: "Ad Networks", ru: "Рекламные сети" }, href: "/networks" },
             { label: { en: "Domain Parking", ru: "Парковка доменов" }, href: "/monetization/domain-parking" },
             { label: { en: "Link Selling", ru: "Продажа ссылок" }, href: "/monetization/link-selling" },
             // ── Services ──
@@ -107,19 +103,6 @@ export const WEBMASTER_NAVIGATION: NavigationConfig = [
             { label: { en: "CMS", ru: "CMS" }, href: "/rankings/cms" },
             { label: { en: "Hostings", ru: "Хостинги" }, href: "/rankings/hostings" },
         ],
-    },
-    {
-        label: { en: "Monetization", ru: "Монетизация" },
-        href: "/monetization",
-        items: [
-            { label: { en: "Ad Networks", ru: "Рекламные сети" }, href: "/networks" },
-            { label: { en: "Domain Parking", ru: "Парковка доменов" }, href: "/monetization/domain-parking" },
-            { label: { en: "Link Selling", ru: "Продажа ссылок" }, href: "/monetization/link-selling" },
-        ],
-    },
-    {
-        label: { en: "Services", ru: "Сервисы" },
-        href: "/services",
     },
     {
         label: { en: "Knowledge Base", ru: "База Знаний" },
