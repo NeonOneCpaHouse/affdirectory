@@ -93,17 +93,33 @@ export const WEBMASTER_NAVIGATION: NavigationConfig = [
         label: { en: "Rankings", ru: "Рейтинги" },
         href: "/rankings",
         items: [
-            // ── Ad Networks ──
+            // ── Monetization: Ad Networks ──
             { label: { en: "Push Ad Networks", ru: "Push рекламные сети" }, href: "/rankings/push-ad-networks" },
             { label: { en: "Popunder Ad Networks", ru: "Попандер рекламные сети" }, href: "/rankings/popunder-ad-networks" },
             { label: { en: "Display Ad Networks", ru: "Display рекламные сети" }, href: "/rankings/display-ad-networks" },
             { label: { en: "Native Ad Networks", ru: "Нативные рекламные сети" }, href: "/rankings/native-ad-networks" },
+            // ── Monetization: Other ──
+            { label: { en: "Domain Parking", ru: "Парковка доменов" }, href: "/monetization/domain-parking" },
+            { label: { en: "Link Selling", ru: "Продажа ссылок" }, href: "/monetization/link-selling" },
             // ── Services ──
-            { label: { en: "Antidetect Browsers", ru: "Антидетект-браузеры" }, href: "/rankings/antidetect-browsers" },
-            { label: { en: "Spy Tools", ru: "Spy сервисы" }, href: "/rankings/spy-tools" },
-            { label: { en: "Proxy", ru: "Прокси" }, href: "/rankings/proxy" },
-            { label: { en: "Trackers", ru: "Трекеры" }, href: "/rankings/trackers" },
+            { label: { en: "SEO", ru: "SEO" }, href: "/rankings/seo" },
+            { label: { en: "DDoS Protection", ru: "Защита от DDoS-атак" }, href: "/rankings/ddos-protection" },
+            { label: { en: "CMS", ru: "CMS" }, href: "/rankings/cms" },
+            { label: { en: "Hostings", ru: "Хостинги" }, href: "/rankings/hostings" },
         ],
+    },
+    {
+        label: { en: "Monetization", ru: "Монетизация" },
+        href: "/monetization",
+        items: [
+            { label: { en: "Ad Networks", ru: "Рекламные сети" }, href: "/networks" },
+            { label: { en: "Domain Parking", ru: "Парковка доменов" }, href: "/monetization/domain-parking" },
+            { label: { en: "Link Selling", ru: "Продажа ссылок" }, href: "/monetization/link-selling" },
+        ],
+    },
+    {
+        label: { en: "Services", ru: "Сервисы" },
+        href: "/services",
     },
     {
         label: { en: "Knowledge Base", ru: "База Знаний" },

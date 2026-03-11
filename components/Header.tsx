@@ -17,6 +17,26 @@ import { useAudience } from "@/context/AudienceContext"
 import { cn } from "@/lib/utils"
 import { urlFor } from "@/lib/sanity"
 
+function groupMegaMenuItems(items: DropdownItem[], audience: string, language: string) {
+  if (audience === "webmaster") {
+    const monetizationItems = items.filter(i => i.href.includes('-ad-networks') || i.href.includes('/monetization/'))
+    const serviceItems = items.filter(i => !i.href.includes('-ad-networks') && !i.href.includes('/monetization/'))
+    return [
+      { title: 'Monetization', titleRu: 'Монетизация', color: 'text-blue-500', items: monetizationItems },
+      { title: 'Services', titleRu: 'Сервисы', color: 'text-emerald-500', items: serviceItems },
+    ].filter(g => g.items.length > 0)
+  }
+  // Affiliate grouping
+  const adItems = items.filter(i => i.href.includes('-ad-networks'))
+  const cpaItems = items.filter(i => i.href.includes('-cpa-networks'))
+  const serviceItems = items.filter(i => !i.href.includes('-ad-networks') && !i.href.includes('-cpa-networks'))
+  return [
+    { title: 'Ad Networks', titleRu: 'Рекл. сети', color: 'text-blue-500', items: adItems },
+    { title: 'CPA Networks', titleRu: 'CPA-сети', color: 'text-purple-500', items: cpaItems },
+    { title: 'Services', titleRu: 'Сервисы', color: 'text-emerald-500', items: serviceItems },
+  ].filter(g => g.items.length > 0)
+}
+
 interface DropdownItem {
   label: string
   href: string
@@ -26,9 +46,11 @@ interface NavItemProps {
   label: string
   href: string
   items?: DropdownItem[]
+  audience?: string
+  language?: string
 }
 
-function NavItem({ label, href, items }: NavItemProps) {
+function NavItem({ label, href, items, audience = "affiliate", language = "en" }: NavItemProps) {
   const [isOpen, setIsOpen] = useState(false)
 
   if (!items || items.length === 0) {
@@ -58,15 +80,7 @@ function NavItem({ label, href, items }: NavItemProps) {
             <div className="bg-white dark:bg-gray-900 border border-accent-200 dark:border-gray-700 rounded-xl shadow-xl p-5 min-w-[540px]">
               <div className="grid grid-cols-3 gap-6">
                 {(() => {
-                  // Group items by href slugs (works for any language)
-                  const adItems = items.filter(i => i.href.includes('-ad-networks'))
-                  const cpaItems = items.filter(i => i.href.includes('-cpa-networks'))
-                  const serviceItems = items.filter(i => !i.href.includes('-ad-networks') && !i.href.includes('-cpa-networks'))
-                  const groups = [
-                    { title: 'Ad Networks', titleRu: 'Рекл. сети', color: 'text-blue-500', items: adItems },
-                    { title: 'CPA Networks', titleRu: 'CPA-сети', color: 'text-purple-500', items: cpaItems },
-                    { title: 'Services', titleRu: 'Сервисы', color: 'text-emerald-500', items: serviceItems },
-                  ].filter(g => g.items.length > 0)
+                  const groups = groupMegaMenuItems(items, audience, language)
                   return groups.map((group) => (
                     <div key={group.title}>
                       <p className={`text-xs font-bold uppercase tracking-wider mb-2 ${group.color}`}>{group.title}</p>
@@ -153,7 +167,7 @@ function MobileSubGroup({ title, items, color, onNavigate }: { title: string, it
   )
 }
 
-function MobileNavItem({ label, href, items, onNavigate }: NavItemProps & { onNavigate: () => void }) {
+function MobileNavItem({ label, href, items, onNavigate, audience = "affiliate", language = "en" }: NavItemProps & { onNavigate: () => void }) {
   const [isOpen, setIsOpen] = useState(false)
 
   if (!items || items.length === 0) {
@@ -186,36 +200,19 @@ function MobileNavItem({ label, href, items, onNavigate }: NavItemProps & { onNa
           {isMegaMenu ? (
             // Grouped sub-menus for Rankings
             (() => {
-              const adItems = items.filter(i => i.href.includes('-ad-networks'))
-              const cpaItems = items.filter(i => i.href.includes('-cpa-networks'))
-              const serviceItems = items.filter(i => !i.href.includes('-ad-networks') && !i.href.includes('-cpa-networks'))
+              const groups = groupMegaMenuItems(items, audience, language)
 
               return (
                 <>
-                  {adItems.length > 0 && (
+                  {groups.map((group) => (
                     <MobileSubGroup
-                      title={label.includes('Рейтинги') ? 'Рекл. сети' : 'Ad Networks'}
-                      items={adItems}
-                      color="text-blue-600 dark:text-blue-400"
+                      key={group.title}
+                      title={language === 'ru' ? group.titleRu : group.title}
+                      items={group.items}
+                      color={`${group.color.replace('text-', 'text-').replace('-500', '-600')} dark:${group.color.replace('-500', '-400')}`}
                       onNavigate={onNavigate}
                     />
-                  )}
-                  {cpaItems.length > 0 && (
-                    <MobileSubGroup
-                      title={label.includes('Рейтинги') ? 'CPA-сети' : 'CPA Networks'}
-                      items={cpaItems}
-                      color="text-purple-600 dark:text-purple-400"
-                      onNavigate={onNavigate}
-                    />
-                  )}
-                  {serviceItems.length > 0 && (
-                    <MobileSubGroup
-                      title={label.includes('Рейтинги') ? 'Сервисы' : 'Services'}
-                      items={serviceItems}
-                      color="text-emerald-600 dark:text-emerald-400"
-                      onNavigate={onNavigate}
-                    />
-                  )}
+                  ))}
                 </>
               )
             })()
@@ -414,7 +411,7 @@ export default function Header({ branding }: { branding?: any }) {
           <div className="hidden md:flex items-center justify-center h-12">
             <nav className="flex items-center gap-8">
               {navItems.map((item) => (
-                <NavItem key={item.href} {...item} />
+                <NavItem key={item.href} {...item} audience={audience} language={language} />
               ))}
             </nav>
           </div>
@@ -557,7 +554,7 @@ export default function Header({ branding }: { branding?: any }) {
               </div>
 
               {navItems.map((item) => (
-                <MobileNavItem key={item.href} {...item} onNavigate={() => setMobileMenuOpen(false)} />
+                <MobileNavItem key={item.href} {...item} onNavigate={() => setMobileMenuOpen(false)} audience={audience} language={language} />
               ))}
             </nav>
           </div>

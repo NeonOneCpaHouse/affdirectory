@@ -9,5 +9,8 @@ import job from "./job"
 import event from "./event"
 import popup from "./popup"
 import branding from "./branding"
+import domainParking from "./domainParking"
+import linkSelling from "./linkSelling"
 
-export const schemaTypes = [network, cpaNetwork, service, article, articleTag, adCreative, job, knowledge, event, popup, branding]
+export const schemaTypes = [network, cpaNetwork, service, article, articleTag, adCreative, job, knowledge, event, popup, branding, domainParking, linkSelling]
+

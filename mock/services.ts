@@ -8,6 +8,10 @@ export type ServiceTypeKey =
     | "trackers"
     | "payments"
     | "pwa"
+    | "seo"
+    | "ddos"
+    | "cms"
+    | "hosting"
 
 export const serviceTypeLabels: Record<ServiceTypeKey, Localized<string>> = {
     antidetect: { en: "Antidetect Browsers", ru: "Антидетект-браузеры" },
@@ -16,6 +20,10 @@ export const serviceTypeLabels: Record<ServiceTypeKey, Localized<string>> = {
     trackers: { en: "Trackers", ru: "Трекеры" },
     payments: { en: "Payments", ru: "Платежки" },
     pwa: { en: "PWA Tools", ru: "PWA-инструменты" },
+    seo: { en: "SEO", ru: "SEO" },
+    ddos: { en: "DDoS Protection", ru: "Защита от DDoS-атак" },
+    cms: { en: "CMS", ru: "CMS" },
+    hosting: { en: "Hostings", ru: "Хостинги" },
 }
 
 export interface SupportContact {

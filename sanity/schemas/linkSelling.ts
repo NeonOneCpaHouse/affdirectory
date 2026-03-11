@@ -1,8 +1,8 @@
 import { defineField, defineType } from "sanity"
 
 export default defineType({
-    name: "service",
-    title: "Service",
+    name: "linkSelling",
+    title: "Link Selling",
     type: "document",
     fields: [
         defineField({
@@ -21,12 +21,11 @@ export default defineType({
             type: "string",
             options: {
                 list: [
-                    { title: "Affiliate", value: "affiliate" },
                     { title: "Webmaster", value: "webmaster" },
                 ],
                 layout: "radio",
             },
-            initialValue: "affiliate",
+            initialValue: "webmaster",
             validation: (Rule) => Rule.required(),
         }),
         defineField({
@@ -55,29 +54,8 @@ export default defineType({
             },
         }),
         defineField({
-            name: "serviceType",
-            title: "Service Type",
-            type: "string",
-            options: {
-                list: [
-                    { title: "Antidetect Browsers", value: "antidetect" },
-                    { title: "Spy Tools", value: "spyTools" },
-                    { title: "Proxy", value: "proxy" },
-                    { title: "Trackers", value: "trackers" },
-                    { title: "Payments", value: "payments" },
-                    { title: "PWA Tools", value: "pwa" },
-                    { title: "SEO", value: "seo" },
-                    { title: "DDoS Protection", value: "ddos" },
-                    { title: "CMS", value: "cms" },
-                    { title: "Hostings", value: "hosting" },
-                ],
-            },
-            description: "Select which ranking page this service should appear on",
-            validation: (Rule) => Rule.required(),
-        }),
-        defineField({
-            name: "trialPeriod",
-            title: "Trial Period",
+            name: "minWithdraw",
+            title: "Min. Withdraw",
             type: "object",
             fields: [
                 { name: "en", type: "string", title: "English" },
@@ -85,8 +63,8 @@ export default defineType({
             ],
         }),
         defineField({
-            name: "pricing",
-            title: "Pricing",
+            name: "payoutFrequency",
+            title: "Payout Frequency",
             type: "object",
             fields: [
                 { name: "en", type: "string", title: "English" },
@@ -94,13 +72,10 @@ export default defineType({
             ],
         }),
         defineField({
-            name: "referralProgram",
-            title: "Referral Program",
-            type: "object",
-            fields: [
-                { name: "en", type: "string", title: "English" },
-                { name: "ru", type: "string", title: "Russian" },
-            ],
+            name: "paymentMethods",
+            title: "Payment Methods",
+            type: "array",
+            of: [{ type: "string" }],
         }),
         defineField({
             name: "websiteUrl",
@@ -170,28 +145,24 @@ export default defineType({
                     name: "support",
                     title: "Support",
                     type: "number",
-                    description: "How fast, reliable and friendly their support managers are",
                     validation: (Rule) => Rule.min(1).max(5),
                 },
                 {
                     name: "technology",
                     title: "Technology",
                     type: "number",
-                    description: "How good the used technologies are",
                     validation: (Rule) => Rule.min(1).max(5),
                 },
                 {
                     name: "security",
                     title: "Security",
                     type: "number",
-                    description: "The level of security provided",
                     validation: (Rule) => Rule.min(1).max(5),
                 },
                 {
                     name: "effectiveness",
                     title: "Effectiveness",
                     type: "number",
-                    description: "Overall effectiveness of the service",
                     validation: (Rule) => Rule.min(1).max(5),
                 },
             ],
@@ -237,7 +208,7 @@ export default defineType({
     preview: {
         select: {
             title: "name.en",
-            subtitle: "serviceType",
+            subtitle: "slug.current",
             media: "logo",
         },
     },
