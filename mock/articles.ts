@@ -9,6 +9,11 @@ export interface ArticleTag {
   slug: string
 }
 
+export interface ArticleTagIndex {
+  allTags: ArticleTag[]
+  byCategory: Record<ArticleCategory, ArticleTag[]>
+}
+
 export interface Article {
   slug: string
   title: Localized<string>
@@ -30,12 +35,74 @@ export interface Article {
   views?: number
 }
 
+const articleCategories: ArticleCategory[] = ["news", "reviews", "case-studies", "guides", "trends"]
+
+function createEmptyTagIndex(): ArticleTagIndex {
+  return {
+    allTags: [],
+    byCategory: {
+      news: [],
+      reviews: [],
+      "case-studies": [],
+      guides: [],
+      trends: [],
+    },
+  }
+}
+
+function sortTags(tags: ArticleTag[]): ArticleTag[] {
+  return [...tags].sort((left, right) =>
+    (left.name.en || left.name.ru || left.slug).localeCompare(
+      right.name.en || right.name.ru || right.slug,
+      "en",
+      { sensitivity: "base" },
+    ),
+  )
+}
+
+export function buildArticleTagIndex(articles: Article[]): ArticleTagIndex {
+  const emptyIndex = createEmptyTagIndex()
+  const allTags = new Map<string, ArticleTag>()
+  const byCategoryMaps = articleCategories.reduce(
+    (acc, category) => {
+      acc[category] = new Map<string, ArticleTag>()
+      return acc
+    },
+    {} as Record<ArticleCategory, Map<string, ArticleTag>>,
+  )
+
+  for (const article of articles) {
+    for (const tag of article.tags || []) {
+      if (!tag?.slug) continue
+
+      if (!allTags.has(tag.slug)) {
+        allTags.set(tag.slug, tag)
+      }
+
+      if (!byCategoryMaps[article.category].has(tag.slug)) {
+        byCategoryMaps[article.category].set(tag.slug, tag)
+      }
+    }
+  }
+
+  return {
+    allTags: sortTags(Array.from(allTags.values())),
+    byCategory: articleCategories.reduce(
+      (acc, category) => {
+        acc[category] = sortTags(Array.from(byCategoryMaps[category].values()))
+        return acc
+      },
+      emptyIndex.byCategory,
+    ),
+  }
+}
+
 // Common GROQ projection for articles
 const articleProjection = `{
   "slug": slug.current,
   title,
   category,
-  "tags": tags[]->{ name, "slug": slug.current },
+  "tags": array::compact(tags[]->{ name, "slug": slug.current }),
   date,
   excerpt,
   body,
@@ -74,11 +141,14 @@ export async function getArticlesByCategory(
   }
 }
 
-export async function getArticleBySlug(slug: string): Promise<Article | undefined> {
-  const query = `*[_type == "article" && slug.current == $slug][0] ${articleProjection}`
+export async function getArticleBySlug(
+  slug: string,
+  audience: string = "affiliate",
+): Promise<Article | undefined> {
+  const query = `*[_type == "article" && slug.current == $slug && audience == $audience][0] ${articleProjection}`
 
   try {
-    return await client.fetch(query, { slug }, { next: { revalidate: 0 } })
+    return await client.fetch(query, { slug, audience }, { next: { revalidate: 0 } })
   } catch (error) {
     console.error("Failed to fetch article by slug from Sanity:", error)
     return undefined
@@ -110,59 +180,6 @@ export async function getArticlesByTag(
   }
 }
 
-export async function getTagsByCategory(
-  audience: string,
-  category: ArticleCategory,
-): Promise<ArticleTag[]> {
-  const query = `*[_type == "articleTag" && audience == $audience && category == $category] | order(name.en asc) {
-    name,
-    "slug": slug.current
-  }`
-
-  try {
-    return await client.fetch(query, { audience, category }, { next: { revalidate: 0 } })
-  } catch (error) {
-    console.error("Failed to fetch tags from Sanity:", error)
-    return []
-  }
-}
-
-export async function getAllTagsForAudience(
-  audience: string,
-): Promise<Record<ArticleCategory, ArticleTag[]>> {
-  const query = `*[_type == "articleTag" && audience == $audience] | order(name.en asc) {
-    name,
-    "slug": slug.current,
-    category
-  }`
-
-  try {
-    const tags = await client.fetch(query, { audience }, { next: { revalidate: 0 } })
-    const grouped: Record<string, ArticleTag[]> = {
-      news: [],
-      reviews: [],
-      "case-studies": [],
-      guides: [],
-      trends: [],
-    }
-    for (const tag of tags) {
-      if (grouped[tag.category]) {
-        grouped[tag.category].push({ name: tag.name, slug: tag.slug })
-      }
-    }
-    return grouped as Record<ArticleCategory, ArticleTag[]>
-  } catch (error) {
-    console.error("Failed to fetch all tags from Sanity:", error)
-    return {
-      news: [],
-      reviews: [],
-      "case-studies": [],
-      guides: [],
-      trends: [],
-    }
-  }
-}
-
 export async function getLatestArticles(
   count = 6,
   audience: string = "affiliate",
@@ -182,7 +199,7 @@ export async function getRelatedArticles(
   count = 3,
   audience: string = "affiliate",
 ): Promise<Article[]> {
-  const current = await getArticleBySlug(currentSlug)
+  const current = await getArticleBySlug(currentSlug, audience)
   if (!current) return []
 
   const query = `*[_type == "article" && slug.current != $slug && category == $category && audience == $audience] | order(date desc) [0...$count] ${articleProjection}`

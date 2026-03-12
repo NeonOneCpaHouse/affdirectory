@@ -6,7 +6,7 @@ import { notFound } from "next/navigation"
 
 export default async function BlogArticlePage({ params }: { params: Promise<{ lang: string; audience: string; slug: string }> }) {
   const { slug, audience } = await params
-  const article = await getArticleBySlug(slug)
+  const article = await getArticleBySlug(slug, audience)
 
   if (!article) notFound()
 

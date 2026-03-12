@@ -5,7 +5,7 @@ import { useSearchParams } from "next/navigation"
 import AdSlot from "@/components/AdSlot"
 import Breadcrumbs from "@/components/Breadcrumbs"
 import ArticleCard from "@/components/ArticleCard"
-import type { Article, ArticleCategory, ArticleTag } from "@/mock/articles"
+import type { Article, ArticleCategory, ArticleTag, ArticleTagIndex } from "@/mock/articles"
 import { useLanguage } from "@/context/LanguageContext"
 import { getTagVariants } from "@/lib/utils"
 
@@ -20,10 +20,10 @@ const categories: { value: ArticleCategory | "all"; labelKey: string }[] = [
 
 interface BlogClientPageProps {
   articles: Article[]
-  tagsByCategory: Record<ArticleCategory, ArticleTag[]>
+  tagIndex: ArticleTagIndex
 }
 
-export default function BlogClientPage({ articles, tagsByCategory }: BlogClientPageProps) {
+export default function BlogClientPage({ articles, tagIndex }: BlogClientPageProps) {
   const { t, language } = useLanguage()
   const searchParams = useSearchParams()
   const categoryParam = searchParams.get("cat")
@@ -46,8 +46,8 @@ export default function BlogClientPage({ articles, tagsByCategory }: BlogClientP
   // Get tags for the active category
   const activeTags: ArticleTag[] =
     activeCategory === "all"
-      ? Object.values(tagsByCategory).flat()
-      : tagsByCategory[activeCategory] || []
+      ? tagIndex.allTags
+      : tagIndex.byCategory[activeCategory] || []
 
   const handleCategoryChange = (cat: ArticleCategory | "all") => {
     setActiveCategory(cat)

@@ -4,7 +4,7 @@ import GuideArticleClient from "@/components/GuideArticleClient"
 
 export default async function GuideDetailPage({ params }: { params: Promise<{ lang: string; audience: string; slug: string }> }) {
   const { slug, audience } = await params
-  const article = await getArticleBySlug(slug)
+  const article = await getArticleBySlug(slug, audience)
 
   if (!article || article.category !== "guides") notFound()
 

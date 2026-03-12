@@ -4,7 +4,7 @@ import CaseStudyArticleClient from "@/components/CaseStudyArticleClient"
 
 export default async function CaseStudyPage({ params }: { params: Promise<{ lang: string; audience: string; slug: string }> }) {
   const { slug, audience } = await params
-  const article = await getArticleBySlug(slug)
+  const article = await getArticleBySlug(slug, audience)
 
   if (!article || article.category !== "case-studies") {
     notFound()

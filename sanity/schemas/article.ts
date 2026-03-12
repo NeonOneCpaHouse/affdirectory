@@ -63,15 +63,8 @@ export default defineType({
           type: "reference",
           to: [{ type: "articleTag" }],
           options: {
-            filter: ({ document }: any) => {
+            filter: ({ document }: { document?: { audience?: string } }) => {
               const audience = document?.audience
-              const category = document?.category
-              if (audience && category) {
-                return {
-                  filter: "audience == $audience && category == $category",
-                  params: { audience, category },
-                }
-              }
               if (audience) {
                 return {
                   filter: "audience == $audience",
