@@ -94,9 +94,17 @@ export const WEBMASTER_NAVIGATION: NavigationConfig = [
         href: "/rankings",
         items: [
             // ── Monetization ──
-            { label: { en: "Ad Networks", ru: "Рекламные сети" }, href: "/networks" },
-            { label: { en: "Domain Parking", ru: "Парковка доменов" }, href: "/monetization/domain-parking" },
-            { label: { en: "Link Selling", ru: "Продажа ссылок" }, href: "/monetization/link-selling" },
+            { label: { en: "Push Ad Networks", ru: "Push рекламные сети" }, href: "/rankings/push-ad-networks" },
+            { label: { en: "Popunder Ad Networks", ru: "Попандер рекламные сети" }, href: "/rankings/popunder-ad-networks" },
+            { label: { en: "In-Page Ad Networks", ru: "In-Page рекламные сети" }, href: "/rankings/in-page-ad-networks" },
+            { label: { en: "Banner Ad Networks", ru: "Баннерные рекламные сети" }, href: "/rankings/banner-ad-networks" },
+            { label: { en: "Telegram Ad Networks", ru: "Telegram рекламные сети" }, href: "/rankings/telegram-ad-networks" },
+            { label: { en: "Display Ad Networks", ru: "Display рекламные сети" }, href: "/rankings/display-ad-networks" },
+            { label: { en: "Native Ad Networks", ru: "Нативные рекламные сети" }, href: "/rankings/native-ad-networks" },
+            { label: { en: "Mobile Ad Networks", ru: "Мобильные рекламные сети" }, href: "/rankings/mobile-ad-networks" },
+            { label: { en: "Video Ad Networks", ru: "Видео рекламные сети" }, href: "/rankings/video-ad-networks" },
+            { label: { en: "Domain Parking", ru: "Парковка доменов" }, href: "/rankings/domain-parking" },
+            { label: { en: "Link Selling", ru: "Продажа ссылок" }, href: "/rankings/link-selling" },
             // ── Services ──
             { label: { en: "SEO", ru: "SEO" }, href: "/rankings/seo" },
             { label: { en: "DDoS Protection", ru: "Защита от DDoS-атак" }, href: "/rankings/ddos-protection" },

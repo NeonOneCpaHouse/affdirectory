@@ -1,11 +1,13 @@
-import { getNetworks, getNetworksByAdFormat, type Network, type AdFormatKey, adFormatLabels } from "./networks"
+import { getNetworksByAdFormat, type Network, type AdFormatKey, adFormatLabels } from "./networks"
 import { getCpaNetworksByVertical, getCpaNetworkAvgRating, type CpaNetwork, type VerticalKey, verticalLabels } from "./cpaNetworks"
 import { getServicesByType, getServiceAvgRating, type Service, type ServiceTypeKey, serviceTypeLabels } from "./services"
+import { getDomainParkingEntries, getDomainParkingAvgRating, type DomainParkingEntry } from "./domainParking"
+import { getLinkSellingEntries, getLinkSellingAvgRating, type LinkSellingEntry } from "./linkSelling"
 import type { Localized } from "@/types"
 
 // ─── Shared types ───────────────────────────────────────────────
 
-export type EntityType = "adNetwork" | "cpaNetwork" | "service"
+export type EntityType = "adNetwork" | "cpaNetwork" | "service" | "domainParking" | "linkSelling"
 
 export interface RankedItem {
   rank: number
@@ -22,6 +24,14 @@ export interface RankedCpaNetwork extends RankedItem {
 
 export interface RankedService extends RankedItem {
   service: Service
+}
+
+export interface RankedDomainParking extends RankedItem {
+  entry: DomainParkingEntry
+}
+
+export interface RankedLinkSelling extends RankedItem {
+  entry: LinkSellingEntry
 }
 
 export interface RankingSubcategory {
@@ -41,7 +51,7 @@ export interface RankingCategory {
 
 // ─── Slug mappings ──────────────────────────────────────────────
 
-const adFormatSlugs: Record<AdFormatKey, string> = {
+export const adFormatSlugs: Record<AdFormatKey, string> = {
   push: "push-ad-networks",
   popunder: "popunder-ad-networks",
   inPage: "in-page-ad-networks",
@@ -80,6 +90,11 @@ const serviceTypeSlugs: Record<ServiceTypeKey, string> = {
   hosting: "hostings",
 }
 
+const webmasterExtraSlugs = {
+  domainParking: "domain-parking",
+  linkSelling: "link-selling",
+} as const
+
 // ─── Reverse slug maps ─────────────────────────────────────────
 
 const slugToAdFormat: Record<string, AdFormatKey> = Object.fromEntries(
@@ -93,6 +108,10 @@ const slugToVertical: Record<string, VerticalKey> = Object.fromEntries(
 const slugToServiceType: Record<string, ServiceTypeKey> = Object.fromEntries(
   Object.entries(serviceTypeSlugs).map(([k, v]) => [v, k as ServiceTypeKey])
 )
+
+const slugToWebmasterExtra = Object.fromEntries(
+  Object.entries(webmasterExtraSlugs).map(([k, v]) => [v, k])
+) as Record<string, keyof typeof webmasterExtraSlugs>
 
 // ─── Data fetchers ──────────────────────────────────────────────
 
@@ -136,27 +155,104 @@ export async function getServiceRanking(serviceType: ServiceTypeKey, audience: s
     .map((item, index) => ({ ...item, rank: index + 1 }))
 }
 
+export async function getDomainParkingRanking(audience: string = "webmaster"): Promise<RankedDomainParking[]> {
+  const entries = await getDomainParkingEntries(audience)
+  return entries
+    .map((entry) => ({
+      entry,
+      score: Math.round(getDomainParkingAvgRating(entry) * 10) / 10,
+      rank: 0,
+    }))
+    .sort((a, b) => b.score - a.score)
+    .map((item, index) => ({ ...item, rank: index + 1 }))
+}
+
+export async function getLinkSellingRanking(audience: string = "webmaster"): Promise<RankedLinkSelling[]> {
+  const entries = await getLinkSellingEntries(audience)
+  return entries
+    .map((entry) => ({
+      entry,
+      score: Math.round(getLinkSellingAvgRating(entry) * 10) / 10,
+      rank: 0,
+    }))
+    .sort((a, b) => b.score - a.score)
+    .map((item, index) => ({ ...item, rank: index + 1 }))
+}
+
 // ─── Full ranking structure ─────────────────────────────────────
 
 export async function getAllRankingCategories(audience: string = "affiliate"): Promise<RankingCategory[]> {
   const adFormats: AdFormatKey[] = ["push", "popunder", "inPage", "banner", "telegram", "display", "native", "mobile", "video"]
   const verticals: VerticalKey[] = ["gambling", "betting", "dating", "crypto", "finance", "sweeps", "installs", "nutra", "adult", "multivertical", "other"]
-  const serviceTypes: ServiceTypeKey[] = ["antidetect", "spyTools", "proxy", "trackers", "payments", "pwa", "seo", "ddos", "cms", "hosting"]
+  const affiliateServiceTypes: ServiceTypeKey[] = ["antidetect", "spyTools", "proxy", "trackers", "payments", "pwa", "seo", "ddos", "cms", "hosting"]
+  const webmasterServiceTypes: ServiceTypeKey[] = ["seo", "ddos", "cms", "hosting"]
 
-  const [adNetworkSubs, cpaSubs, serviceSubs] = await Promise.all([
-    Promise.all(
-      adFormats.map(async (format) => {
-        const items = await getAdNetworkRanking(format, audience)
-        return {
-          key: format,
-          slug: adFormatSlugs[format],
-          label: adFormatLabels[format],
-          entityType: "adNetwork" as EntityType,
-          items,
-          itemCount: items.length,
-        }
-      })
-    ),
+  const adNetworkSubs = await Promise.all(
+    adFormats.map(async (format) => {
+      const items = await getAdNetworkRanking(format, audience)
+      return {
+        key: format,
+        slug: adFormatSlugs[format],
+        label: adFormatLabels[format],
+        entityType: "adNetwork" as EntityType,
+        items,
+        itemCount: items.length,
+      }
+    })
+  )
+
+  if (audience === "webmaster") {
+    const [domainParkingItems, linkSellingItems, serviceSubs] = await Promise.all([
+      getDomainParkingRanking(audience),
+      getLinkSellingRanking(audience),
+      Promise.all(
+        webmasterServiceTypes.map(async (type) => {
+          const items = await getServiceRanking(type, audience)
+          return {
+            key: type,
+            slug: serviceTypeSlugs[type],
+            label: serviceTypeLabels[type],
+            entityType: "service" as EntityType,
+            items,
+            itemCount: items.length,
+          }
+        })
+      ),
+    ])
+
+    return [
+      {
+        key: "monetization",
+        label: { en: "Monetization", ru: "Монетизация" },
+        subcategories: [
+          ...adNetworkSubs,
+          {
+            key: "domainParking",
+            slug: webmasterExtraSlugs.domainParking,
+            label: { en: "Domain Parking", ru: "Парковка доменов" },
+            entityType: "domainParking" as EntityType,
+            items: domainParkingItems,
+            itemCount: domainParkingItems.length,
+          },
+          {
+            key: "linkSelling",
+            slug: webmasterExtraSlugs.linkSelling,
+            label: { en: "Link Selling", ru: "Продажа ссылок" },
+            entityType: "linkSelling" as EntityType,
+            items: linkSellingItems,
+            itemCount: linkSellingItems.length,
+          },
+        ],
+      },
+      {
+        key: "services",
+        label: { en: "Services", ru: "Сервисы" },
+        subcategories: serviceSubs,
+      },
+    ]
+  }
+
+  const [cpaSubs, serviceSubs] = await Promise.all([
     Promise.all(
       verticals.map(async (vertical) => {
         const items = await getCpaNetworkRanking(vertical, audience)
@@ -174,7 +270,7 @@ export async function getAllRankingCategories(audience: string = "affiliate"): P
       })
     ),
     Promise.all(
-      serviceTypes.map(async (type) => {
+      affiliateServiceTypes.map(async (type) => {
         const items = await getServiceRanking(type, audience)
         return {
           key: type,
@@ -216,6 +312,8 @@ export interface ResolvedRanking {
   adNetworks?: RankedAdNetwork[]
   cpaNetworks?: RankedCpaNetwork[]
   services?: RankedService[]
+  domainParkingEntries?: RankedDomainParking[]
+  linkSellingEntries?: RankedLinkSelling[]
 }
 
 export async function getRankingBySlug(slug: string, audience: string = "affiliate"): Promise<ResolvedRanking | undefined> {
@@ -255,6 +353,26 @@ export async function getRankingBySlug(slug: string, audience: string = "affilia
       label: serviceTypeLabels[type],
       slug,
       services: items,
+    }
+  }
+
+  if (slugToWebmasterExtra[slug] === "domainParking") {
+    const items = await getDomainParkingRanking(audience)
+    return {
+      entityType: "domainParking",
+      label: { en: "Domain Parking", ru: "Парковка доменов" },
+      slug,
+      domainParkingEntries: items,
+    }
+  }
+
+  if (slugToWebmasterExtra[slug] === "linkSelling") {
+    const items = await getLinkSellingRanking(audience)
+    return {
+      entityType: "linkSelling",
+      label: { en: "Link Selling", ru: "Продажа ссылок" },
+      slug,
+      linkSellingEntries: items,
     }
   }
 

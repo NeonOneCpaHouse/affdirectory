@@ -5,6 +5,8 @@ import Breadcrumbs from "@/components/Breadcrumbs"
 import NetworkTable from "@/components/NetworkTable"
 import CpaNetworkTable from "@/components/CpaNetworkTable"
 import ServiceTable from "@/components/ServiceTable"
+import DomainParkingTable from "@/components/DomainParkingTable"
+import LinkSellingTable from "@/components/LinkSellingTable"
 import type { ResolvedRanking } from "@/mock/rankings"
 import type { Localized } from "@/types"
 import { useLanguage } from "@/context/LanguageContext"
@@ -20,6 +22,20 @@ export default function RankingDetailClient({
 
   const label = ranking.label[language] || ranking.label["en"]
   const methodologyText = methodology[language] || methodology["en"]
+  const itemCount =
+    ranking.entityType === "adNetwork"
+      ? ranking.adNetworks?.length || 0
+      : ranking.entityType === "cpaNetwork"
+        ? ranking.cpaNetworks?.length || 0
+        : ranking.entityType === "service"
+          ? ranking.services?.length || 0
+          : ranking.entityType === "domainParking"
+            ? ranking.domainParkingEntries?.length || 0
+            : ranking.linkSellingEntries?.length || 0
+  const emptyMessage =
+    language === "ru"
+      ? "Пока в этом рейтинге нет доступных позиций."
+      : "There are no ranked entries available yet."
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -40,17 +56,29 @@ export default function RankingDetailClient({
             <p className="text-gray-600 dark:text-gray-300 text-sm">{methodologyText}</p>
           </div>
 
-          <div className="bg-white dark:bg-gray-800/30 border border-accent-200 dark:border-gray-700/50 rounded-xl overflow-hidden mb-8 shadow-sm">
-            {ranking.entityType === "adNetwork" && ranking.adNetworks && (
-              <NetworkTable networks={ranking.adNetworks} />
-            )}
-            {ranking.entityType === "cpaNetwork" && ranking.cpaNetworks && (
-              <CpaNetworkTable networks={ranking.cpaNetworks} />
-            )}
-            {ranking.entityType === "service" && ranking.services && (
-              <ServiceTable services={ranking.services} />
-            )}
-          </div>
+          {itemCount > 0 ? (
+            <div className="bg-white dark:bg-gray-800/30 border border-accent-200 dark:border-gray-700/50 rounded-xl overflow-hidden mb-8 shadow-sm">
+              {ranking.entityType === "adNetwork" && ranking.adNetworks && (
+                <NetworkTable networks={ranking.adNetworks} />
+              )}
+              {ranking.entityType === "cpaNetwork" && ranking.cpaNetworks && (
+                <CpaNetworkTable networks={ranking.cpaNetworks} />
+              )}
+              {ranking.entityType === "service" && ranking.services && (
+                <ServiceTable services={ranking.services} />
+              )}
+              {ranking.entityType === "domainParking" && ranking.domainParkingEntries && (
+                <DomainParkingTable entries={ranking.domainParkingEntries} />
+              )}
+              {ranking.entityType === "linkSelling" && ranking.linkSellingEntries && (
+                <LinkSellingTable entries={ranking.linkSellingEntries} />
+              )}
+            </div>
+          ) : (
+            <div className="bg-white dark:bg-gray-800/30 border border-accent-200 dark:border-gray-700/50 rounded-xl p-8 mb-8 shadow-sm">
+              <p className="text-sm text-gray-600 dark:text-gray-300">{emptyMessage}</p>
+            </div>
+          )}
 
           <div className="lg:hidden mb-8">
             <AdSlot slotKey="sidebar" />

@@ -4,7 +4,7 @@ import { getNavigation } from "@/lib/navigation"
 
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect } from "react"
 import { ChevronDown, Search, Menu, X, Loader2 } from "lucide-react"
 import { useDebounce } from "use-debounce"
 import { searchArticlesAction } from "@/app/actions"
@@ -17,10 +17,28 @@ import { useAudience } from "@/context/AudienceContext"
 import { cn } from "@/lib/utils"
 import { urlFor } from "@/lib/sanity"
 
-function groupMegaMenuItems(items: DropdownItem[], audience: string, language: string) {
+const webmasterMonetizationSlugs = new Set([
+  "push-ad-networks",
+  "popunder-ad-networks",
+  "in-page-ad-networks",
+  "banner-ad-networks",
+  "telegram-ad-networks",
+  "display-ad-networks",
+  "native-ad-networks",
+  "mobile-ad-networks",
+  "video-ad-networks",
+  "domain-parking",
+  "link-selling",
+])
+
+function getHrefSlug(href: string) {
+  return href.split("?")[0].split("/").filter(Boolean).pop() || ""
+}
+
+function groupMegaMenuItems(items: DropdownItem[], audience: string) {
   if (audience === "webmaster") {
-    const monetizationItems = items.filter(i => i.href.includes('/networks') || i.href.includes('/monetization/'))
-    const serviceItems = items.filter(i => !i.href.includes('/networks') && !i.href.includes('/monetization/'))
+    const monetizationItems = items.filter((item) => webmasterMonetizationSlugs.has(getHrefSlug(item.href)))
+    const serviceItems = items.filter((item) => !webmasterMonetizationSlugs.has(getHrefSlug(item.href)))
     return [
       { title: 'Monetization', titleRu: 'Монетизация', color: 'text-blue-500', items: monetizationItems },
       { title: 'Services', titleRu: 'Сервисы', color: 'text-emerald-500', items: serviceItems },
@@ -79,12 +97,14 @@ function NavItem({ label, href, items, audience = "affiliate", language = "en" }
             /* Mega-menu for Rankings */
             <div className="bg-white dark:bg-gray-900 border border-accent-200 dark:border-gray-700 rounded-xl shadow-xl p-5 min-w-[540px]">
               {(() => {
-                const groups = groupMegaMenuItems(items, audience, language)
+                const groups = groupMegaMenuItems(items, audience)
                 return (
                   <div className={`grid gap-6 ${groups.length >= 3 ? 'grid-cols-3' : 'grid-cols-2'}`}>
                     {groups.map((group) => (
                       <div key={group.title}>
-                        <p className={`text-xs font-bold uppercase tracking-wider mb-2 ${group.color}`}>{group.title}</p>
+                        <p className={`text-xs font-bold uppercase tracking-wider mb-2 ${group.color}`}>
+                          {language === "ru" ? group.titleRu : group.title}
+                        </p>
                         {group.items.map((item) => {
                           const shortLabel = item.label
                             .replace(/ Ad Networks?$/i, '')
@@ -201,7 +221,7 @@ function MobileNavItem({ label, href, items, onNavigate, audience = "affiliate",
           {isMegaMenu ? (
             // Grouped sub-menus for Rankings
             (() => {
-              const groups = groupMegaMenuItems(items, audience, language)
+              const groups = groupMegaMenuItems(items, audience)
 
               return (
                 <>

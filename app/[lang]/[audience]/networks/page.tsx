@@ -1,9 +1,15 @@
 import NetworksCategoryClient from "@/components/NetworksCategoryClient"
 import { getNetworks } from "@/mock/networks"
 import { adFormatLabels, type AdFormatKey } from "@/mock/networks"
+import { redirect } from "next/navigation"
 
 export default async function NetworksPage({ params }: { params: Promise<{ lang: string; audience: string }> }) {
-  const { audience } = await params
+  const { lang, audience } = await params
+
+  if (audience === "webmaster") {
+    redirect(`/${lang}/${audience}/rankings`)
+  }
+
   const allNetworks = await getNetworks(audience)
 
   // Count networks per ad format
