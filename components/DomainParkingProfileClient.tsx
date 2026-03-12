@@ -4,6 +4,7 @@ import AdSlot from "@/components/AdSlot"
 import Breadcrumbs from "@/components/Breadcrumbs"
 import RatingStars from "@/components/RatingStars"
 import type { DomainParkingEntry } from "@/mock/domainParking"
+import { getWebmasterExtraRankingHref } from "@/mock/rankings"
 import { useLanguage } from "@/context/LanguageContext"
 import { useAudience } from "@/context/AudienceContext"
 import RichText from "@/components/RichText"
@@ -61,6 +62,7 @@ export default function DomainParkingProfileClient({
 }) {
     const { language } = useLanguage()
     const { audience } = useAudience()
+    const categoryHref = audience === "webmaster" ? getWebmasterExtraRankingHref("domainParking") : "/monetization/domain-parking"
 
     const name = entry.name?.[language] || entry.name?.["en"] || ""
     const minWithdraw = entry.minWithdraw?.[language] || entry.minWithdraw?.["en"] || "—"
@@ -73,7 +75,7 @@ export default function DomainParkingProfileClient({
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <Breadcrumbs items={[
                 { label: language === "ru" ? "Монетизация" : "Monetization", href: "/monetization" },
-                { label: language === "ru" ? "Парковка доменов" : "Domain Parking", href: "/monetization/domain-parking" },
+                { label: language === "ru" ? "Парковка доменов" : "Domain Parking", href: categoryHref },
                 { label: name },
             ]} />
             <div className="mb-8">

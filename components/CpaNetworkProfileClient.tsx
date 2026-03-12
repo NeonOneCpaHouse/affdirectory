@@ -5,6 +5,7 @@ import Breadcrumbs from "@/components/Breadcrumbs"
 import RatingStars from "@/components/RatingStars"
 import type { CpaNetwork } from "@/mock/cpaNetworks"
 import { verticalLabels, type VerticalKey } from "@/mock/cpaNetworks"
+import { getVerticalRankingHref } from "@/mock/rankings"
 import { useLanguage } from "@/context/LanguageContext"
 import { useAudience } from "@/context/AudienceContext"
 import RichText from "@/components/RichText"
@@ -66,6 +67,7 @@ export default function CpaNetworkProfileClient({
     const { language, t } = useLanguage()
     const { audience } = useAudience()
     const categoryLabel = verticalLabels[category]?.[language] || verticalLabels[category]?.["en"] || category
+    const categoryHref = audience === "affiliate" ? getVerticalRankingHref(category) : `/cpa-networks/${category}`
 
     const name = network.name?.[language] || network.name?.["en"] || ""
     const minWithdraw = network.minWithdraw?.[language] || network.minWithdraw?.["en"] || "—"
@@ -80,7 +82,7 @@ export default function CpaNetworkProfileClient({
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <Breadcrumbs items={[
                 { label: language === "ru" ? "CPA сети" : "CPA Networks", href: "/cpa-networks" },
-                { label: categoryLabel, href: `/cpa-networks/${category}` },
+                { label: categoryLabel, href: categoryHref },
                 { label: name },
             ]} />
             <div className="mb-8">

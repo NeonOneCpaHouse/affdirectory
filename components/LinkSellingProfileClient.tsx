@@ -4,6 +4,7 @@ import AdSlot from "@/components/AdSlot"
 import Breadcrumbs from "@/components/Breadcrumbs"
 import RatingStars from "@/components/RatingStars"
 import type { LinkSellingEntry } from "@/mock/linkSelling"
+import { getWebmasterExtraRankingHref } from "@/mock/rankings"
 import { useLanguage } from "@/context/LanguageContext"
 import { useAudience } from "@/context/AudienceContext"
 import RichText from "@/components/RichText"
@@ -49,6 +50,7 @@ export default function LinkSellingProfileClient({
 }) {
     const { language } = useLanguage()
     const { audience } = useAudience()
+    const categoryHref = audience === "webmaster" ? getWebmasterExtraRankingHref("linkSelling") : "/monetization/link-selling"
 
     const name = entry.name?.[language] || entry.name?.["en"] || ""
     const minWithdraw = entry.minWithdraw?.[language] || entry.minWithdraw?.["en"] || "—"
@@ -61,7 +63,7 @@ export default function LinkSellingProfileClient({
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <Breadcrumbs items={[
                 { label: language === "ru" ? "Монетизация" : "Monetization", href: "/monetization" },
-                { label: language === "ru" ? "Продажа ссылок" : "Link Selling", href: "/monetization/link-selling" },
+                { label: language === "ru" ? "Продажа ссылок" : "Link Selling", href: categoryHref },
                 { label: name },
             ]} />
             <div className="mb-8"><AdSlot slotKey="leaderboard" fullWidth /></div>

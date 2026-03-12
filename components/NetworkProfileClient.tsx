@@ -5,8 +5,8 @@ import RatingStars from "@/components/RatingStars"
 import TagPills from "@/components/TagPills"
 import NetworkCard from "@/components/NetworkCard"
 import { formatLabels, adFormatLabels, type Network, type AdFormatKey } from "@/mock/networks"
+import { getAdFormatRankingHref } from "@/mock/rankings"
 import { useLanguage } from "@/context/LanguageContext"
-import { useAudience } from "@/context/AudienceContext"
 
 export default function NetworkProfileClient({
   network,
@@ -18,8 +18,8 @@ export default function NetworkProfileClient({
   category: AdFormatKey
 }) {
   const { language, t } = useLanguage()
-  const { audience } = useAudience()
   const categoryLabel = adFormatLabels[category]?.[language] || adFormatLabels[category]?.["en"] || category
+  const categoryHref = getAdFormatRankingHref(category)
 
   const currentGeos = network.geos[language] || network.geos["en"] || []
   const currentPros = network.pros[language] || network.pros["en"] || []
@@ -30,7 +30,7 @@ export default function NetworkProfileClient({
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <Breadcrumbs items={[
         { label: t("nav.networks"), href: "/networks" },
-        { label: categoryLabel, href: `/networks/${category}` },
+        { label: categoryLabel, href: categoryHref },
         { label: network.name },
       ]} />
       <div className="mb-8">

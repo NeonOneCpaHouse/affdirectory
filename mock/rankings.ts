@@ -96,6 +96,22 @@ export const webmasterExtraSlugs = {
   linkSelling: "link-selling",
 } as const
 
+export function getAdFormatRankingHref(adFormat: AdFormatKey): string {
+  return `/rankings/${adFormatSlugs[adFormat]}`
+}
+
+export function getVerticalRankingHref(vertical: VerticalKey): string {
+  return `/rankings/${verticalSlugs[vertical]}`
+}
+
+export function getServiceTypeRankingHref(serviceType: ServiceTypeKey): string {
+  return `/rankings/${serviceTypeSlugs[serviceType]}`
+}
+
+export function getWebmasterExtraRankingHref(extra: keyof typeof webmasterExtraSlugs): string {
+  return `/rankings/${webmasterExtraSlugs[extra]}`
+}
+
 export const affiliateAdFormatKeys: AdFormatKey[] = [
   "push",
   "popunder",
