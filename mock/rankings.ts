@@ -50,6 +50,34 @@ export interface RankingCategory {
   subcategories: RankingSubcategory[]
 }
 
+export interface RankingContentSection {
+  title: Localized<string>
+  paragraphs: Localized<string[]>
+}
+
+export interface RankingFaqItem {
+  question: Localized<string>
+  answer: Localized<string>
+}
+
+export interface RankingContentOverride {
+  placement: "beforeRanking" | "afterRanking"
+  introParagraphs: Localized<string[]>
+  sections: RankingContentSection[]
+  faq?: {
+    items: RankingFaqItem[]
+  }
+}
+
+export interface RankingPageOverride {
+  h1: Localized<string>
+  seo?: {
+    title: Localized<string>
+    description: Localized<string>
+  }
+  content?: RankingContentOverride
+}
+
 // ─── Slug mappings ──────────────────────────────────────────────
 
 export const adFormatSlugs: Record<AdFormatKey, string> = {
@@ -463,6 +491,122 @@ export async function getRankingBySlug(slug: string, audience: string = "affilia
   }
 
   return undefined
+}
+
+const rankingPageOverrides: Partial<Record<`${Audience}:${string}`, RankingPageOverride>> = {
+  "affiliate:push-ad-networks": {
+    h1: {
+      en: "Best Push Ad Networks for Affiliate Marketing 2026",
+      ru: "Лучшие пуш-рекламные сети для арбитража трафика 2026",
+    },
+    seo: {
+      title: {
+        en: "Best Push Ad Networks 2026: Top Rankings for Affiliates | AffTraff",
+        ru: "Лучшие пуш-рекламные сети 2026: Рейтинг для арбитражников | AffTraff",
+      },
+      description: {
+        en: "Compare the best push ad networks for affiliate marketing. Expert rankings based on performance, user experience, and support. Updated quarterly with real data.",
+        ru: "Сравните лучшие пуш-сети для арбитража трафика. Экспертный рейтинг на основе производительности, опыта и поддержки. Обновляется ежеквартально.",
+      },
+    },
+    content: {
+      placement: "afterRanking",
+      introParagraphs: {
+        en: [
+          "Push ad networks have become one of the most effective traffic sources for affiliate marketers in 2026. These platforms deliver browser notifications directly to users' devices, offering high engagement rates and competitive pricing across multiple verticals including gambling, betting, dating, e-commerce, and finance.",
+          "Choosing the right push notification network can significantly impact your campaign ROI. Our ranking evaluates the best push ad networks based on three key criteria: Performance (60%), which measures traffic quality and conversion rates; Publisher Experience (25%), assessing platform usability and campaign management tools; and Support (15%), evaluating response times and technical assistance quality.",
+          "Whether you're running sweepstakes offers, promoting casino brands, or scaling dating campaigns, push traffic offers precise targeting options including GEO, device type, operating system, browser, and user behavior. The networks in our ranking provide access to millions of daily impressions across tier-1, tier-2, and tier-3 countries, with minimum deposits starting from $50 and flexible payment terms.",
+        ],
+        ru: [
+          "Пуш-рекламные сети стали одним из самых эффективных источников трафика для арбитражников в 2026 году. Эти платформы доставляют браузерные уведомления напрямую на устройства пользователей, обеспечивая высокие показатели вовлеченности и конкурентные цены по множеству вертикалей, включая гемблинг, беттинг, дейтинг, e-commerce и финансы.",
+          "Выбор правильной push-сети может существенно повлиять на ROI ваших кампаний. Наш рейтинг оценивает лучшие пуш-рекламные сети на основе трёх ключевых критериев: Производительность (60%), которая измеряет качество трафика и конверсии; Опыт паблишера (25%), оценивающий удобство платформы и инструменты управления кампаниями; и Поддержка (15%), анализирующая время ответа и качество технической помощи.",
+          "Независимо от того, льёте ли вы свипстейки, промотируете казино или масштабируете дейтинг-кампании, пуш-трафик предлагает точный таргетинг по ГЕО, типу устройства, операционной системе, браузеру и поведению пользователей. Сети в нашем рейтинге обеспечивают доступ к миллионам ежедневных показов в странах tier-1, tier-2 и tier-3, с минимальным депозитом от $50 и гибкими условиями оплаты.",
+        ],
+      },
+      sections: [
+        {
+          title: {
+            en: "Why Push Ads Work for Affiliates",
+            ru: "Почему пуш-реклама работает для арбитражников",
+          },
+          paragraphs: {
+            en: [
+              "Push notification advertising delivers exceptional results for performance marketers due to several factors. First, push ads reach users who have actively subscribed to receive notifications, indicating higher engagement intent compared to other ad formats. Second, push traffic is less saturated than traditional display or native advertising, offering better CPM rates and conversion potential.",
+              "The top push ad networks on our list support advanced targeting capabilities, allowing affiliates to segment audiences by demographics, interests, subscription age, and activity patterns. Real-time bidding systems enable precise budget control, while anti-fraud measures ensure traffic quality. Most platforms offer CPC and CPM pricing models, giving marketers flexibility to optimize based on campaign goals.",
+            ],
+            ru: [
+              "Пуш-уведомления показывают исключительные результаты для перформанс-маркетологов благодаря нескольким факторам. Во-первых, пуш-реклама достигает пользователей, которые активно подписались на получение уведомлений, что указывает на более высокий уровень вовлеченности по сравнению с другими форматами. Во-вторых, пуш-трафик менее насыщен, чем традиционная баннерная или нативная реклама, предлагая лучшие ставки CPM и потенциал конверсии.",
+              "Топовые пуш-сети из нашего списка поддерживают расширенные возможности таргетинга, позволяя арбитражникам сегментировать аудитории по демографии, интересам, возрасту подписки и паттернам активности. Системы торгов в реальном времени обеспечивают точный контроль бюджета, а антифрод-меры гарантируют качество трафика. Большинство платформ предлагают модели ценообразования CPC и CPM, давая маркетологам гибкость для оптимизации под цели кампаний.",
+            ],
+          },
+        },
+        {
+          title: {
+            en: "How We Rank Push Ad Networks",
+            ru: "Как мы составляем рейтинг пуш-сетей",
+          },
+          paragraphs: {
+            en: [
+              "Our methodology combines quantitative data and qualitative feedback from affiliate marketers actively using these platforms. Performance metrics include average conversion rates across verticals, traffic volume consistency, and fraud prevention effectiveness. Publisher experience evaluates dashboard functionality, campaign setup speed, targeting granularity, and reporting accuracy. Support quality measures response times, account manager availability, and technical problem resolution.",
+              "Rankings are updated quarterly to reflect market changes, new features, and community feedback. Each network undergoes continuous monitoring to ensure our recommendations remain current and reliable for affiliates making traffic source decisions.",
+            ],
+            ru: [
+              "Наша методология сочетает количественные данные и качественную обратную связь от арбитражников, активно использующих эти платформы. Метрики производительности включают средние показатели конверсии по вертикалям, стабильность объёмов трафика и эффективность защиты от фрода. Опыт паблишера оценивает функциональность дашборда, скорость настройки кампаний, детализацию таргетинга и точность отчётности. Качество поддержки измеряет время ответа, доступность аккаунт-менеджеров и решение технических проблем.",
+              "Рейтинги обновляются ежеквартально, чтобы отражать изменения на рынке, новые функции и отзывы комьюнити. Каждая сеть проходит непрерывный мониторинг, чтобы наши рекомендации оставались актуальными и надёжными для арбитражников, принимающих решения об источниках трафика.",
+            ],
+          },
+        },
+      ],
+      faq: {
+        items: [
+          {
+            question: {
+              en: "What is a push ad network?",
+              ru: "Что такое пуш-рекламная сеть?",
+            },
+            answer: {
+              en: "A push ad network is a platform that delivers browser notification advertisements to users who have subscribed to receive them. These ads appear on desktop and mobile devices, offering high engagement rates for affiliate marketers.",
+              ru: "Пуш-рекламная сеть — это платформа, которая доставляет рекламные браузерные уведомления пользователям, подписавшимся на их получение. Эта реклама отображается на десктопах и мобильных устройствах, обеспечивая высокую вовлечённость для арбитражников.",
+            },
+          },
+          {
+            question: {
+              en: "What's the minimum deposit for push ad networks?",
+              ru: "Какой минимальный депозит в пуш-сетях?",
+            },
+            answer: {
+              en: "Most top-tier push ad networks require a minimum deposit of $50, making them accessible for both beginner and experienced affiliate marketers.",
+              ru: "Большинство топовых пуш-рекламных сетей требуют минимальный депозит $50, что делает их доступными как для новичков, так и для опытных арбитражников.",
+            },
+          },
+          {
+            question: {
+              en: "Which verticals work best with push traffic?",
+              ru: "Какие вертикали лучше всего работают с пуш-трафиком?",
+            },
+            answer: {
+              en: "Push ads perform exceptionally well for gambling, betting, dating, sweepstakes, e-commerce, finance, and mobile app installs due to the high-intent nature of subscribed users.",
+              ru: "Пуш-реклама показывает отличные результаты в гемблинге, беттинге, дейтинге, свипстейках, e-commerce, финансах и установках мобильных приложений благодаря высокой заинтересованности подписчиков.",
+            },
+          },
+          {
+            question: {
+              en: "How often are these rankings updated?",
+              ru: "Как часто обновляются рейтинги?",
+            },
+            answer: {
+              en: "Our push ad network rankings are updated quarterly based on performance data, platform changes, and affiliate feedback to ensure accuracy.",
+              ru: "Наши рейтинги пуш-сетей обновляются ежеквартально на основе данных о производительности, изменений платформ и отзывов арбитражников для обеспечения актуальности.",
+            },
+          },
+        ],
+      },
+    },
+  },
+}
+
+export function getRankingPageOverride(slug: string, audience: Audience): RankingPageOverride | undefined {
+  return rankingPageOverrides[`${audience}:${slug}`]
 }
 
 export const rankingMethodology: Localized<string> = {
