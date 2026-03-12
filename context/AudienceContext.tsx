@@ -46,14 +46,9 @@ export function AudienceProvider({
         localStorage.setItem("preferred_audience", aud)
         document.cookie = `audience=${aud}; path=/; max-age=31536000`
 
-        // Update URL
-        // Assumption: Path is /[lang]/[audience]/...
         const segments = pathname.split("/").filter(Boolean)
-        if (segments.length >= 2) {
-            segments[1] = aud
-            const newPath = `/${segments.join("/")}`
-            router.push(newPath)
-        }
+        const lang = segments[0] || "en"
+        router.push(`/${lang}/${aud}`)
     }
 
     return (

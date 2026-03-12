@@ -1,6 +1,7 @@
 "use client"
 
 import { getNavigation } from "@/lib/navigation"
+import { adFormatSlugs, webmasterAdFormatKeys, webmasterExtraSlugs } from "@/mock/rankings"
 
 import Link from "next/link"
 import { useRouter } from "next/navigation"
@@ -18,17 +19,9 @@ import { cn } from "@/lib/utils"
 import { urlFor } from "@/lib/sanity"
 
 const webmasterMonetizationSlugs = new Set([
-  "push-ad-networks",
-  "popunder-ad-networks",
-  "in-page-ad-networks",
-  "banner-ad-networks",
-  "telegram-ad-networks",
-  "display-ad-networks",
-  "native-ad-networks",
-  "mobile-ad-networks",
-  "video-ad-networks",
-  "domain-parking",
-  "link-selling",
+  ...webmasterAdFormatKeys.map((format) => adFormatSlugs[format]),
+  webmasterExtraSlugs.domainParking,
+  webmasterExtraSlugs.linkSelling,
 ])
 
 function getHrefSlug(href: string) {

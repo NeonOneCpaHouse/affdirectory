@@ -3,6 +3,7 @@ import { getCpaNetworksByVertical, getCpaNetworkAvgRating, type CpaNetwork, type
 import { getServicesByType, getServiceAvgRating, type Service, type ServiceTypeKey, serviceTypeLabels } from "./services"
 import { getDomainParkingEntries, getDomainParkingAvgRating, type DomainParkingEntry } from "./domainParking"
 import { getLinkSellingEntries, getLinkSellingAvgRating, type LinkSellingEntry } from "./linkSelling"
+import type { Audience } from "@/context/AudienceContext"
 import type { Localized } from "@/types"
 
 // ─── Shared types ───────────────────────────────────────────────
@@ -63,7 +64,7 @@ export const adFormatSlugs: Record<AdFormatKey, string> = {
   video: "video-ad-networks",
 }
 
-const verticalSlugs: Record<VerticalKey, string> = {
+export const verticalSlugs: Record<VerticalKey, string> = {
   gambling: "gambling-cpa-networks",
   betting: "betting-cpa-networks",
   dating: "dating-cpa-networks",
@@ -77,7 +78,7 @@ const verticalSlugs: Record<VerticalKey, string> = {
   other: "other-cpa-networks",
 }
 
-const serviceTypeSlugs: Record<ServiceTypeKey, string> = {
+export const serviceTypeSlugs: Record<ServiceTypeKey, string> = {
   antidetect: "antidetect-browsers",
   spyTools: "spy-tools",
   proxy: "proxy",
@@ -90,10 +91,48 @@ const serviceTypeSlugs: Record<ServiceTypeKey, string> = {
   hosting: "hostings",
 }
 
-const webmasterExtraSlugs = {
+export const webmasterExtraSlugs = {
   domainParking: "domain-parking",
   linkSelling: "link-selling",
 } as const
+
+export const affiliateAdFormatKeys: AdFormatKey[] = [
+  "push",
+  "popunder",
+  "inPage",
+  "banner",
+  "telegram",
+  "display",
+  "native",
+  "mobile",
+  "video",
+]
+
+export const webmasterAdFormatKeys: AdFormatKey[] = [
+  "push",
+  "popunder",
+  "inPage",
+  "banner",
+  "display",
+  "native",
+  "video",
+]
+
+export const affiliateServiceTypeKeys: ServiceTypeKey[] = [
+  "antidetect",
+  "spyTools",
+  "proxy",
+  "trackers",
+  "payments",
+  "pwa",
+]
+
+export const webmasterServiceTypeKeys: ServiceTypeKey[] = [
+  "seo",
+  "ddos",
+  "cms",
+  "hosting",
+]
 
 // ─── Reverse slug maps ─────────────────────────────────────────
 
@@ -112,6 +151,35 @@ const slugToServiceType: Record<string, ServiceTypeKey> = Object.fromEntries(
 const slugToWebmasterExtra = Object.fromEntries(
   Object.entries(webmasterExtraSlugs).map(([k, v]) => [v, k])
 ) as Record<string, keyof typeof webmasterExtraSlugs>
+
+export function getAudienceAdFormatKeys(audience: Audience): AdFormatKey[] {
+  return audience === "webmaster" ? webmasterAdFormatKeys : affiliateAdFormatKeys
+}
+
+export function getAudienceServiceTypeKeys(audience: Audience): ServiceTypeKey[] {
+  return audience === "webmaster" ? webmasterServiceTypeKeys : affiliateServiceTypeKeys
+}
+
+export function getAllowedRankingSlugs(audience: Audience): string[] {
+  const adSlugs = getAudienceAdFormatKeys(audience).map((format) => adFormatSlugs[format])
+  const serviceSlugs = getAudienceServiceTypeKeys(audience).map((type) => serviceTypeSlugs[type])
+
+  if (audience === "webmaster") {
+    return [
+      ...adSlugs,
+      webmasterExtraSlugs.domainParking,
+      webmasterExtraSlugs.linkSelling,
+      ...serviceSlugs,
+    ]
+  }
+
+  const cpaSlugs = (Object.keys(verticalSlugs) as VerticalKey[]).map((vertical) => verticalSlugs[vertical])
+  return [...adSlugs, ...cpaSlugs, ...serviceSlugs]
+}
+
+export function isRankingSlugAllowedForAudience(slug: string, audience: Audience): boolean {
+  return getAllowedRankingSlugs(audience).includes(slug)
+}
 
 // ─── Data fetchers ──────────────────────────────────────────────
 
@@ -182,13 +250,11 @@ export async function getLinkSellingRanking(audience: string = "webmaster"): Pro
 // ─── Full ranking structure ─────────────────────────────────────
 
 export async function getAllRankingCategories(audience: string = "affiliate"): Promise<RankingCategory[]> {
-  const adFormats: AdFormatKey[] = ["push", "popunder", "inPage", "banner", "telegram", "display", "native", "mobile", "video"]
   const verticals: VerticalKey[] = ["gambling", "betting", "dating", "crypto", "finance", "sweeps", "installs", "nutra", "adult", "multivertical", "other"]
-  const affiliateServiceTypes: ServiceTypeKey[] = ["antidetect", "spyTools", "proxy", "trackers", "payments", "pwa", "seo", "ddos", "cms", "hosting"]
-  const webmasterServiceTypes: ServiceTypeKey[] = ["seo", "ddos", "cms", "hosting"]
+  const currentAudience = audience as Audience
 
   const adNetworkSubs = await Promise.all(
-    adFormats.map(async (format) => {
+    getAudienceAdFormatKeys(currentAudience).map(async (format) => {
       const items = await getAdNetworkRanking(format, audience)
       return {
         key: format,
@@ -201,12 +267,12 @@ export async function getAllRankingCategories(audience: string = "affiliate"): P
     })
   )
 
-  if (audience === "webmaster") {
+  if (currentAudience === "webmaster") {
     const [domainParkingItems, linkSellingItems, serviceSubs] = await Promise.all([
       getDomainParkingRanking(audience),
       getLinkSellingRanking(audience),
       Promise.all(
-        webmasterServiceTypes.map(async (type) => {
+        getAudienceServiceTypeKeys(currentAudience).map(async (type) => {
           const items = await getServiceRanking(type, audience)
           return {
             key: type,
@@ -270,7 +336,7 @@ export async function getAllRankingCategories(audience: string = "affiliate"): P
       })
     ),
     Promise.all(
-      affiliateServiceTypes.map(async (type) => {
+      getAudienceServiceTypeKeys(currentAudience).map(async (type) => {
         const items = await getServiceRanking(type, audience)
         return {
           key: type,
@@ -317,6 +383,10 @@ export interface ResolvedRanking {
 }
 
 export async function getRankingBySlug(slug: string, audience: string = "affiliate"): Promise<ResolvedRanking | undefined> {
+  if (!isRankingSlugAllowedForAudience(slug, audience as Audience)) {
+    return undefined
+  }
+
   // Check ad network slugs
   if (slugToAdFormat[slug]) {
     const format = slugToAdFormat[slug]

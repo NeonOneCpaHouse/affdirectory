@@ -9,12 +9,19 @@ import NetworkTable from "@/components/NetworkTable"
 import CpaNetworkTable from "@/components/CpaNetworkTable"
 import ServiceTable from "@/components/ServiceTable"
 import {
+  affiliateAdFormatKeys,
+  affiliateServiceTypeKeys,
   getAdNetworkRanking,
+  getAudienceAdFormatKeys,
+  getAudienceServiceTypeKeys,
   getCpaNetworkRanking,
   getServiceRanking,
+  serviceTypeSlugs,
   type RankedAdNetwork,
   type RankedCpaNetwork,
   type RankedService,
+  adFormatSlugs,
+  verticalSlugs,
 } from "@/mock/rankings"
 import { adFormatLabels, type AdFormatKey } from "@/mock/networks"
 import { verticalLabels, type VerticalKey } from "@/mock/cpaNetworks"
@@ -26,26 +33,7 @@ import type { Event } from "@/mock/events"
 import type { Job } from "@/mock/jobs"
 import { useState, useEffect } from "react"
 
-// ── Sub-category configs ──
-const adNetworkSubs: AdFormatKey[] = ["push", "popunder", "inPage", "banner", "telegram", "display", "native", "mobile", "video"]
 const cpaSubs: VerticalKey[] = ["gambling", "betting", "dating", "crypto", "finance", "sweeps", "installs", "nutra", "adult", "multivertical", "other"]
-const serviceSubs: ServiceTypeKey[] = ["antidetect", "spyTools", "proxy", "trackers", "pwa", "payments"]
-
-const adFormatSlugs: Record<AdFormatKey, string> = {
-  push: "push-ad-networks", popunder: "popunder-ad-networks", inPage: "in-page-ad-networks",
-  banner: "banner-ad-networks", telegram: "telegram-ad-networks", display: "display-ad-networks",
-  native: "native-ad-networks", mobile: "mobile-ad-networks", video: "video-ad-networks",
-}
-const verticalSlugs: Record<VerticalKey, string> = {
-  gambling: "gambling-cpa-networks", betting: "betting-cpa-networks", dating: "dating-cpa-networks",
-  crypto: "crypto-cpa-networks", finance: "finance-cpa-networks", sweeps: "sweeps-cpa-networks",
-  installs: "installs-cpa-networks", nutra: "nutra-cpa-networks", adult: "adult-cpa-networks",
-  multivertical: "multivertical-cpa-networks", other: "other-cpa-networks",
-}
-const serviceTypeSlugs: Record<ServiceTypeKey, string> = {
-  antidetect: "antidetect-browsers", spyTools: "spy-tools", proxy: "proxy",
-  trackers: "trackers", payments: "payments", pwa: "pwa-tools",
-}
 
 // ── Horizontal slider component ──
 function SubSlider<T extends string>({
@@ -98,11 +86,14 @@ export default function HomePageClient({
 }) {
   const { t, language } = useLanguage()
   const { audience } = useAudience()
+  const adNetworkSubs = getAudienceAdFormatKeys(audience)
+  const serviceSubs = getAudienceServiceTypeKeys(audience)
+  const showCpaRankings = audience === "affiliate"
 
   const getPath = (path: string) => `/${language}/${audience}${path}`
 
   // Ad Networks state
-  const [activeAdFormat, setActiveAdFormat] = useState<AdFormatKey>("push")
+  const [activeAdFormat, setActiveAdFormat] = useState<AdFormatKey>(affiliateAdFormatKeys[0])
   const [adNetworks, setAdNetworks] = useState<RankedAdNetwork[]>([])
   const [adLoading, setAdLoading] = useState(true)
 
@@ -112,9 +103,21 @@ export default function HomePageClient({
   const [cpaLoading, setCpaLoading] = useState(true)
 
   // Services state
-  const [activeServiceType, setActiveServiceType] = useState<ServiceTypeKey>("antidetect")
+  const [activeServiceType, setActiveServiceType] = useState<ServiceTypeKey>(affiliateServiceTypeKeys[0])
   const [services, setServices] = useState<RankedService[]>([])
   const [serviceLoading, setServiceLoading] = useState(true)
+
+  useEffect(() => {
+    if (!adNetworkSubs.includes(activeAdFormat)) {
+      setActiveAdFormat(adNetworkSubs[0])
+    }
+  }, [activeAdFormat, adNetworkSubs])
+
+  useEffect(() => {
+    if (!serviceSubs.includes(activeServiceType)) {
+      setActiveServiceType(serviceSubs[0])
+    }
+  }, [activeServiceType, serviceSubs])
 
   useEffect(() => {
     setAdLoading(true)
@@ -125,12 +128,18 @@ export default function HomePageClient({
   }, [activeAdFormat, audience])
 
   useEffect(() => {
+    if (!showCpaRankings) {
+      setCpaNetworks([])
+      setCpaLoading(false)
+      return
+    }
+
     setCpaLoading(true)
     getCpaNetworkRanking(activeVertical, audience).then((data) => {
       setCpaNetworks(data)
       setCpaLoading(false)
     })
-  }, [activeVertical, audience])
+  }, [activeVertical, audience, showCpaRankings])
 
   useEffect(() => {
     setServiceLoading(true)
@@ -222,7 +231,8 @@ export default function HomePageClient({
           </div>
 
           {/* ── Top CPA Networks ── */}
-          <section className="mb-12">
+          {showCpaRankings && (
+            <section className="mb-12">
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-3">
                 <div className="w-1 h-7 rounded-full bg-purple-500" />
@@ -240,7 +250,8 @@ export default function HomePageClient({
                 <CpaNetworkTable networks={cpaNetworks} maxRows={5} />
               ) : emptyPlaceholder}
             </div>
-          </section>
+            </section>
+          )}
 
           {/* ── Guides ── */}
           {guides.length > 0 && (
