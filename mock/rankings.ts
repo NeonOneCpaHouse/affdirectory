@@ -746,6 +746,187 @@ const rankingPageOverrides: Partial<Record<`${Audience}:${string}`, RankingPageO
       },
     },
   },
+  "affiliate:in-page-ad-networks": {
+    h1: {
+      en: "Best In-Page Push Ad Networks for Affiliate Marketing 2026",
+      ru: "Лучшие In-Page Push Рекламные Сети для Арбитража 2026",
+    },
+    seo: {
+      title: {
+        en: "Best In-Page Push Ad Networks 2026: Top Rankings for Affiliates | AffTraff",
+        ru: "Лучшие In-Page Рекламные Сети 2026: Рейтинг для Арбитражников | AffTraff",
+      },
+      description: {
+        en: "Compare the best In-Page Push ad networks for affiliate marketing. Works on iOS and all browsers. Expert rankings based on traffic quality and conversions.",
+        ru: "Топ In-Page Push сетей для арбитража. Работает на iOS и всех браузерах. Рейтинг на основе качества трафика и конверсий. Обновляется ежеквартально.",
+      },
+    },
+    content: {
+      placement: "afterRanking",
+      introParagraphs: {
+        en: [
+          "In-Page ad networks (also known as In-Page Push) represent an evolution of classic push notifications, working without requiring user subscription. This format displays notifications directly on the web page, mimicking the appearance of browser push notifications while bypassing operating system and browser limitations.",
+          "In 2026, In-Page Push has become one of the most promising formats for affiliate marketers thanks to expanded audience reach — the format works across all devices and browsers, including iOS/macOS Safari where classic push notifications are unavailable. Our ranking of the best In-Page ad networks evaluates platforms based on three criteria: Performance (60%) — traffic quality and conversions, Publisher Experience (25%) — interface usability and campaign setup, Support (15%) — technical support quality and account manager performance.",
+          "Networks in our ranking provide access to billions of daily impressions with minimum deposits starting from $50. Flexible targeting by GEO, devices, browsers, operating systems, and website categories enables precise campaign configuration for any vertical — from gambling and betting to e-commerce and financial products.",
+        ],
+        ru: [
+          "In-Page рекламные сети (также известные как In-Page Push) представляют собой эволюцию классических пуш-уведомлений, работающую без необходимости подписки пользователя. Этот формат отображает уведомления непосредственно на веб-странице, имитируя внешний вид браузерных push-уведомлений, но обходя ограничения операционных систем и браузеров.",
+          "В 2026 году In-Page Push становится одним из самых перспективных форматов для арбитражников благодаря расширенному охвату аудитории — формат работает на всех устройствах и браузерах, включая iOS/macOS Safari, где классические пуши недоступны. Наш рейтинг лучших In-Page рекламных сетей оценивает платформы по трём критериям: Производительность (60%) — качество трафика и конверсии, Опыт издателя (25%) — удобство интерфейса и настройка кампаний, Поддержка (15%) — качество техподдержки и работа менеджеров.",
+          "Сети из нашего рейтинга предоставляют доступ к миллиардам показов в день с минимальным депозитом от $50. Гибкий таргетинг по ГЕО, устройствам, браузерам, операционным системам и категориям сайтов позволяет точно настроить кампании под любую вертикаль — от гемблинга и беттинга до е-commerce и финансовых продуктов.",
+        ],
+      },
+      sections: [
+        {
+          title: {
+            en: "Why In-Page Push Works for Affiliate Marketing",
+            ru: "Почему In-Page Push эффективен для арбитража",
+          },
+          paragraphs: {
+            en: [
+              "In-Page Push solves the key problem of classic push notifications — limited reach on iOS and browsers with strict subscription policies. The format displays as part of the web page, making it compatible with any devices and operating systems. For affiliate marketers, this means access to the high-value iOS audience, which traditionally shows higher conversions in financial verticals, gambling, and e-commerce.",
+              "Advantages of In-Page Format:",
+              "First, 100% device coverage — the format works on desktop, Android, iOS, tablets, and any browsers including Safari, Chrome, Firefox. This is critical for verticals where a significant portion of traffic comes from iOS users with higher average order values.",
+              "Second, no banner blindness — In-Page notifications look like system messages, attracting more attention compared to traditional banners. In-Page Push CTR is on average 2-3 times higher than standard banner advertising at comparable costs.",
+              "Third, creative flexibility — the format supports images, emojis, call-to-action buttons, allowing creation of attractive ads for testing different approaches. Top networks from the ranking offer A/B testing of creatives and automatic bid optimization.",
+            ],
+            ru: [
+              "In-Page Push решает ключевую проблему классических пуш-уведомлений — ограниченный охват на iOS и в браузерах с жёсткими политиками подписки. Формат отображается как часть веб-страницы, что делает его совместимым с любыми устройствами и операционными системами. Для арбитражников это означает доступ к платёжеспособной аудитории iOS, которая традиционно показывает более высокие конверсии в финансовых вертикалях, гемблинге и е-commerce.",
+              "Преимущества In-Page формата:",
+              "Во-первых, 100% охват устройств — формат работает на desktop, Android, iOS, планшетах и в любых браузерах, включая Safari, Chrome, Firefox. Это критично для вертикалей, где значительная доля трафика приходится на iOS-пользователей с высоким средним чеком.",
+              "Во-вторых, отсутствие баннерной слепоты — In-Page уведомления выглядят как системные сообщения, привлекая больше внимания по сравнению с традиционными баннерами. CTR In-Page Push в среднем в 2-3 раза выше стандартной баннерной рекламы при сопоставимой стоимости.",
+              "В-третьих, гибкость креативов — формат поддерживает изображения, эмодзи, call-to-action кнопки, что позволяет создавать привлекательные объявления для тестирования различных подходов. Топовые сети из рейтинга предлагают A/B тестирование креативов и автоматическую оптимизацию ставок.",
+            ],
+          },
+        },
+        {
+          title: {
+            en: "Working with In-Page Traffic: Key Features",
+            ru: "Особенности работы с In-Page трафиком",
+          },
+          paragraphs: {
+            en: [
+              "In-Page Push differs from classic formats with specific settings and optimization approaches. Targeting by website categories is a key advantage: you can select placements by topic (news, entertainment, technology, finance), which increases ad relevance and conversion rates.",
+              "Frequency capping is especially important in In-Page since notifications display on the website page. It's recommended to limit impressions to 1-2 times per day per user to avoid audience irritation and maintain high CTR. Networks in our ranking provide detailed control over frequency and ad display timing.",
+              "Page placement varies between networks — notifications can appear in screen corners, center, or bottom of the page. Testing different positions helps find the optimal balance between visibility and conversion. Some platforms allow affiliates to choose preferred positions in campaign settings.",
+              "Creative moderation in In-Page networks typically processes faster than classic push, but requirements for image and text quality remain high. Best networks in the ranking moderate creatives within 1-3 hours, enabling rapid campaign launch and testing.",
+            ],
+            ru: [
+              "In-Page Push отличается от классических форматов специфическими настройками и подходами к оптимизации. Таргетинг по категориям сайтов — ключевое преимущество формата: можно выбирать площадки по тематике (новости, развлечения, технологии, финансы), что повышает релевантность показов и CR.",
+              "Частота показов (frequency capping) в In-Page особенно важна, так как уведомления отображаются на странице сайта. Рекомендуется ограничивать показы до 1-2 раз в день на пользователя, чтобы избежать раздражения аудитории и сохранить высокий CTR. Сети из нашего рейтинга предоставляют детальный контроль над частотой и временем показа объявлений.",
+              "Размещение на странице варьируется между сетями — уведомления могут появляться в углах экрана, по центру или внизу страницы. Тестирование различных позиций помогает найти оптимальный баланс между видимостью и конверсией. Некоторые платформы позволяют арбитражникам выбирать предпочтительные позиции в настройках кампании.",
+              "Модерация креативов в In-Page сетях обычно проходит быстрее, чем в классических пушах, но требования к качеству изображений и текстов остаются высокими. Лучшие сети из рейтинга модерируют креативы в течение 1-3 часов, позволяя оперативно запускать и тестировать кампании.",
+            ],
+          },
+        },
+        {
+          title: {
+            en: "Verticals and Strategies for In-Page Advertising",
+            ru: "Вертикали и стратегии для In-Page рекламы",
+          },
+          paragraphs: {
+            en: [
+              "In-Page Push shows consistent results across a wide range of verticals thanks to universal device coverage:",
+              "Gambling and Betting — the format effectively attracts new players, especially on iOS devices where classic push is unavailable. Bright creatives with bonuses and promotions show high CTR. It's important to use frequency caps to prevent audience burnout.",
+              "E-commerce and Retargeting — In-Page works excellently for abandoned cart reminders, special offers, and sales. Website category targeting allows showing relevant products to interested audiences.",
+              "Finance and Crypto — access to iOS audience is critical for high-ticket financial offers. In-Page allows bypassing push subscription limitations and reaching affluent Apple device users.",
+              "Sweepstakes and Utilities — mass-market verticals scale effectively through In-Page thanks to broad reach and relatively low traffic costs. Creatives with bright visuals and clear CTAs show best results.",
+            ],
+            ru: [
+              "In-Page Push показывает стабильные результаты в широком спектре вертикалей благодаря универсальному охвату устройств:",
+              "Гемблинг и беттинг — формат эффективен для привлечения новых игроков, особенно на iOS-устройствах, где классические пуши недоступны. Яркие креативы с бонусами и промоакциями показывают высокий CTR. Важно использовать frequency cap для предотвращения выгорания аудитории.",
+              "Е-commerce и ретаргетинг — In-Page отлично работает для напоминаний о брошенных корзинах, специальных предложениях и распродажах. Возможность таргетинга по категориям сайтов позволяет показывать релевантные товары заинтересованной аудитории.",
+              "Финансы и крипто — доступ к iOS-аудитории критичен для финансовых офферов с высоким чеком. In-Page позволяет обходить ограничения на push-подписки и достигать платёжеспособных пользователей Apple-устройств.",
+              "Свипстейки и утилиты — массовые вертикали эффективно масштабируются через In-Page благодаря широкому охвату и относительно низкой стоимости трафика. Креативы с яркими визуалами и чёткими CTA показывают лучшие результаты.",
+            ],
+          },
+        },
+        {
+          title: {
+            en: "How We Rank In-Page Networks",
+            ru: "Как мы составляем рейтинг In-Page сетей",
+          },
+          paragraphs: {
+            en: [
+              "Our evaluation methodology is based on testing real campaigns and analyzing feedback from the affiliate community. Performance (60%) includes traffic quality assessment, average conversion rates across verticals (gambling, e-commerce, finance), available inventory volumes, impression stability, and anti-fraud system effectiveness. We test each network on our own campaigns with a minimum $500 budget to obtain statistically significant data.",
+              "Publisher experience (25%) evaluates ad dashboard usability, campaign creation and launch speed, targeting flexibility (GEO, devices, website categories, scheduling), A/B testing capabilities for creatives, real-time statistics quality and detail. API availability for tracker integration and automated bid management is also considered.",
+              "Support (15%) measures average technical support response time, personal account manager availability, campaign optimization consultation quality. Networks offering proactive support with creative and targeting recommendations receive additional points.",
+              "Rankings are updated quarterly to reflect market changes, platform updates, new feature releases, and affiliate feedback. Each network undergoes retesting to confirm traffic quality stability.",
+            ],
+            ru: [
+              "Наша методология оценки базируется на тестировании реальных кампаний и анализе фидбека от арбитражного комьюнити. Производительность (60%) включает оценку качества трафика, средних CR по вертикалям (гемблинг, е-commerce, финансы), объёмов доступного инвентаря, стабильности показов и эффективности антифрод-систем. Мы тестируем каждую сеть на собственных кампаниях с бюджетом минимум $500 для получения статистически значимых данных.",
+              "Опыт издателя (25%) оценивает юзабилити рекламного кабинета, скорость создания и запуска кампаний, гибкость таргетинга (ГЕО, устройства, категории сайтов, расписание), возможности A/B тестирования креативов, качество и детализацию статистики в реальном времени. Также учитывается наличие API для интеграции с трекерами и автоматизации управления ставками.",
+              "Поддержка (15%) измеряет среднее время ответа технической поддержки, доступность персональных менеджеров, качество консультаций по оптимизации кампаний. Сети, предлагающие проактивную поддержку с рекомендациями по креативам и таргетингу, получают дополнительные баллы.",
+              "Рейтинг обновляется ежеквартально с учётом изменений на рынке, обновлений платформ, появления новых функций и отзывов арбитражников. Каждая сеть проходит повторное тестирование для подтверждения стабильности качества трафика.",
+            ],
+          },
+        },
+      ],
+      faq: {
+        items: [
+          {
+            question: {
+              en: "What is In-Page Push advertising?",
+              ru: "Что такое In-Page Push реклама?",
+            },
+            answer: {
+              en: "In-Page Push (In-Page notifications) is an ad format that displays notifications directly on a web page, mimicking the appearance of browser push notifications. Unlike classic push, it doesn't require user subscription and works on all devices, including iOS.",
+              ru: "In-Page Push (In-Page уведомления) — это рекламный формат, который отображает уведомления непосредственно на веб-странице, имитируя внешний вид браузерных push-уведомлений. В отличие от классических пушей, не требует подписки пользователя и работает на всех устройствах, включая iOS.",
+            },
+          },
+          {
+            question: {
+              en: "What's the difference between In-Page Push and classic Push notifications?",
+              ru: "В чём разница между In-Page Push и классическими Push-уведомлениями?",
+            },
+            answer: {
+              en: "The main difference — In-Page doesn't require subscription and works on all devices and browsers, including iOS Safari. Classic push only works on devices with allowed subscriptions. In-Page displays as part of the web page, not as a system notification.",
+              ru: "Главное отличие — In-Page не требует подписки и работает на всех устройствах и браузерах, включая iOS Safari. Классические пуши работают только на устройствах с разрешённой подпиской. In-Page отображается как часть веб-страницы, а не как системное уведомление.",
+            },
+          },
+          {
+            question: {
+              en: "What's the minimum deposit for In-Page networks?",
+              ru: "Какой минимальный депозит в In-Page сетях?",
+            },
+            answer: {
+              en: "Most top-tier In-Page ad networks require a minimum deposit starting from $50, making the format accessible for affiliates with varying budgets.",
+              ru: "Большинство топовых In-Page рекламных сетей требуют минимальный депозит от $50, что делает формат доступным для арбитражников с разными бюджетами.",
+            },
+          },
+          {
+            question: {
+              en: "Which verticals work best with In-Page traffic?",
+              ru: "Какие вертикали лучше всего работают с In-Page трафиком?",
+            },
+            answer: {
+              en: "In-Page Push shows excellent results in gambling, betting, e-commerce, financial offers, cryptocurrency, sweepstakes, and mobile apps. Especially effective for verticals where iOS audience access is important.",
+              ru: "In-Page Push показывает отличные результаты в гемблинге, беттинге, е-commerce, финансовых офферах, криптовалюте, свипстейках и мобильных приложениях. Особенно эффективен для вертикалей, где важен доступ к iOS-аудитории.",
+            },
+          },
+          {
+            question: {
+              en: "Does In-Page Push work on iOS devices?",
+              ru: "Работает ли In-Page Push на iOS устройствах?",
+            },
+            answer: {
+              en: "Yes, this is the key advantage of the format. In-Page Push works on all iOS devices (iPhone, iPad) and Safari browser, where classic push notifications are unavailable. This opens access to the affluent Apple audience.",
+              ru: "Да, это ключевое преимущество формата. In-Page Push работает на всех iOS устройствах (iPhone, iPad) и в браузере Safari, где классические push-уведомления недоступны. Это открывает доступ к платёжеспособной аудитории Apple.",
+            },
+          },
+          {
+            question: {
+              en: "How often are In-Page network rankings updated?",
+              ru: "Как часто обновляются рейтинги In-Page сетей?",
+            },
+            answer: {
+              en: "Our In-Page ad network rankings are updated quarterly based on campaign testing, performance data, platform updates, and affiliate feedback.",
+              ru: "Наши рейтинги In-Page рекламных сетей обновляются ежеквартально на основе тестирования кампаний, данных о производительности, обновлений платформ и отзывов арбитражников.",
+            },
+          },
+        ],
+      },
+    },
+  },
 }
 
 export function getRankingPageOverride(slug: string, audience: Audience): RankingPageOverride | undefined {
