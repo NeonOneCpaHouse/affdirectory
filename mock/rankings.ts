@@ -603,6 +603,149 @@ const rankingPageOverrides: Partial<Record<`${Audience}:${string}`, RankingPageO
       },
     },
   },
+  "affiliate:popunder-ad-networks": {
+    h1: {
+      en: "Best Popunder Ad Networks for Affiliate Marketing 2026",
+      ru: "Лучшие Попандер Рекламные Сети для Арбитража 2026",
+    },
+    seo: {
+      title: {
+        en: "Best Popunder Ad Networks 2026: Top Rankings for Affiliates | AffTraff",
+        ru: "Лучшие Попандер Рекламные Сети 2026: Рейтинг для Арбитражников | AffTraff",
+      },
+      description: {
+        en: "Compare the best popunder ad networks for affiliate marketing. Expert rankings based on performance, traffic quality, and support. Updated quarterly with real data.",
+        ru: "Топ попандер-сетей для арбитража трафика. Рейтинг на основе производительности, качества трафика и поддержки. Обновляется ежеквартально с реальными данными.",
+      },
+    },
+    content: {
+      placement: "afterRanking",
+      introParagraphs: {
+        en: [
+          "Popunder ad networks remain one of the most scalable traffic sources for affiliate marketers working with highly competitive verticals. Popunder advertising opens a new browser window beneath the active window, ensuring 100% ad visibility and high engagement rates when campaigns are properly configured.",
+          "In 2026, popunder traffic continues to deliver consistent results across gambling, betting, dating, nutra, sweepstakes, and financial offers. Our ranking of the best popunder networks is built on three key criteria: Performance (60%) — traffic quality, conversions, and volume; Publisher Experience (25%) — platform usability, moderation speed, and dashboard functionality; Support (15%) — technical support response times and personal account manager quality.",
+          "Networks in our ranking provide access to billions of daily impressions worldwide, with minimum deposits starting from $50 and flexible CPC/CPM payment models. Advanced targeting options including GEO, operating systems, browsers, frequency capping, and whitelists/blacklists enable precise campaign optimization for specific offer requirements.",
+        ],
+        ru: [
+          "Попандер рекламные сети остаются одним из наиболее масштабируемых источников трафика для арбитражников, работающих с высококонкурентными вертикалями. Попандер-реклама открывает новое окно браузера под активным окном пользователя, обеспечивая 100% видимость объявления и высокие показатели вовлеченности при правильной настройке кампаний.",
+          "В 2026 году попандер-трафик продолжает демонстрировать стабильные результаты в гемблинге, беттинге, дейтинге, нутре, свипстейках и финансовых офферах. Наш рейтинг лучших попандер-сетей построен на трёх ключевых критериях: Производительность (60%) — качество трафика, конверсии и объёмы; Опыт издателя (25%) — удобство платформы, скорость модерации и функциональность кабинета; Поддержка (15%) — скорость реакции техподдержки и работа персональных менеджеров.",
+          "Сети из нашего рейтинга предлагают доступ к миллиардам ежедневных показов по всему миру, с минимальным депозитом от $50 и гибкими моделями оплаты CPC/CPM. Продвинутый таргетинг по ГЕО, операционным системам, браузерам, частоте показов и белым/чёрным спискам позволяет точно настроить кампании под специфику оффера.",
+        ],
+      },
+      sections: [
+        {
+          title: {
+            en: "Why Popunder Advertising Works for Affiliates",
+            ru: "Почему попандер-реклама эффективна для арбитража",
+          },
+          paragraphs: {
+            en: [
+              "Popunder remains the format of choice for affiliates scaling aggressive verticals due to several advantages. First, popunders ensure full-screen visibility — users are guaranteed to see your landing page, unlike banners or native ads that can easily be missed. Second, popunder traffic historically shows lower cost-per-click compared to other formats while maintaining comparable quality.",
+              "Top popunder networks from our list work with direct publishers and utilize anti-fraud technologies, filtering bots and low-quality traffic. Real-time bidding (RTB) systems allow affiliates to acquire traffic at optimal prices, while detailed real-time statistics enable quick campaign optimization based on conversion data.",
+              "Most platforms support frequency cap targeting (limiting impressions per user), which is especially important for affiliate marketing — preventing audience burnout and optimizing budget allocation. Integration with trackers like Voluum, Binom, and Keitaro via API enables automated bid management and scaling.",
+            ],
+            ru: [
+              "Попандер остаётся форматом выбора для арбитражников, масштабирующих агрессивные вертикали, благодаря нескольким преимуществам. Во-первых, попандер обеспечивает полноэкранную видимость — пользователь гарантированно увидит ваш лендинг, в отличие от баннеров или нативной рекламы, которые легко пропустить. Во-вторых, попандер-трафик исторически показывает более низкую стоимость за клик по сравнению с другими форматами при сопоставимом качестве.",
+              "Топовые попандер-сети из нашего списка работают с прямыми паблишерами и используют технологии антифрода, фильтруя ботов и некачественный трафик. Системы автоматических торгов (RTB) позволяют арбитражникам получать трафик по оптимальным ценам, а детальная статистика в реальном времени даёт возможность быстро оптимизировать кампании на основе данных по конверсиям.",
+              "Большинство платформ поддерживают таргетинг по frequency cap (ограничение показов на пользователя), что особенно важно для арбитража — можно избежать выгорания аудитории и оптимизировать бюджет. Интеграция с трекерами типа Voluum, Binom и Keitaro через API позволяет автоматизировать управление ставками и масштабирование.",
+            ],
+          },
+        },
+        {
+          title: {
+            en: "Working with Popunder Traffic: Key Considerations",
+            ru: "Особенности работы с попандер-трафиком",
+          },
+          paragraphs: {
+            en: [
+              "When selecting a popunder network for traffic acquisition, affiliates should consider several critical factors. Traffic quality and volume is the primary criterion: the network must provide stable volumes in required GEOs without sudden drops. Targeting and optimization — the platform should offer granular settings for devices, browsers, OS, and crucially, the ability to create source ID whitelists/blacklists.",
+              "Creative moderation in popunder networks is typically more lenient than push or native formats, allowing work with more aggressive verticals. However, moderation speed varies — top networks in our ranking review creatives within 2-4 hours, enabling rapid testing.",
+              "Anti-fraud and quality — verify what protection technologies the network employs. Best platforms filter traffic at datacenter level, block suspicious IP ranges, and use machine learning for bot detection. This is critical for verticals with lead validation (betting, finance, crypto).",
+            ],
+            ru: [
+              "При выборе попандер-сети для закупки трафика арбитражники должны учитывать несколько ключевых факторов. Качество и объёмы трафика — первостепенный критерий: сеть должна обеспечивать стабильные объёмы в нужных ГЕО без резких просадок. Таргетинг и оптимизация — платформа должна предлагать гранулярные настройки по устройствам, браузерам, ОС, и, что критично, возможность создания белых/чёрных списков источников (source ID).",
+              "Модерация креативов в попандер-сетях обычно лояльнее, чем в пуш или нативе, что позволяет работать с более агрессивными вертикалями. Однако скорость модерации варьируется — топовые сети из нашего рейтинга проверяют креативы в течение 2-4 часов, позволяя быстро запускать тесты.",
+              "Антифрод и качество — проверяйте, какие технологии защиты использует сеть. Лучшие платформы фильтруют трафик на уровне датацентров, блокируют подозрительные IP-диапазоны и используют машинное обучение для детекции ботов. Это критично для вертикалей с валидацией лидов (беттинг, финансы, крипто).",
+            ],
+          },
+        },
+        {
+          title: {
+            en: "How We Rank Popunder Networks",
+            ru: "Как мы составляем рейтинг попандер-сетей",
+          },
+          paragraphs: {
+            en: [
+              "Our evaluation methodology combines objective metrics with real affiliate feedback. Performance (60%) includes analysis of average conversion rates across verticals (gambling, betting, dating, nutra), traffic volume stability, anti-fraud system effectiveness, and price-quality ratio. We test networks on our own campaigns and collect data from the affiliate community.",
+              "Publisher experience (25%) evaluates ad dashboard usability, statistics loading speed, targeting flexibility, API automation capabilities, and reporting quality (source ID breakdown, conversions, time segments). Moderation speed and budget transparency are also considered.",
+              "Support (15%) measures average support response time, personal manager availability for large advertisers, technical assistance quality for campaign setup and troubleshooting. Networks with proactive support offering campaign optimization and insights receive additional points.",
+              "Rankings are updated quarterly to reflect market changes, platform updates, and community feedback. Each network undergoes regular monitoring to ensure our recommendations remain current for traffic acquisition decisions.",
+            ],
+            ru: [
+              "Наша методология оценки основана на комбинации объективных метрик и реальных отзывов арбитражников. Производительность (60%) включает анализ средних CR по вертикалям (гемблинг, беттинг, дейтинг, нутра), стабильность объёмов трафика, эффективность антифрод-систем и соотношение цена-качество. Мы тестируем сети на собственных кампаниях и собираем данные от комьюнити арбитражников.",
+              "Опыт издателя (25%) оценивает юзабилити рекламного кабинета, скорость загрузки статистики, гибкость настройки таргетинга, возможность автоматизации через API, и качество отчётности (детализация по source ID, конверсии, временные срезы). Также учитывается скорость модерации и прозрачность работы с бюджетом.",
+              "Поддержка (15%) измеряет среднее время ответа саппорта, доступность персональных менеджеров для крупных рекламодателей, качество технической помощи при настройке кампаний и решении проблем. Сети с проактивной поддержкой, предлагающие оптимизацию кампаний и инсайты, получают дополнительные баллы.",
+              "Рейтинги обновляются ежеквартально с учётом изменений на рынке, обновлений платформ и фидбека от комьюнити. Каждая сеть проходит регулярный мониторинг, чтобы наши рекомендации оставались актуальными для принятия решений о закупке трафика.",
+            ],
+          },
+        },
+      ],
+      faq: {
+        items: [
+          {
+            question: {
+              en: "What is popunder advertising?",
+              ru: "Что такое попандер-реклама?",
+            },
+            answer: {
+              en: "Popunder is an ad format that opens a new browser window beneath the active window. The ad becomes visible after the main window is closed, ensuring 100% ad visibility.",
+              ru: "Попандер — это рекламный формат, который открывает новое окно браузера под активным окном пользователя. Реклама становится видимой после закрытия основного окна, обеспечивая 100% видимость объявления.",
+            },
+          },
+          {
+            question: {
+              en: "What's the minimum deposit for popunder networks?",
+              ru: "Какой минимальный депозит в попандер-сетях?",
+            },
+            answer: {
+              en: "Most top-tier popunder ad networks require a minimum deposit starting from $50, making them accessible for affiliates with varying experience levels and budgets.",
+              ru: "Большинство топовых попандер-сетей требуют минимальный депозит от $50, что делает их доступными для арбитражников с разным уровнем опыта и бюджета.",
+            },
+          },
+          {
+            question: {
+              en: "Which verticals work best with popunder traffic?",
+              ru: "Какие вертикали лучше всего работают с попандер-трафиком?",
+            },
+            answer: {
+              en: "Popunder ads perform exceptionally well for gambling, betting, dating, nutra, sweepstakes, financial offers, and app installs due to the format's high visibility.",
+              ru: "Попандер-реклама показывает отличные результаты в гемблинге, беттинге, дейтинге, нутре, свипстейках, финансовых офферах и установках приложений благодаря высокой видимости формата.",
+            },
+          },
+          {
+            question: {
+              en: "How often are popunder network rankings updated?",
+              ru: "Как часто обновляются рейтинги попандер-сетей?",
+            },
+            answer: {
+              en: "Our popunder network rankings are updated quarterly based on performance data, platform changes, anti-fraud technologies, and affiliate feedback.",
+              ru: "Наши рейтинги попандер-сетей обновляются ежеквартально на основе данных о производительности, изменений платформ, технологий антифрода и отзывов арбитражников.",
+            },
+          },
+          {
+            question: {
+              en: "What's the difference between popunder and popup ads?",
+              ru: "В чём разница между попандером и поп-апом?",
+            },
+            answer: {
+              en: "Popunder opens beneath the current window and becomes visible later, while popup opens on top of the active window. Popunder is less intrusive and shows better conversion results.",
+              ru: "Попандер открывается под текущим окном и становится виден позже, в то время как поп-ап открывается поверх активного окна. Попандер менее навязчив и показывает лучшие результаты конверсии.",
+            },
+          },
+        ],
+      },
+    },
+  },
 }
 
 export function getRankingPageOverride(slug: string, audience: Audience): RankingPageOverride | undefined {
