@@ -927,6 +927,185 @@ const rankingPageOverrides: Partial<Record<`${Audience}:${string}`, RankingPageO
       },
     },
   },
+  "affiliate:banner-ad-networks": {
+    h1: {
+      en: "Best Banner Ad Networks for Affiliate Marketing 2026",
+      ru: "Лучшие Баннерные Рекламные Сети для Арбитража 2026",
+    },
+    seo: {
+      title: {
+        en: "Best Banner Ad Networks 2026: Top Display Advertising Platforms | AffTraff",
+        ru: "Лучшие Баннерные Рекламные Сети 2026: Рейтинг для Арбитража | AffTraff",
+      },
+      description: {
+        en: "Compare the best banner ad networks for affiliate marketing. Expert rankings based on traffic quality, targeting options, and performance. Updated quarterly with real data.",
+        ru: "Топ баннерных сетей для арбитража трафика. Рейтинг на основе качества трафика, таргетинга и производительности. Обновляется ежеквартально.",
+      },
+    },
+    content: {
+      placement: "afterRanking",
+      introParagraphs: {
+        en: [
+          "Banner ad networks remain a cornerstone of performance marketing, offering affiliates consistent, scalable traffic for testing and optimizing campaigns across all major verticals. Despite the rise of newer formats like push and native, display banners continue to deliver reliable results when properly targeted and optimized, particularly for brand awareness, e-commerce, and mainstream offers.",
+          "In 2026, banner advertising has evolved with advanced programmatic bidding, sophisticated targeting capabilities, and improved fraud detection systems. Our ranking of the best banner ad networks evaluates platforms based on three weighted criteria: Performance (60%) — measuring traffic quality, conversion potential, and inventory volume; Publisher Experience (25%) — assessing platform usability, creative tools, and reporting capabilities; Support (15%) — evaluating response times and account management quality.",
+          "Networks in our ranking provide access to billions of impressions daily across desktop and mobile devices, with minimum deposits starting from $50. Multiple pricing models including CPM, CPC, and CPA give affiliates flexibility to optimize based on campaign goals, while granular targeting options enable precise audience segmentation by geography, device type, demographics, and user interests.",
+        ],
+        ru: [
+          "Баннерные рекламные сети остаются основой перформанс-маркетинга, предлагая арбитражникам стабильный масштабируемый трафик для тестирования и оптимизации кампаний по всем основным вертикалям. Несмотря на рост новых форматов вроде пуш и нативки, дисплейные баннеры продолжают показывать надёжные результаты при правильном таргетинге и оптимизации, особенно для брендинга, е-commerce и mainstream-офферов.",
+          "В 2026 году баннерная реклама эволюционировала с внедрением продвинутого программатик-биддинга, сложных систем таргетинга и улучшенных технологий борьбы с фродом. Наш рейтинг лучших баннерных сетей оценивает платформы по трём критериям: Производительность (60%) — качество трафика, потенциал конверсий и объёмы инвентаря; Опыт издателя (25%) — удобство платформы, инструменты для креативов и возможности отчётности; Поддержка (15%) — скорость реакции и качество работы менеджеров.",
+          "Сети из нашего рейтинга предоставляют доступ к миллиардам показов ежедневно на desktop и mobile устройствах с минимальным депозитом от $50. Множественные модели ценообразования, включая CPM, CPC и CPA, дают арбитражникам гибкость для оптимизации под цели кампаний, а гранулярный таргетинг позволяет точную сегментацию аудитории по географии, типу устройств, демографии и интересам пользователей.",
+        ],
+      },
+      sections: [
+        {
+          title: {
+            en: "Why Banner Advertising Works for Affiliate Marketing",
+            ru: "Почему баннерная реклама работает для арбитража",
+          },
+          paragraphs: {
+            en: [
+              "Display banners offer unique advantages that make them valuable for affiliate marketers across various experience levels. Universal compatibility means banner ads work on all devices, browsers, and operating systems without technical restrictions, providing maximum reach across your target audience. This consistency is particularly valuable for mainstream verticals and brand-building campaigns.",
+              "Visual storytelling capability distinguishes banners from text-based formats. Affiliates can leverage eye-catching graphics, animations, and HTML5 creatives to communicate value propositions instantly. Multiple standard IAB sizes (300x250, 728x90, 160x600, 970x250) offer placement flexibility, allowing optimization based on performance data from different positions and contexts.",
+              "Lower barrier to entry makes banner traffic ideal for testing new offers or markets. Many networks accept smaller budgets compared to premium native or video inventory, enabling cost-effective validation before scaling. Real-time bidding (RTB) platforms provide access to remnant inventory at discounted rates, perfect for affiliates maximizing ROI on limited budgets.",
+              "Retargeting potential represents a significant advantage for conversion-focused campaigns. Banner networks with tracking pixel integration enable sophisticated audience segmentation, allowing affiliates to re-engage users who previously visited landing pages or showed interest in specific offers. This increases conversion rates substantially compared to cold traffic acquisition.",
+            ],
+            ru: [
+              "Дисплейные баннеры предлагают уникальные преимущества, делающие их ценными для арбитражников любого уровня опыта. Универсальная совместимость означает, что баннеры работают на всех устройствах, браузерах и операционных системах без технических ограничений, обеспечивая максимальный охват целевой аудитории. Эта стабильность особенно ценна для mainstream-вертикалей и брендинговых кампаний.",
+              "Визуальное повествование отличает баннеры от текстовых форматов. Арбитражники могут использовать привлекательную графику, анимацию и HTML5-креативы для мгновенной передачи ценностных предложений. Множество стандартных IAB-размеров (300x250, 728x90, 160x600, 970x250) предлагают гибкость размещения, позволяя оптимизировать на основе данных производительности с разных позиций и контекстов.",
+              "Низкий порог входа делает баннерный трафик идеальным для тестирования новых офферов или рынков. Многие сети принимают меньшие бюджеты по сравнению с премиум-нативом или видео-инвентарём, обеспечивая экономичную валидацию перед масштабированием. RTB-платформы предоставляют доступ к остаточному инвентарю по сниженным ставкам — идеально для арбитражников, максимизирующих ROI на ограниченных бюджетах.",
+              "Потенциал ретаргетинга представляет значительное преимущество для конверсионных кампаний. Баннерные сети с интеграцией трекинг-пикселей обеспечивают сложную сегментацию аудиторий, позволяя арбитражникам повторно вовлекать пользователей, ранее посещавших лендинги или проявлявших интерес к конкретным офферам. Это существенно повышает конверсии по сравнению с холодным трафиком.",
+            ],
+          },
+        },
+        {
+          title: {
+            en: "Standard Banner Sizes and Performance",
+            ru: "Стандартные размеры баннеров и производительность",
+          },
+          paragraphs: {
+            en: [
+              "Understanding which banner sizes perform best for specific verticals is crucial for campaign optimization. Medium Rectangle (300x250) remains the most versatile and widely available format, showing consistent performance across desktop and mobile placements. This size works well for e-commerce, financial services, and mainstream offers requiring balanced visibility without being overly intrusive.",
+              "Leaderboard (728x90) and Large Leaderboard (970x250) dominate desktop above-the-fold placements, delivering high visibility for brand campaigns and competitive offers. These horizontal formats work exceptionally well for gambling, betting, and subscription services where immediate call-to-action is critical.",
+              "Skyscraper (160x600) and Wide Skyscraper (300x600) provide extended vertical real estate for detailed messaging and multiple calls-to-action. These formats excel in content-heavy sites and perform well for comparison offers, multi-product promotions, and educational content requiring more explanation.",
+              "Mobile-optimized sizes including 320x50 and 300x250 are essential for traffic campaigns targeting smartphone users. With mobile traffic representing 60-70% of total impressions in most networks, optimizing creatives specifically for mobile screens significantly impacts overall campaign performance.",
+            ],
+            ru: [
+              "Понимание того, какие размеры баннеров лучше работают для конкретных вертикалей, критично для оптимизации кампаний. Medium Rectangle (300x250) остаётся наиболее универсальным и широко доступным форматом, показывая стабильную производительность на desktop и mobile размещениях. Этот размер хорошо работает для е-commerce, финансовых услуг и mainstream-офферов, требующих баланса видимости без чрезмерной навязчивости.",
+              "Leaderboard (728x90) и Large Leaderboard (970x250) доминируют на desktop в above-the-fold размещениях, обеспечивая высокую видимость для брендовых кампаний и конкурентных офферов. Эти горизонтальные форматы исключительно хорошо работают для гемблинга, беттинга и подписочных сервисов, где критичен немедленный call-to-action.",
+              "Skyscraper (160x600) и Wide Skyscraper (300x600) предоставляют расширенное вертикальное пространство для детального месседжинга и множественных призывов к действию. Эти форматы превосходны на контент-тяжёлых сайтах и хорошо работают для сравнительных офферов, мультипродуктовых промо и образовательного контента, требующего больше объяснений.",
+              "Мобильно-оптимизированные размеры, включая 320x50 и 300x250, необходимы для кампаний, таргетирующих смартфон-пользователей. При том, что мобильный трафик представляет 60-70% всех показов в большинстве сетей, оптимизация креативов специально для мобильных экранов значительно влияет на общую производительность кампании.",
+            ],
+          },
+        },
+        {
+          title: {
+            en: "Advanced Targeting and Optimization Strategies",
+            ru: "Продвинутые стратегии таргетинга и оптимизации",
+          },
+          paragraphs: {
+            en: [
+              "Top banner ad networks provide sophisticated targeting capabilities that separate successful campaigns from mediocre results. Contextual targeting matches ads to website content, placing financial offers on finance blogs and gaming promotions on entertainment sites. This relevance increases engagement rates and conversion probability.",
+              "Behavioral targeting leverages user browsing history and interaction patterns to identify high-intent audiences. Affiliates promoting subscription services or high-ticket offers benefit significantly from behavioral signals indicating purchase readiness or category interest.",
+              "Geographic and demographic filtering enables precise audience segmentation. Tier-1 countries (US, UK, CA, AU) typically command premium CPMs but deliver higher conversion values, while tier-2 and tier-3 markets offer volume opportunities for price-conscious offers. Day-parting and scheduling features allow campaigns to run during peak conversion hours, optimizing budget allocation.",
+              "Frequency capping prevents ad fatigue by limiting impression frequency per user. For direct response campaigns, setting caps at 3-5 impressions daily maintains visibility without annoying audiences. Brand awareness campaigns may benefit from higher frequencies to reinforce messaging.",
+              "Creative rotation and A/B testing capabilities in advanced networks enable data-driven optimization. Testing multiple creative variations simultaneously identifies winning combinations of imagery, copy, and calls-to-action. Top affiliates run continuous tests, replacing underperforming creatives with fresh variations to combat banner blindness.",
+            ],
+            ru: [
+              "Топовые баннерные сети предоставляют сложные возможности таргетинга, отделяющие успешные кампании от посредственных результатов. Контекстуальный таргетинг сопоставляет рекламу с контентом сайта, размещая финансовые офферы на финансовых блогах, а игровые промо — на развлекательных сайтах. Эта релевантность повышает вовлечённость и вероятность конверсии.",
+              "Поведенческий таргетинг использует историю браузинга пользователей и паттерны взаимодействия для идентификации high-intent аудиторий. Арбитражники, промотирующие подписочные сервисы или high-ticket офферы, значительно выигрывают от поведенческих сигналов, указывающих на готовность к покупке или интерес к категории.",
+              "Географическая и демографическая фильтрация обеспечивает точную сегментацию аудитории. Tier-1 страны (США, Великобритания, Канада, Австралия) обычно требуют премиум CPM, но дают более высокую ценность конверсий, в то время как tier-2 и tier-3 рынки предлагают объёмные возможности для ценочувствительных офферов. Day-parting и функции расписания позволяют запускать кампании в пиковые часы конверсий, оптимизируя распределение бюджета.",
+              "Frequency capping предотвращает усталость от рекламы, ограничивая частоту показов на пользователя. Для direct response кампаний установка лимитов на 3-5 показов в день поддерживает видимость без раздражения аудиторий. Брендовые кампании могут выигрывать от более высоких частот для усиления месседжа.",
+              "Ротация креативов и A/B тестирование в продвинутых сетях обеспечивают data-driven оптимизацию. Тестирование множественных вариаций креативов одновременно идентифицирует победные комбинации изображений, копирайта и призывов к действию. Топовые арбитражники проводят непрерывные тесты, заменяя низкоэффективные креативы свежими вариациями для борьбы с баннерной слепотой.",
+            ],
+          },
+        },
+        {
+          title: {
+            en: "How We Rank Banner Ad Networks",
+            ru: "Как мы составляем рейтинг баннерных сетей",
+          },
+          paragraphs: {
+            en: [
+              "Our evaluation methodology combines quantitative performance data with qualitative feedback from active affiliate marketers. Performance metrics (60%) include average click-through rates across verticals, conversion rate consistency, traffic volume and availability, fraud rate and bot filtering effectiveness, and cost-per-acquisition competitiveness. We test each network with real campaigns across gambling, e-commerce, and finance verticals to verify quality claims.",
+              "Publisher experience (25%) assesses dashboard design and usability, campaign setup and launch speed, creative upload and management tools, targeting granularity and flexibility, real-time reporting accuracy and detail, and API availability for tracker integration. Platforms offering streamlined workflows and robust automation features score higher in this category.",
+              "Support quality (15%) measures average response time for technical inquiries, account manager availability and proactivity, creative approval speed and feedback quality, and payment reliability and transparency. Networks with dedicated support teams providing strategic campaign advice receive additional points beyond basic technical assistance.",
+              "Rankings are updated quarterly based on continuous monitoring, platform feature updates, pricing changes, and community feedback from affiliate marketers actively using these networks. Each platform undergoes retesting to ensure consistency and reliability of traffic quality over time.",
+            ],
+            ru: [
+              "Наша методология оценки комбинирует количественные данные производительности с качественной обратной связью от активных арбитражников. Метрики производительности (60%) включают средние CTR по вертикалям, стабильность коэффициента конверсии, объём и доступность трафика, эффективность фильтрации фрода и ботов, конкурентоспособность cost-per-acquisition. Мы тестируем каждую сеть реальными кампаниями по гемблингу, е-commerce и финансовым вертикалям для верификации заявлений о качестве.",
+              "Опыт издателя (25%) оценивает дизайн и юзабилити дашборда, скорость создания и запуска кампаний, инструменты загрузки и управления креативами, гранулярность и гибкость таргетинга, точность и детализацию отчётности в реальном времени, доступность API для интеграции трекеров. Платформы с оптимизированными воркфлоу и надёжными возможностями автоматизации получают более высокие оценки в этой категории.",
+              "Качество поддержки (15%) измеряет среднее время ответа на технические запросы, доступность и проактивность аккаунт-менеджеров, скорость апрува креативов и качество обратной связи, надёжность и прозрачность платежей. Сети с выделенными командами поддержки, предоставляющими стратегические советы по кампаниям, получают дополнительные баллы помимо базовой технической помощи.",
+              "Рейтинги обновляются ежеквартально на основе непрерывного мониторинга, обновлений функций платформ, изменений ценообразования и фидбека комьюнити арбитражников, активно использующих эти сети. Каждая платформа проходит повторное тестирование для обеспечения стабильности и надёжности качества трафика с течением времени.",
+            ],
+          },
+        },
+      ],
+      faq: {
+        items: [
+          {
+            question: {
+              en: "What are banner ad networks?",
+              ru: "Что такое баннерные рекламные сети?",
+            },
+            answer: {
+              en: "Banner ad networks are platforms that connect advertisers with website publishers to display visual advertisements. These networks provide access to thousands of websites where affiliates can place display banners to drive traffic to their offers.",
+              ru: "Баннерные рекламные сети — это платформы, соединяющие рекламодателей с веб-паблишерами для показа визуальной рекламы. Эти сети предоставляют доступ к тысячам сайтов, где арбитражники могут размещать дисплейные баннеры для направления трафика на свои офферы.",
+            },
+          },
+          {
+            question: {
+              en: "What's the minimum deposit for banner ad networks?",
+              ru: "Какой минимальный депозит в баннерных сетях?",
+            },
+            answer: {
+              en: "Most top banner ad networks require a minimum deposit starting from $50, making display advertising accessible for affiliates with varying budget levels.",
+              ru: "Большинство топовых баннерных сетей требуют минимальный депозит от $50, делая дисплейную рекламу доступной для арбитражников с различными уровнями бюджета.",
+            },
+          },
+          {
+            question: {
+              en: "Which banner sizes perform best for affiliate marketing?",
+              ru: "Какие размеры баннеров лучше работают для арбитража?",
+            },
+            answer: {
+              en: "The most effective banner sizes are 300x250 (Medium Rectangle) for versatility, 728x90 (Leaderboard) for desktop visibility, and 320x50 for mobile campaigns. Performance varies by vertical and placement.",
+              ru: "Наиболее эффективные размеры баннеров — 300x250 (Medium Rectangle) для универсальности, 728x90 (Leaderboard) для desktop-видимости и 320x50 для мобильных кампаний. Производительность варьируется по вертикалям и размещениям.",
+            },
+          },
+          {
+            question: {
+              en: "What's the difference between CPM and CPC pricing for banners?",
+              ru: "В чём разница между CPM и CPC для баннеров?",
+            },
+            answer: {
+              en: "CPM (cost per thousand impressions) charges for ad views, ideal for brand awareness and high-CTR campaigns. CPC (cost per click) charges only when users click, better for direct response and conversion-focused campaigns.",
+              ru: "CPM (цена за тысячу показов) взимается за просмотры рекламы, идеален для брендинга и кампаний с высоким CTR. CPC (цена за клик) взимается только при кликах пользователей, лучше для direct response и конверсионных кампаний.",
+            },
+          },
+          {
+            question: {
+              en: "Which verticals work best with banner advertising?",
+              ru: "Какие вертикали лучше всего работают с баннерной рекламой?",
+            },
+            answer: {
+              en: "Banner ads perform well across e-commerce, financial services, gambling, betting, travel, education, and mainstream offers. Visual products and services with strong brand recognition typically achieve higher engagement.",
+              ru: "Баннерная реклама хорошо работает в е-commerce, финансовых услугах, гемблинге, беттинге, путешествиях, образовании и mainstream-офферах. Визуальные продукты и сервисы с сильным брендом обычно достигают более высокой вовлечённости.",
+            },
+          },
+          {
+            question: {
+              en: "How often are banner network rankings updated?",
+              ru: "Как часто обновляются рейтинги баннерных сетей?",
+            },
+            answer: {
+              en: "Our banner ad network rankings are updated quarterly based on performance testing, platform changes, pricing updates, and feedback from affiliate marketers.",
+              ru: "Наши рейтинги баннерных сетей обновляются ежеквартально на основе тестирования производительности, изменений платформ, обновлений ценообразования и фидбека арбитражников.",
+            },
+          },
+        ],
+      },
+    },
+  },
 }
 
 export function getRankingPageOverride(slug: string, audience: Audience): RankingPageOverride | undefined {
