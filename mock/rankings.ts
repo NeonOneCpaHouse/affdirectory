@@ -1543,6 +1543,115 @@ const rankingPageOverrides: Partial<Record<`${Audience}:${string}`, RankingPageO
       },
     },
   },
+  "affiliate:mobile-ad-networks": {
+    h1: {
+      en: "Best Mobile Ad Networks for Traffic Arbitrage 2026",
+      ru: "Лучшие Мобильные рекламные сети для арбитража трафика 2026",
+    },
+    seo: {
+      title: {
+        en: "Best Mobile Ad Networks for Traffic Arbitrage 2026 | AffTraff",
+        ru: "Лучшие Мобильные рекламные сети для арбитража трафика 2026 | AffTraff",
+      },
+      description: {
+        en: "Top mobile ad network rankings for affiliates 2026. Compare mobile advertising platforms by performance, formats, and support. Minimum deposit from $50.",
+        ru: "Рейтинг топовых мобильных рекламных сетей для арбитражников 2026. Сравнение платформ мобильной рекламы по производительности, форматам и поддержке. Минимальный депозит от $50.",
+      },
+    },
+    content: {
+      placement: "afterRanking",
+      introParagraphs: {
+        en: [
+          "Mobile ad networks have become the dominant traffic source for affiliates in 2026. These platforms provide access to billions of smartphone and tablet users through diverse ad formats in mobile apps and mobile web, delivering high conversion rates and engagement across multiple verticals, including mobile apps, gambling, betting, dating, finance, and e-commerce.",
+          "Choosing the right mobile network can significantly impact your campaign ROI. Our ranking evaluates the best mobile ad networks based on three key criteria: Performance (60%), which measures traffic quality and conversions; Publisher Experience (25%), assessing platform usability and campaign management tools; and Support (15%), analyzing response times and quality of technical assistance.",
+          "Whether you're promoting mobile apps, running gambling offers, or testing new creatives, mobile traffic offers precise targeting by GEO, device type, operating system (iOS/Android), OS version, carrier, connection type, and user behavior. Networks in our ranking provide access to billions of daily impressions across tier-1, tier-2, and tier-3 countries, with minimum deposits starting from $50 and flexible payment terms.",
+        ],
+        ru: [
+          "Мобильные рекламные сети стали доминирующим источником трафика для арбитражников в 2026 году. Эти платформы предоставляют доступ к миллиардам пользователей смартфонов и планшетов через разнообразные форматы рекламы в мобильных приложениях и мобильном вебе, обеспечивая высокие показатели конверсии и вовлеченности по множеству вертикалей, включая мобильные приложения, гемблинг, беттинг, дейтинг, финансы и e-commerce.",
+          "Выбор правильной мобильной сети может существенно повлиять на ROI ваших кампаний. Наш рейтинг оценивает лучшие мобильные рекламные сети на основе трёх ключевых критериев: Производительность (60%), которая измеряет качество трафика и конверсии; Опыт паблишера (25%), оценивающий удобство платформы и инструменты управления кампаниями; и Поддержка (15%), анализирующая время ответа и качество технической помощи.",
+          "Независимо от того, промотируете ли вы мобильные приложения, льёте гемблинг-офферы или тестируете новые креативы, мобильный трафик предлагает точный таргетинг по ГЕО, типу устройства, операционной системе (iOS/Android), версии ОС, оператору связи, типу подключения и поведению пользователей. Сети в нашем рейтинге обеспечивают доступ к миллиардам ежедневных показов в странах tier-1, tier-2 и tier-3, с минимальным депозитом от $50 и гибкими условиями оплаты.",
+        ],
+      },
+      sections: [
+        {
+          title: {
+            en: "Why Mobile Advertising Works for Affiliates",
+            ru: "Почему мобильная реклама работает для арбитражников",
+          },
+          paragraphs: {
+            en: [
+              "Mobile advertising delivers exceptional results for performance marketers due to several factors. First, mobile devices provide constant access to users throughout the day, leading to higher impression frequency and better conversion opportunities. Second, mobile traffic offers unique ad formats such as rewarded video, playable ads, and interstitials that drive high engagement.",
+              "Top mobile networks from our list support multiple placement formats: banners, interstitials, rewarded video, native ads, playable ads, video ads, and offerwall. Platforms offer advanced targeting capabilities, including deep user behavior data, interests, app usage time, and in-app events. Real-time programmatic bidding systems ensure precise budget control, while anti-fraud technologies protect against low-quality traffic. Most platforms support CPI, CPA, CPM, and CPC pricing models, giving marketers flexibility to optimize for campaign objectives.",
+            ],
+            ru: [
+              "Мобильная реклама показывает исключительные результаты для перформанс-маркетологов благодаря нескольким факторам. Во-первых, мобильные устройства обеспечивают постоянный доступ к пользователям в течение дня, что приводит к более высокой частоте показов и лучшим возможностям для конверсии. Во-вторых, мобильный трафик предлагает уникальные форматы рекламы, такие как rewarded video, playable ads и interstitials, которые обеспечивают высокую вовлеченность.",
+              "Топовые мобильные сети из нашего списка поддерживают множество форматов размещения: баннеры, interstitials, rewarded video, native ads, playable ads, video ads и offerwall. Платформы предлагают расширенные возможности таргетинга, включая глубокие данные о поведении пользователей, интересах, времени использования приложений и in-app событиях. Системы программатик-байинга в реальном времени обеспечивают точный контроль бюджета, а технологии антифрод защищают от некачественного трафика. Большинство платформ поддерживают модели ценообразования CPI, CPA, CPM и CPC, давая маркетологам гибкость для оптимизации под цели кампаний.",
+            ],
+          },
+        },
+        {
+          title: {
+            en: "How We Rank Mobile Networks",
+            ru: "Как мы составляем рейтинг мобильных сетей",
+          },
+          paragraphs: {
+            en: [
+              "Our methodology combines quantitative data and qualitative feedback from affiliates actively using these platforms. Performance metrics include average conversion rates and retention for app install campaigns, traffic quality, volume stability, and fraud protection effectiveness. Publisher experience evaluates dashboard functionality, creative moderation speed, targeting granularity, deep linking capabilities, and attribution tracking accuracy. Support quality measures response times, account manager availability, and technical issue resolution.",
+              "Rankings are updated quarterly to reflect market changes, new formats and features, and community feedback. Each network undergoes continuous monitoring to ensure our recommendations remain current and reliable for affiliates making traffic source decisions.",
+            ],
+            ru: [
+              "Наша методология сочетает количественные данные и качественную обратную связь от арбитражников, активно использующих эти платформы. Метрики производительности включают средние показатели конверсии и retention для app install кампаний, качество трафика, стабильность объёмов и эффективность защиты от фрода. Опыт паблишера оценивает функциональность дашборда, скорость модерации креативов, детализацию таргетинга, возможности глубокого линкинга и точность attribution трекинга. Качество поддержки измеряет время ответа, доступность аккаунт-менеджеров и решение технических проблем.",
+              "Рейтинги обновляются ежеквартально, чтобы отражать изменения на рынке, новые форматы и функции, а также отзывы комьюнити. Каждая сеть проходит непрерывный мониторинг, чтобы наши рекомендации оставались актуальными и надёжными для арбитражников, принимающих решения об источниках трафика.",
+            ],
+          },
+        },
+      ],
+      faq: {
+        items: [
+          {
+            question: {
+              en: "What is a mobile ad network?",
+              ru: "Что такое мобильная рекламная сеть?",
+            },
+            answer: {
+              en: "A mobile ad network is a platform that connects advertisers with mobile app and mobile website owners for placing ads optimized for smartphones and tablets. For affiliates, this means access to extensive mobile traffic inventories with advanced targeting capabilities by devices, operating systems, user behavior, and in-app events.",
+              ru: "Мобильная рекламная сеть — это платформа, которая соединяет рекламодателей с владельцами мобильных приложений и мобильных сайтов для размещения рекламы, оптимизированной для смартфонов и планшетов. Для арбитражников это означает доступ к обширным инвентарям мобильного трафика с продвинутыми возможностями таргетинга по устройствам, операционным системам, поведению пользователей и in-app событиям.",
+            },
+          },
+          {
+            question: {
+              en: "What is the minimum deposit in mobile networks?",
+              ru: "Какой минимальный депозит в мобильных сетях?",
+            },
+            answer: {
+              en: "The minimum deposit in most mobile ad networks starts from $50 to $100. Some premium platforms specializing in quality traffic for app install campaigns may require higher starting budgets from $500 to $1,000. Many networks offer test budgets for new advertisers with opportunities to scale successful campaigns.",
+              ru: "Минимальный депозит в большинстве мобильных рекламных сетей начинается от $50 до $100. Некоторые премиум-платформы, специализирующиеся на качественном трафике для app install кампаний, могут требовать более высокие стартовые бюджеты от $500 до $1000. Многие сети предлагают тестовые бюджеты для новых рекламодателей с возможностью масштабирования успешных кампаний.",
+            },
+          },
+          {
+            question: {
+              en: "Which verticals work best with mobile traffic?",
+              ru: "Какие вертикали лучше всего работают с мобильным трафиком?",
+            },
+            answer: {
+              en: "Mobile traffic shows excellent results for a wide range of verticals. The most effective niches include: mobile app and game promotion (using CPI/CPA models), gambling and betting (especially with rewarded video formats), dating (with high conversion on mobile devices), finance and crypto, e-commerce (especially through mobile apps), as well as utility and productivity apps. The key to success is quality creatives optimized for mobile screens and proper targeting.",
+              ru: "Мобильный трафик показывает отличные результаты для широкого спектра вертикалей. Наиболее эффективные ниши включают: продвижение мобильных приложений и игр (с использованием CPI/CPA моделей), гемблинг и беттинг (особенно с rewarded video форматами), дейтинг (с высокой конверсией на мобильных устройствах), финансы и крипто, e-commerce (особенно через мобильные приложения), а также утилиты и productivity приложения. Ключ к успеху — качественные креативы, оптимизированные под мобильные экраны, и правильный таргетинг.",
+            },
+          },
+          {
+            question: {
+              en: "How often are rankings updated?",
+              ru: "Как часто обновляются рейтинги?",
+            },
+            answer: {
+              en: "Our mobile ad network rankings are updated quarterly based on fresh performance data, affiliate reviews, and platform functionality changes. We also conduct unscheduled updates when significant market changes occur, new formats launch, or critical community feedback is received.",
+              ru: "Наши рейтинги мобильных рекламных сетей обновляются ежеквартально на основе свежих данных о производительности, отзывов арбитражников и изменений в функциональности платформ. Мы также проводим внеплановые обновления при значительных изменениях на рынке, запуске новых форматов или получении критической обратной связи от комьюнити.",
+            },
+          },
+        ],
+      },
+    },
+  },
 }
 
 export function getRankingPageOverride(slug: string, audience: Audience): RankingPageOverride | undefined {
