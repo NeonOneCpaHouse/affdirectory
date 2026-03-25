@@ -5,6 +5,15 @@ import { createContext, useContext, useState, useEffect } from "react"
 import { useRouter, usePathname } from "next/navigation"
 
 export type Language = "en" | "ru"
+const LANGUAGE_STORAGE_KEY = "preferred_lang"
+const LANGUAGE_COOKIE_NAME = "preferred_lang"
+const LANGUAGE_COOKIE_MAX_AGE = 31536000
+
+function persistLanguagePreference(lang: Language) {
+  localStorage.setItem(LANGUAGE_STORAGE_KEY, lang)
+  document.cookie = `${LANGUAGE_COOKIE_NAME}=${lang}; path=/; max-age=${LANGUAGE_COOKIE_MAX_AGE}`
+  document.documentElement.lang = lang
+}
 
 interface LanguageContextType {
   language: Language
@@ -31,19 +40,14 @@ export function LanguageProvider({
   }, [initialLanguage])
 
   useEffect(() => {
-    const saved = localStorage.getItem("preferred_lang") as Language
-    // We only use saved pref if we are NOT on a specific lang route?
-    // Actually, the URL is the truth. We just update localStorage for future sessions.
     if (initialLanguage) {
-      localStorage.setItem("preferred_lang", initialLanguage)
-      document.documentElement.lang = initialLanguage
+      persistLanguagePreference(initialLanguage)
     }
   }, [initialLanguage])
 
   const setLanguage = (lang: Language) => {
     setLanguageState(lang)
-    localStorage.setItem("preferred_lang", lang)
-    document.documentElement.lang = lang
+    persistLanguagePreference(lang)
 
     // Update URL
     // Assumption: Path is /[lang]/[audience]/...

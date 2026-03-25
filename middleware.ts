@@ -1,10 +1,49 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
-const locales = ['en', 'ru']
+const locales = ['en', 'ru'] as const
 const audiences = ['affiliate', 'webmaster']
 const defaultLocale = 'en'
 const defaultAudience = 'affiliate'
+const LANGUAGE_COOKIE_NAME = 'preferred_lang'
+
+function isSupportedLocale(value?: string): value is (typeof locales)[number] {
+    return Boolean(value && locales.includes(value as (typeof locales)[number]))
+}
+
+function getLocaleFromAcceptLanguage(header: string | null): (typeof locales)[number] {
+    if (!header) {
+        return defaultLocale
+    }
+
+    const preferredLocale = header
+        .split(',')
+        .map((part, index) => {
+            const [rawLocale, ...params] = part.trim().split(';')
+            const qValue = params.find((param) => param.trim().startsWith('q='))
+            const quality = qValue ? Number.parseFloat(qValue.split('=')[1]) : 1
+            const locale = rawLocale.toLowerCase().split('-')[0]
+
+            return {
+                locale,
+                quality: Number.isFinite(quality) ? quality : 0,
+                index,
+            }
+        })
+        .filter((entry) => isSupportedLocale(entry.locale))
+        .sort((left, right) => right.quality - left.quality || left.index - right.index)[0]?.locale
+
+    return preferredLocale && isSupportedLocale(preferredLocale) ? preferredLocale : defaultLocale
+}
+
+function resolveLocale(request: NextRequest): (typeof locales)[number] {
+    const cookieLocale = request.cookies.get(LANGUAGE_COOKIE_NAME)?.value?.toLowerCase()
+    if (isSupportedLocale(cookieLocale)) {
+        return cookieLocale
+    }
+
+    return getLocaleFromAcceptLanguage(request.headers.get('accept-language'))
+}
 
 export function middleware(request: NextRequest) {
     const pathname = request.nextUrl.pathname
@@ -33,8 +72,7 @@ export function middleware(request: NextRequest) {
     }
 
     // Construct new URL
-    const locale = hasValidLocale ? firstSegment : defaultLocale
-    const audience = hasValidAudience ? secondSegment : defaultAudience
+    const locale = hasValidLocale ? firstSegment : resolveLocale(request)
 
     // If we had a valid locale but invalid audience in second slot, we need to be careful.
     // E.g. /en/blog -> /en/affiliate/blog
