@@ -7,6 +7,7 @@ import type { Service } from "@/mock/services"
 import { serviceTypeLabels, type ServiceTypeKey } from "@/mock/services"
 import { getServiceTypeRankingHref } from "@/mock/rankings"
 import { useLanguage } from "@/context/LanguageContext"
+import { useAudience } from "@/context/AudienceContext"
 import RichText from "@/components/RichText"
 import { Send, Facebook, Instagram, Youtube, Linkedin, MessageCircle, Users, MessageSquare } from "lucide-react"
 
@@ -64,6 +65,7 @@ export default function ServiceProfileClient({
     category: ServiceTypeKey
 }) {
     const { language } = useLanguage()
+    const { audience } = useAudience()
     const categoryLabel = serviceTypeLabels[category]?.[language] || serviceTypeLabels[category]?.["en"] || category
     const categoryHref = getServiceTypeRankingHref(category)
 
