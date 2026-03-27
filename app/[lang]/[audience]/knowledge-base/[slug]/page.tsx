@@ -1,6 +1,42 @@
+import type { Metadata } from "next"
 import { getKnowledgeBySlug, getAllKnowledgeEntries } from "@/mock/knowledge"
 import { notFound } from "next/navigation"
 import KnowledgeArticleClient from "@/components/KnowledgeArticleClient"
+import { buildSeoMetadata, isSupportedAudience, isSupportedLanguage, toPlainTextExcerpt } from "@/lib/seo"
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ lang: string; audience: string; slug: string }>
+}): Promise<Metadata> {
+  const { lang, audience, slug } = await params
+
+  if (!isSupportedLanguage(lang) || !isSupportedAudience(audience)) {
+    return {}
+  }
+
+  const entry = await getKnowledgeBySlug(slug)
+
+  if (!entry) {
+    return {}
+  }
+
+  const title = entry.title[lang] || entry.title.en
+  const description =
+    entry.overview?.[lang] ||
+    entry.overview?.en ||
+    toPlainTextExcerpt(entry.body[lang] || entry.body.en) ||
+    (lang === "ru" ? "Материал из базы знаний AffTraff." : "An AffTraff knowledge base article.")
+
+  return buildSeoMetadata({
+    lang,
+    audience,
+    pathname: `/knowledge-base/${slug}`,
+    title: `${title} | AffTraff Knowledge Base`,
+    description,
+    openGraphType: "article",
+  })
+}
 
 export async function generateStaticParams() {
   const affiliate = await getAllKnowledgeEntries("affiliate")

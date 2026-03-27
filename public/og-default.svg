@@ -1,0 +1,21 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="#0B1220"/>
+  <rect x="32" y="32" width="1136" height="566" rx="28" fill="url(#paint0_linear)"/>
+  <circle cx="1002" cy="160" r="132" fill="#38BDF8" fill-opacity="0.14"/>
+  <circle cx="1098" cy="88" r="72" fill="#34D399" fill-opacity="0.16"/>
+  <circle cx="958" cy="544" r="156" fill="#60A5FA" fill-opacity="0.12"/>
+  <g opacity="0.95">
+    <path d="M118 394.5L242.233 177H212.591L58 446.001H118V394.5Z" fill="white"/>
+    <path d="M181.631 446.001H367L273.922 284.598L242.762 339.098L273.585 392.701H212.12L181.631 446.001Z" fill="white"/>
+  </g>
+  <text x="372" y="266" fill="white" font-family="Arial, Helvetica, sans-serif" font-size="86" font-weight="700">AffTraff</text>
+  <text x="372" y="344" fill="#C7D2FE" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="500">Affiliate and webmaster rankings, guides, tools, and industry content.</text>
+  <text x="372" y="410" fill="#7DD3FC" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700">afftraff.io</text>
+  <defs>
+    <linearGradient id="paint0_linear" x1="80" y1="74" x2="1082" y2="570" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#111827"/>
+      <stop offset="0.5" stop-color="#0F172A"/>
+      <stop offset="1" stop-color="#172554"/>
+    </linearGradient>
+  </defs>
+</svg>

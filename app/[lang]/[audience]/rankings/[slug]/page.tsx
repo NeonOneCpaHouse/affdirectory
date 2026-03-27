@@ -3,6 +3,7 @@ import RankingDetailClient from "@/components/RankingDetailClient"
 import { getRankingBySlug, getRankingPageOverride, isRankingSlugAllowedForAudience, rankingMethodology } from "@/mock/rankings"
 import type { Audience } from "@/context/AudienceContext"
 import { notFound, redirect } from "next/navigation"
+import { buildSeoMetadata, isSupportedAudience, isSupportedLanguage } from "@/lib/seo"
 
 export async function generateMetadata({
   params,
@@ -10,17 +11,23 @@ export async function generateMetadata({
   params: Promise<{ lang: string; audience: string; slug: string }>
 }): Promise<Metadata> {
   const { lang, audience, slug } = await params
+  if (!isSupportedLanguage(lang) || !isSupportedAudience(audience)) {
+    return {}
+  }
+
   const pageOverride = getRankingPageOverride(slug, audience as Audience)
-  const currentLanguage = lang === "ru" ? "ru" : "en"
 
   if (!pageOverride?.seo) {
     return {}
   }
 
-  return {
-    title: pageOverride.seo.title[currentLanguage],
-    description: pageOverride.seo.description[currentLanguage],
-  }
+  return buildSeoMetadata({
+    lang,
+    audience,
+    pathname: `/rankings/${slug}`,
+    title: pageOverride.seo.title[lang],
+    description: pageOverride.seo.description[lang],
+  })
 }
 
 export default async function RankingPage({ params }: { params: Promise<{ lang: string; audience: string; slug: string }> }) {
