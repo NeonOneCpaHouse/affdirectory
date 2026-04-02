@@ -5,6 +5,7 @@ import Link from "next/link"
 import AdSlot from "@/components/AdSlot"
 import Breadcrumbs from "@/components/Breadcrumbs"
 import ArticleCard from "@/components/ArticleCard"
+import ArticleShareBar from "@/components/ArticleShareBar"
 import ArticleViewCounter from "@/components/ArticleViewCounter"
 import TagPills from "@/components/TagPills"
 import type { Article } from "@/mock/articles"
@@ -169,6 +170,8 @@ export default function NewsArticleClient({
                 <p className="text-gray-600 dark:text-gray-300">No content available</p>
               )}
             </div>
+
+            <ArticleShareBar title={title} />
           </article>
 
 

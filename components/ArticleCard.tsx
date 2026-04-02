@@ -6,7 +6,7 @@ import type { Article } from "@/mock/articles"
 import { useLanguage } from "@/context/LanguageContext"
 import { useAudience } from "@/context/AudienceContext"
 import { getTagVariants } from "@/lib/utils"
-import { Clock, ArrowUpRight, BookOpen, Eye } from "lucide-react"
+import { Clock, ArrowUpRight, BookOpen, Eye, Hourglass } from "lucide-react"
 
 const categoryLabels: Record<string, Record<string, string>> = {
   en: {
@@ -34,7 +34,7 @@ const categoryColors: Record<string, string> = {
 }
 
 export default function ArticleCard({ article }: { article: Article }) {
-  const { language } = useLanguage()
+  const { language, t } = useLanguage()
   const { audience } = useAudience()
   const router = useRouter()
 
@@ -131,7 +131,12 @@ export default function ArticleCard({ article }: { article: Article }) {
             {article.readingTime && (
               <>
                 <span className="text-gray-200 dark:text-gray-700">•</span>
-                <span className="font-medium">{article.readingTime} min</span>
+                <div className="flex items-center gap-1.5">
+                  <Hourglass className="w-3.5 h-3.5" />
+                  <span className="font-medium">
+                    {article.readingTime} {t("article.readingTimeUnit")}
+                  </span>
+                </div>
               </>
             )}
           </div>

@@ -5,6 +5,7 @@ import Link from "next/link"
 import AdSlot from "@/components/AdSlot"
 import Breadcrumbs from "@/components/Breadcrumbs"
 import ArticleCard from "@/components/ArticleCard"
+import ArticleShareBar from "@/components/ArticleShareBar"
 import ArticleViewCounter from "@/components/ArticleViewCounter"
 import type { Article } from "@/mock/articles"
 import { useLanguage } from "@/context/LanguageContext"
@@ -220,6 +221,8 @@ export default function CaseStudyArticleClient({
                 <p className="text-gray-600 dark:text-gray-300">No content available</p>
               )}
             </div>
+
+            <ArticleShareBar title={title} />
           </article>
 
 

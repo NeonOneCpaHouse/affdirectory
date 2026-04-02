@@ -5,6 +5,7 @@ import Link from "next/link"
 import AdSlot from "@/components/AdSlot"
 import Breadcrumbs from "@/components/Breadcrumbs"
 import ArticleCard from "@/components/ArticleCard"
+import ArticleShareBar from "@/components/ArticleShareBar"
 import ArticleViewCounter from "@/components/ArticleViewCounter"
 import TagPills from "@/components/TagPills"
 import type { Article } from "@/mock/articles"
@@ -13,6 +14,7 @@ import { useAudience } from "@/context/AudienceContext"
 import { getTagVariants } from "@/lib/utils"
 import { PortableText } from "@portabletext/react"
 import { urlForImage } from "@/lib/sanity"
+import { Hourglass } from "lucide-react"
 
 interface GuideArticleClientProps {
   article: Article
@@ -122,7 +124,14 @@ export default function GuideArticleClient({
           <article className="bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-[32px] p-8 md:p-12 shadow-sm">
             <div className="flex items-center gap-4 mb-6">
               <TagPills tags={[article.category]} variant="category" />
-              {article.readingTime && <span className="text-sm text-gray-500 font-medium">{article.readingTime} min read</span>}
+              {article.readingTime && (
+                <span className="inline-flex items-center gap-1.5 text-sm text-gray-500 font-medium">
+                  <Hourglass className="h-4 w-4" />
+                  <span>
+                    {article.readingTime} {t("article.readingTimeUnit")}
+                  </span>
+                </span>
+              )}
               <ArticleViewCounter key={article._id} articleId={article._id} initialCount={initialViewCount} token={viewToken} />
             </div>
 
@@ -203,6 +212,8 @@ export default function GuideArticleClient({
                 </div>
               </div>
             )}
+
+            <ArticleShareBar title={title} />
           </article>
 
 
