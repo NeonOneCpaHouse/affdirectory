@@ -1,4 +1,5 @@
 import { client } from "@/lib/sanity"
+import { getArticleViewCount } from "@/lib/articleViews"
 import type { Localized } from "@/types"
 import type { PortableTextBlock } from "@portabletext/types"
 
@@ -118,11 +119,42 @@ const articleProjection = `{
   "views": coalesce(views, 0)
 }`
 
+async function attachLiveViews(articles: Article[]): Promise<Article[]> {
+  if (articles.length === 0) {
+    return articles
+  }
+
+  const liveViews = await Promise.all(
+    articles.map(async (article) => {
+      const liveCount = await getArticleViewCount(article._id)
+      return liveCount ?? article.views
+    }),
+  )
+
+  return articles.map((article, index) => ({
+    ...article,
+    views: liveViews[index] ?? article.views,
+  }))
+}
+
+async function attachLiveView(article: Article | undefined): Promise<Article | undefined> {
+  if (!article) {
+    return undefined
+  }
+
+  const liveCount = await getArticleViewCount(article._id)
+  return {
+    ...article,
+    views: liveCount ?? article.views,
+  }
+}
+
 export async function getArticles(audience: string = "affiliate"): Promise<Article[]> {
   const query = `*[_type == "article" && audience == $audience] | order(date desc) ${articleProjection}`
 
   try {
-    return await client.fetch(query, { audience }, { next: { revalidate: 0 } })
+    const articles = await client.fetch<Article[]>(query, { audience }, { next: { revalidate: 0 } })
+    return await attachLiveViews(articles)
   } catch (error) {
     console.error("Failed to fetch articles from Sanity:", error)
     return []
@@ -136,7 +168,8 @@ export async function getArticlesByCategory(
   const query = `*[_type == "article" && category == $category && audience == $audience] | order(date desc) ${articleProjection}`
 
   try {
-    return await client.fetch(query, { category, audience }, { next: { revalidate: 0 } })
+    const articles = await client.fetch<Article[]>(query, { category, audience }, { next: { revalidate: 0 } })
+    return await attachLiveViews(articles)
   } catch (error) {
     console.error("Failed to fetch articles by category from Sanity:", error)
     return []
@@ -150,7 +183,8 @@ export async function getArticleBySlug(
   const query = `*[_type == "article" && slug.current == $slug && audience == $audience][0] ${articleProjection}`
 
   try {
-    return await client.fetch(query, { slug, audience }, { next: { revalidate: 0 } })
+    const article = await client.fetch<Article | undefined>(query, { slug, audience }, { next: { revalidate: 0 } })
+    return await attachLiveView(article)
   } catch (error) {
     console.error("Failed to fetch article by slug from Sanity:", error)
     return undefined
@@ -161,7 +195,8 @@ export async function getBlogArticles(audience: string = "affiliate"): Promise<A
   const query = `*[_type == "article" && audience == $audience] | order(date desc) ${articleProjection}`
 
   try {
-    return await client.fetch(query, { audience }, { next: { revalidate: 0 } })
+    const articles = await client.fetch<Article[]>(query, { audience }, { next: { revalidate: 0 } })
+    return await attachLiveViews(articles)
   } catch (error) {
     console.error("Failed to fetch blog articles from Sanity:", error)
     return []
@@ -175,7 +210,8 @@ export async function getArticlesByTag(
   const query = `*[_type == "article" && audience == $audience && $tagSlug in tags[]->slug.current] | order(date desc) ${articleProjection}`
 
   try {
-    return await client.fetch(query, { tagSlug, audience }, { next: { revalidate: 0 } })
+    const articles = await client.fetch<Article[]>(query, { tagSlug, audience }, { next: { revalidate: 0 } })
+    return await attachLiveViews(articles)
   } catch (error) {
     console.error("Failed to fetch articles by tag from Sanity:", error)
     return []
@@ -189,7 +225,8 @@ export async function getLatestArticles(
   const query = `*[_type == "article" && audience == $audience] | order(date desc) [0...$count] ${articleProjection}`
 
   try {
-    return await client.fetch(query, { count, audience }, { next: { revalidate: 0 } })
+    const articles = await client.fetch<Article[]>(query, { count, audience }, { next: { revalidate: 0 } })
+    return await attachLiveViews(articles)
   } catch (error) {
     console.error("Failed to fetch latest articles from Sanity:", error)
     return []
@@ -207,7 +244,7 @@ export async function getRelatedArticles(
   const query = `*[_type == "article" && slug.current != $slug && category == $category && audience == $audience] | order(date desc) [0...$count] ${articleProjection}`
 
   try {
-    return await client.fetch(
+    const articles = await client.fetch<Article[]>(
       query,
       {
         slug: currentSlug,
@@ -217,6 +254,7 @@ export async function getRelatedArticles(
       },
       { next: { revalidate: 0 } },
     )
+    return await attachLiveViews(articles)
   } catch (error) {
     console.error("Failed to fetch related articles from Sanity:", error)
     return []
@@ -237,12 +275,12 @@ export async function searchArticles(
   )] | order(date desc) ${articleProjection}`
 
   try {
-    const results = await client.fetch(
+    const results = await client.fetch<Article[]>(
       sanityQuery,
       { term: query, audience, language },
       { next: { revalidate: 0 } },
     )
-    return results
+    return await attachLiveViews(results)
   } catch (error) {
     console.error("Failed to search articles from Sanity:", error)
     return []
