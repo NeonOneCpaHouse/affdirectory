@@ -1,11 +1,11 @@
 "use client"
 
-import { useEffect } from "react"
 import Link from "next/link"
 
 import AdSlot from "@/components/AdSlot"
 import Breadcrumbs from "@/components/Breadcrumbs"
 import ArticleCard from "@/components/ArticleCard"
+import ArticleViewCounter from "@/components/ArticleViewCounter"
 import type { Article } from "@/mock/articles"
 import { useLanguage } from "@/context/LanguageContext"
 import { useAudience } from "@/context/AudienceContext"
@@ -13,7 +13,19 @@ import { getTagVariants } from "@/lib/utils"
 import { PortableText } from "@portabletext/react"
 import { urlForImage } from "@/lib/sanity"
 
-export default function CaseStudyArticleClient({ article, related }: { article: Article; related: Article[] }) {
+interface CaseStudyArticleClientProps {
+  article: Article
+  related: Article[]
+  initialViewCount: number
+  viewToken: string | null
+}
+
+export default function CaseStudyArticleClient({
+  article,
+  related,
+  initialViewCount,
+  viewToken,
+}: CaseStudyArticleClientProps) {
   const { language, t } = useLanguage()
   const { audience } = useAudience()
 
@@ -25,14 +37,6 @@ export default function CaseStudyArticleClient({ article, related }: { article: 
   const thumbnail = article.thumbnail?.[language] || article.thumbnail?.["en"]
 
   console.log("[v0] CaseStudyArticleClient - body type:", typeof body, "isArray:", Array.isArray(body))
-
-  useEffect(() => {
-    fetch("/api/views", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ slug: article.slug }),
-    }).catch(() => { })
-  }, [article.slug])
 
   const portableTextComponents = {
     types: {
@@ -118,13 +122,16 @@ export default function CaseStudyArticleClient({ article, related }: { article: 
       <div className="flex flex-col lg:flex-row gap-8">
         <main className="flex-1 min-w-0">
           <article className="bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-[32px] p-8 md:p-12 shadow-sm">
-            <time className="text-sm text-gray-500 font-medium mb-4 block">
-              {new Date(article.date).toLocaleDateString(language === "ru" ? "ru-RU" : "en-US", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              })}
-            </time>
+            <div className="mb-4 flex flex-wrap items-center gap-4">
+              <time className="text-sm text-gray-500 font-medium">
+                {new Date(article.date).toLocaleDateString(language === "ru" ? "ru-RU" : "en-US", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}
+              </time>
+              <ArticleViewCounter key={article._id} articleId={article._id} initialCount={initialViewCount} token={viewToken} />
+            </div>
             <h1 className="text-3xl md:text-5xl font-bold text-gray-900 dark:text-white mb-8 leading-tight">{title}</h1>
 
             {thumbnail && (

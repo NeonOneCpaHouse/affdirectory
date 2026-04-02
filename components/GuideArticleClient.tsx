@@ -1,11 +1,11 @@
 "use client"
 
-import { useEffect } from "react"
 import Link from "next/link"
 
 import AdSlot from "@/components/AdSlot"
 import Breadcrumbs from "@/components/Breadcrumbs"
 import ArticleCard from "@/components/ArticleCard"
+import ArticleViewCounter from "@/components/ArticleViewCounter"
 import TagPills from "@/components/TagPills"
 import type { Article } from "@/mock/articles"
 import { useLanguage } from "@/context/LanguageContext"
@@ -14,7 +14,19 @@ import { getTagVariants } from "@/lib/utils"
 import { PortableText } from "@portabletext/react"
 import { urlForImage } from "@/lib/sanity"
 
-export default function GuideArticleClient({ article, related }: { article: Article; related: Article[] }) {
+interface GuideArticleClientProps {
+  article: Article
+  related: Article[]
+  initialViewCount: number
+  viewToken: string | null
+}
+
+export default function GuideArticleClient({
+  article,
+  related,
+  initialViewCount,
+  viewToken,
+}: GuideArticleClientProps) {
   const { language, t } = useLanguage()
   const { audience } = useAudience()
 
@@ -23,14 +35,6 @@ export default function GuideArticleClient({ article, related }: { article: Arti
   const checklist = article.checklist ? article.checklist[language] || article.checklist["en"] : null
 
   console.log("[v0] GuideArticleClient - body type:", typeof body, "isArray:", Array.isArray(body))
-
-  useEffect(() => {
-    fetch("/api/views", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ slug: article.slug }),
-    }).catch(() => { })
-  }, [article.slug])
 
   const portableTextComponents = {
     types: {
@@ -119,6 +123,7 @@ export default function GuideArticleClient({ article, related }: { article: Arti
             <div className="flex items-center gap-4 mb-6">
               <TagPills tags={[article.category]} variant="category" />
               {article.readingTime && <span className="text-sm text-gray-500 font-medium">{article.readingTime} min read</span>}
+              <ArticleViewCounter key={article._id} articleId={article._id} initialCount={initialViewCount} token={viewToken} />
             </div>
 
             <h1 className="text-3xl md:text-5xl font-bold text-gray-900 dark:text-white mb-8 leading-tight">{title}</h1>

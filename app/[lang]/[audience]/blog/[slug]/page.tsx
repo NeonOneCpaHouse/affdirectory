@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import NewsArticleClient from "@/components/NewsArticleClient"
 import CaseStudyArticleClient from "@/components/CaseStudyArticleClient"
 import GuideArticleClient from "@/components/GuideArticleClient"
+import { createArticleViewToken, getArticleViewCount } from "@/lib/articleViews"
 import { getArticleBySlug, getRelatedArticles } from "@/mock/articles"
 import { notFound } from "next/navigation"
 import { buildSeoMetadata, isSupportedAudience, isSupportedLanguage, toPlainTextExcerpt } from "@/lib/seo"
@@ -44,16 +45,18 @@ export default async function BlogArticlePage({ params }: { params: Promise<{ la
   if (!article) notFound()
 
   const related = await getRelatedArticles(slug, 3, audience)
+  const initialViewCount = (await getArticleViewCount(article._id)) ?? article.views
+  const viewToken = createArticleViewToken(article._id, article.views)
 
   // Route to the appropriate client component based on category
   if (article.category === "case-studies") {
-    return <CaseStudyArticleClient article={article} related={related} />
+    return <CaseStudyArticleClient article={article} related={related} initialViewCount={initialViewCount} viewToken={viewToken} />
   }
 
   if (article.category === "guides") {
-    return <GuideArticleClient article={article} related={related} />
+    return <GuideArticleClient article={article} related={related} initialViewCount={initialViewCount} viewToken={viewToken} />
   }
 
   // Default: news, reviews, trends
-  return <NewsArticleClient article={article} related={related} />
+  return <NewsArticleClient article={article} related={related} initialViewCount={initialViewCount} viewToken={viewToken} />
 }

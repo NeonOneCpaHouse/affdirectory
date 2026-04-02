@@ -15,6 +15,7 @@ export interface ArticleTagIndex {
 }
 
 export interface Article {
+  _id: string
   slug: string
   title: Localized<string>
   category: ArticleCategory
@@ -32,7 +33,7 @@ export interface Article {
     results: string
     lessons: string
   }>
-  views?: number
+  views: number
 }
 
 const articleCategories: ArticleCategory[] = ["news", "reviews", "case-studies", "guides", "trends"]
@@ -99,6 +100,7 @@ export function buildArticleTagIndex(articles: Article[]): ArticleTagIndex {
 
 // Common GROQ projection for articles
 const articleProjection = `{
+  _id,
   "slug": slug.current,
   title,
   category,

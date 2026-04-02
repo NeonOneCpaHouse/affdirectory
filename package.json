@@ -6,7 +6,9 @@
     "build": "next build",
     "dev": "next dev",
     "lint": "eslint",
-    "start": "next start"
+    "start": "next start",
+    "test": "node --import tsx --test tests/article-views.test.ts",
+    "migrate:article-views": "tsx scripts/migrate-article-views.ts"
   },
   "dependencies": {
     "@portabletext/react": "6.0.0",
@@ -14,6 +16,7 @@
     "@sanity/client": "latest",
     "@sanity/image-url": "2.0.2",
     "@sanity/vision": "5.14.1",
+    "@upstash/redis": "^1.37.0",
     "@vercel/analytics": "^2.0.1",
     "class-variance-authority": "0.7.1",
     "clsx": "^2.1.1",
@@ -40,6 +43,7 @@
     "eslint-config-next": "16.1.1",
     "postcss": "8.5.6",
     "tailwindcss": "^4",
+    "tsx": "^4.21.0",
     "typescript": "^5"
   }
 }

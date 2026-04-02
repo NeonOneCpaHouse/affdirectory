@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
+import { createArticleViewToken, getArticleViewCount } from "@/lib/articleViews"
 import { getArticleBySlug, getRelatedArticles } from "@/mock/articles"
 import CaseStudyArticleClient from "@/components/CaseStudyArticleClient"
 import { buildSeoMetadata, isSupportedAudience, isSupportedLanguage, toPlainTextExcerpt } from "@/lib/seo"
@@ -42,6 +43,8 @@ export default async function CaseStudyDetailPage({ params }: { params: Promise<
   if (!article || article.category !== "case-studies") notFound()
 
   const related = await getRelatedArticles(slug, 3, audience)
+  const initialViewCount = (await getArticleViewCount(article._id)) ?? article.views
+  const viewToken = createArticleViewToken(article._id, article.views)
 
-  return <CaseStudyArticleClient article={article} related={related} />
+  return <CaseStudyArticleClient article={article} related={related} initialViewCount={initialViewCount} viewToken={viewToken} />
 }

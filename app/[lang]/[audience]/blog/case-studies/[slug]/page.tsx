@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { getArticleBySlug, getRelatedArticles } from "@/mock/articles"
 import { notFound } from "next/navigation"
 import CaseStudyArticleClient from "@/components/CaseStudyArticleClient"
+import { createArticleViewToken, getArticleViewCount } from "@/lib/articleViews"
 import { buildSeoMetadata, isSupportedAudience, isSupportedLanguage, toPlainTextExcerpt } from "@/lib/seo"
 
 export async function generateMetadata({
@@ -44,6 +45,8 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ lang
   }
 
   const relatedArticles = await getRelatedArticles(slug, 3, audience)
+  const initialViewCount = (await getArticleViewCount(article._id)) ?? article.views
+  const viewToken = createArticleViewToken(article._id, article.views)
 
-  return <CaseStudyArticleClient article={article} related={relatedArticles} />
+  return <CaseStudyArticleClient article={article} related={relatedArticles} initialViewCount={initialViewCount} viewToken={viewToken} />
 }
