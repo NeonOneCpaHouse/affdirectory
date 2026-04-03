@@ -1,10 +1,33 @@
 import type React from "react"
+import type { Metadata } from "next"
 import Header from "@/components/Header"
 import Footer from "@/components/Footer"
 import Popup from "@/components/Popup"
 import { LanguageProvider } from "@/context/LanguageContext"
 import { AudienceProvider } from "@/context/AudienceContext"
 import { client } from "@/lib/sanity" // Added import
+
+export async function generateMetadata({
+    params,
+}: {
+    params: Promise<{ lang: string; audience: string }>
+}): Promise<Metadata> {
+    const { audience } = await params
+    const faviconPath =
+        audience === "webmaster"
+            ? "/favicon-webmaster.png"
+            : "/favicon-affiliate.png"
+
+    return {
+        icons: {
+            icon: [
+                { url: faviconPath, type: "image/png" },
+            ],
+            shortcut: [{ url: faviconPath }],
+            apple: [{ url: faviconPath, sizes: "180x180", type: "image/png" }],
+        },
+    }
+}
 
 export default async function Layout({
     children,

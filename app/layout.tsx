@@ -38,9 +38,6 @@ export const metadata: Metadata = {
     description: "AffTraff is a directory and media platform for affiliate marketers, webmasters, rankings, guides, tools, events, and jobs.",
     images: [getAbsoluteUrl("/og-default.svg")],
   },
-  icons: {
-    apple: [{ url: "/apple-icon.png", sizes: "180x180", type: "image/png" }],
-  },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
