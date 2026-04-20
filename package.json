@@ -7,7 +7,7 @@
     "dev": "next dev",
     "lint": "eslint",
     "start": "next start",
-    "test": "node --import tsx --test tests/article-views.test.ts",
+    "test": "node --import tsx --test tests/*.test.ts",
     "migrate:article-views": "tsx scripts/migrate-article-views.ts"
   },
   "dependencies": {

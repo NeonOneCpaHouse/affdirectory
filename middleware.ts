@@ -5,7 +5,6 @@ const locales = ['en', 'ru'] as const
 const audiences = ['affiliate', 'webmaster']
 const defaultLocale = 'en'
 const defaultAudience = 'affiliate'
-const LANGUAGE_COOKIE_NAME = 'preferred_lang'
 
 function isSupportedLocale(value?: string): value is (typeof locales)[number] {
     return Boolean(value && locales.includes(value as (typeof locales)[number]))
@@ -37,11 +36,6 @@ function getLocaleFromAcceptLanguage(header: string | null): (typeof locales)[nu
 }
 
 function resolveLocale(request: NextRequest): (typeof locales)[number] {
-    const cookieLocale = request.cookies.get(LANGUAGE_COOKIE_NAME)?.value?.toLowerCase()
-    if (isSupportedLocale(cookieLocale)) {
-        return cookieLocale
-    }
-
     return getLocaleFromAcceptLanguage(request.headers.get('accept-language'))
 }
 
@@ -87,9 +81,9 @@ export function middleware(request: NextRequest) {
         const rest = pathSegments.slice(1).join('/')
         newPath = `/${locale}/${defaultAudience}${rest ? `/${rest}` : ''}`
     } else {
-        // /... -> /en/affiliate/...
+        // /... -> /{browser locale}/affiliate/...
         const rest = pathSegments.join('/')
-        newPath = `/${defaultLocale}/${defaultAudience}${rest ? `/${rest}` : ''}`
+        newPath = `/${locale}/${defaultAudience}${rest ? `/${rest}` : ''}`
     }
 
     const url = request.nextUrl.clone()
