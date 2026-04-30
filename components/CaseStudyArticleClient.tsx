@@ -5,6 +5,7 @@ import Link from "next/link"
 import AdSlot from "@/components/AdSlot"
 import Breadcrumbs from "@/components/Breadcrumbs"
 import ArticleCard from "@/components/ArticleCard"
+import { articlePortableTextComponents } from "@/components/ArticlePortableText"
 import ArticleShareBar from "@/components/ArticleShareBar"
 import ArticleViewCounter from "@/components/ArticleViewCounter"
 import type { Article } from "@/mock/articles"
@@ -12,7 +13,6 @@ import { useLanguage } from "@/context/LanguageContext"
 import { useAudience } from "@/context/AudienceContext"
 import { getTagVariants } from "@/lib/utils"
 import { PortableText } from "@portabletext/react"
-import { urlForImage } from "@/lib/sanity"
 
 interface CaseStudyArticleClientProps {
   article: Article
@@ -36,82 +36,6 @@ export default function CaseStudyArticleClient({
     ? article.caseStudySections[language] || article.caseStudySections["en"]
     : null
   const thumbnail = article.thumbnail?.[language] || article.thumbnail?.["en"]
-
-  console.log("[v0] CaseStudyArticleClient - body type:", typeof body, "isArray:", Array.isArray(body))
-
-  const portableTextComponents = {
-    types: {
-      image: ({ value }: any) => {
-        const imageUrl = urlForImage(value)?.url()
-        return (
-          <div className="my-8 rounded-2xl overflow-hidden border border-accent-100 dark:border-gray-800 shadow-sm">
-            {value.link ? (
-              <a href={value.link} target="_blank" rel="noopener noreferrer">
-                <img src={imageUrl || "/placeholder.svg"} alt={value.alt || ""} className="w-full h-auto" />
-              </a>
-            ) : (
-              <img src={imageUrl || "/placeholder.svg"} alt={value.alt || ""} className="w-full h-auto" />
-            )}
-            {value.caption && (
-              <p className="text-sm text-gray-500 dark:text-gray-400 text-center py-2 px-4 bg-gray-50 dark:bg-gray-800/50">
-                {value.caption}
-              </p>
-            )}
-          </div>
-        )
-      },
-    },
-    block: {
-      h1: ({ children }: any) => (
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-white mt-10 mb-4">{children}</h1>
-      ),
-      h2: ({ children }: any) => (
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mt-10 mb-4">{children}</h2>
-      ),
-      h3: ({ children }: any) => (
-        <h3 className="text-xl font-bold text-gray-900 dark:text-white mt-8 mb-3">{children}</h3>
-      ),
-      h4: ({ children }: any) => (
-        <h4 className="text-lg font-semibold text-gray-900 dark:text-white mt-6 mb-2">{children}</h4>
-      ),
-      normal: ({ children }: any) => (
-        <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-lg mb-6">{children}</p>
-      ),
-      blockquote: ({ children }: any) => (
-        <blockquote className="border-l-4 border-accent-500 pl-4 italic text-gray-600 dark:text-gray-300 my-6">
-          {children}
-        </blockquote>
-      ),
-    },
-    list: {
-      bullet: ({ children }: any) => (
-        <ul className="list-disc list-inside text-gray-600 dark:text-gray-300 space-y-2 my-4 ml-4">{children}</ul>
-      ),
-      number: ({ children }: any) => (
-        <ol className="list-decimal list-inside text-gray-600 dark:text-gray-300 space-y-2 my-4 ml-4">{children}</ol>
-      ),
-    },
-    marks: {
-      strong: ({ children }: any) => <strong className="font-bold">{children}</strong>,
-      em: ({ children }: any) => <em className="italic">{children}</em>,
-      code: ({ children }: any) => (
-        <code className="bg-gray-100 dark:bg-gray-800 text-accent-600 px-1.5 py-0.5 rounded text-sm font-mono">
-          {children}
-        </code>
-      ),
-      underline: ({ children }: any) => <span className="underline">{children}</span>,
-      "strike-through": ({ children }: any) => <span className="line-through">{children}</span>,
-      link: ({ children, value }: any) => {
-        const target = value?.blank ? "_blank" : undefined
-        const rel = value?.blank ? "noopener noreferrer" : undefined
-        return (
-          <a href={value?.href} target={target} rel={rel} className="text-accent-600 hover:underline">
-            {children}
-          </a>
-        )
-      },
-    },
-  }
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -216,7 +140,7 @@ export default function CaseStudyArticleClient({
 
             <div className="prose prose-lg dark:prose-invert max-w-none prose-headings:font-bold prose-a:text-accent-600 hover:prose-a:text-accent-700">
               {Array.isArray(body) && body.length > 0 ? (
-                <PortableText value={body} components={portableTextComponents} />
+                <PortableText value={body} components={articlePortableTextComponents} />
               ) : (
                 <p className="text-gray-600 dark:text-gray-300">No content available</p>
               )}

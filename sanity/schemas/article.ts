@@ -1,5 +1,182 @@
 import { defineField, defineType } from "sanity"
 
+function createTextBlock(isRussian: boolean): any {
+  return {
+    type: "block",
+    styles: [
+      { title: isRussian ? "Обычный" : "Normal", value: "normal" },
+      { title: "H1", value: "h1" },
+      { title: "H2", value: "h2" },
+      { title: "H3", value: "h3" },
+      { title: "H4", value: "h4" },
+      { title: isRussian ? "Цитата" : "Quote", value: "blockquote" },
+    ],
+    lists: [
+      { title: isRussian ? "Маркер" : "Bullet", value: "bullet" },
+      { title: isRussian ? "Номер" : "Number", value: "number" },
+    ],
+    marks: {
+      decorators: [
+        { title: isRussian ? "Жирный" : "Strong", value: "strong" },
+        { title: isRussian ? "Курсив" : "Emphasis", value: "em" },
+        { title: isRussian ? "Код" : "Code", value: "code" },
+        { title: isRussian ? "Подчеркнутый" : "Underline", value: "underline" },
+        { title: isRussian ? "Зачеркнутый" : "Strike", value: "strike-through" },
+      ],
+      annotations: [
+        {
+          name: "link",
+          type: "object",
+          title: isRussian ? "Внешняя ссылка" : "External Link",
+          fields: [
+            {
+              name: "href",
+              type: "url",
+              title: "URL",
+              validation: (Rule: any) =>
+                Rule.uri({
+                  scheme: ["http", "https", "mailto", "tel"],
+                }),
+            },
+            {
+              name: "blank",
+              type: "boolean",
+              title: isRussian ? "Открыть в новой вкладке" : "Open in new tab",
+              initialValue: true,
+            },
+          ],
+        },
+      ],
+    },
+  }
+}
+
+function createImageBlock(isRussian: boolean): any {
+  return {
+    type: "image",
+    options: {
+      hotspot: true,
+    },
+    fields: [
+      {
+        name: "alt",
+        type: "string",
+        title: isRussian ? "Альтернативный текст" : "Alt Text",
+        description: isRussian ? "Важно для SEO и доступности" : "Important for SEO and accessibility",
+      },
+      {
+        name: "caption",
+        type: "string",
+        title: isRussian ? "Подпись" : "Caption",
+      },
+      {
+        name: "link",
+        type: "url",
+        title: isRussian ? "URL ссылки" : "Link URL",
+        description: isRussian
+          ? "Необязательно: Сделать изображение кликабельным"
+          : "Optional: Make the image clickable",
+      },
+    ],
+  }
+}
+
+function createTableBlock(isRussian: boolean): any {
+  return {
+    type: "object",
+    name: "articleTable",
+    title: isRussian ? "Таблица" : "Table",
+    fields: [
+      defineField({
+        name: "caption",
+        type: "string",
+        title: isRussian ? "Подпись таблицы" : "Table Caption",
+      }),
+      defineField({
+        name: "firstRowIsHeader",
+        type: "boolean",
+        title: isRussian ? "Первая строка — заголовок" : "Use First Row as Header",
+        initialValue: true,
+      }),
+      defineField({
+        name: "rows",
+        type: "array",
+        title: isRussian ? "Строки" : "Rows",
+        of: [
+          {
+            type: "object",
+            name: "articleTableRow",
+            title: isRussian ? "Строка" : "Row",
+            fields: [
+              defineField({
+                name: "cells",
+                type: "array",
+                title: isRussian ? "Ячейки" : "Cells",
+                of: [{ type: "string" }],
+                validation: (Rule: any) => Rule.required().min(1),
+              }),
+            ],
+            preview: {
+              select: {
+                cells: "cells",
+              },
+              prepare({ cells }: { cells?: string[] }) {
+                const previewCells = (cells || []).filter(Boolean).slice(0, 3).join(" | ")
+                return {
+                  title: previewCells || (isRussian ? "Пустая строка" : "Empty row"),
+                  subtitle: `${cells?.length || 0} ${isRussian ? "ячеек" : "cells"}`,
+                }
+              },
+            },
+          },
+        ],
+        validation: (Rule: any) => Rule.required().min(1),
+      }),
+    ],
+    preview: {
+      select: {
+        caption: "caption",
+        rows: "rows",
+      },
+      prepare({ caption, rows }: { caption?: string; rows?: Array<{ cells?: string[] }> }) {
+        const rowCount = rows?.length || 0
+        const columnCount = rows?.reduce((max, row) => Math.max(max, row?.cells?.length || 0), 0) || 0
+
+        return {
+          title: caption || (isRussian ? "Таблица" : "Table"),
+          subtitle: `${rowCount} ${isRussian ? "строк" : "rows"} x ${columnCount} ${isRussian ? "столбцов" : "columns"}`,
+        }
+      },
+    },
+    validation: (Rule: any) =>
+      Rule.custom((value?: { rows?: Array<{ cells?: string[] }> }) => {
+        if (!value?.rows || value.rows.length === 0) {
+          return true
+        }
+
+        const expectedColumns = value.rows[0]?.cells?.length || 0
+        const hasMismatchedRow = value.rows.some((row) => (row?.cells?.length || 0) !== expectedColumns)
+
+        if (hasMismatchedRow) {
+          return isRussian
+            ? "Во всех строках должно быть одинаковое количество ячеек."
+            : "Every row must contain the same number of cells."
+        }
+
+        return true
+      }),
+  }
+}
+
+function createBodyLocaleField(name: "en" | "ru", title: string, isRussian: boolean) {
+  return defineField({
+    name,
+    type: "array",
+    title,
+    of: [createTextBlock(isRussian), createImageBlock(isRussian), createTableBlock(isRussian)],
+  })
+}
+
 export default defineType({
   name: "article",
   title: "Article",
@@ -121,166 +298,8 @@ export default defineType({
       title: "Body",
       type: "object",
       fields: [
-        {
-          name: "en",
-          type: "array",
-          title: "English",
-          of: [
-            {
-              type: "block",
-              styles: [
-                { title: "Normal", value: "normal" },
-                { title: "H1", value: "h1" },
-                { title: "H2", value: "h2" },
-                { title: "H3", value: "h3" },
-                { title: "H4", value: "h4" },
-                { title: "Quote", value: "blockquote" },
-              ],
-              lists: [
-                { title: "Bullet", value: "bullet" },
-                { title: "Number", value: "number" },
-              ],
-              marks: {
-                decorators: [
-                  { title: "Strong", value: "strong" },
-                  { title: "Emphasis", value: "em" },
-                  { title: "Code", value: "code" },
-                  { title: "Underline", value: "underline" },
-                  { title: "Strike", value: "strike-through" },
-                ],
-                annotations: [
-                  {
-                    name: "link",
-                    type: "object",
-                    title: "External Link",
-                    fields: [
-                      {
-                        name: "href",
-                        type: "url",
-                        title: "URL",
-                        validation: (Rule) =>
-                          Rule.uri({
-                            scheme: ["http", "https", "mailto", "tel"],
-                          }),
-                      },
-                      {
-                        name: "blank",
-                        type: "boolean",
-                        title: "Open in new tab",
-                        initialValue: true,
-                      },
-                    ],
-                  },
-                ],
-              },
-            },
-            {
-              type: "image",
-              options: {
-                hotspot: true,
-              },
-              fields: [
-                {
-                  name: "alt",
-                  type: "string",
-                  title: "Alt Text",
-                  description: "Important for SEO and accessibility",
-                },
-                {
-                  name: "caption",
-                  type: "string",
-                  title: "Caption",
-                },
-                {
-                  name: "link",
-                  type: "url",
-                  title: "Link URL",
-                  description: "Optional: Make the image clickable",
-                },
-              ],
-            },
-          ],
-        },
-        {
-          name: "ru",
-          type: "array",
-          title: "Russian",
-          of: [
-            {
-              type: "block",
-              styles: [
-                { title: "Обычный", value: "normal" },
-                { title: "H1", value: "h1" },
-                { title: "H2", value: "h2" },
-                { title: "H3", value: "h3" },
-                { title: "H4", value: "h4" },
-                { title: "Цитата", value: "blockquote" },
-              ],
-              lists: [
-                { title: "Маркер", value: "bullet" },
-                { title: "Номер", value: "number" },
-              ],
-              marks: {
-                decorators: [
-                  { title: "Жирный", value: "strong" },
-                  { title: "Курсив", value: "em" },
-                  { title: "Код", value: "code" },
-                  { title: "Подчеркнутый", value: "underline" },
-                  { title: "Зачеркнутый", value: "strike-through" },
-                ],
-                annotations: [
-                  {
-                    name: "link",
-                    type: "object",
-                    title: "Внешняя ссылка",
-                    fields: [
-                      {
-                        name: "href",
-                        type: "url",
-                        title: "URL",
-                        validation: (Rule) =>
-                          Rule.uri({
-                            scheme: ["http", "https", "mailto", "tel"],
-                          }),
-                      },
-                      {
-                        name: "blank",
-                        type: "boolean",
-                        title: "Открыть в новой вкладке",
-                        initialValue: true,
-                      },
-                    ],
-                  },
-                ],
-              },
-            },
-            {
-              type: "image",
-              options: {
-                hotspot: true,
-              },
-              fields: [
-                {
-                  name: "alt",
-                  type: "string",
-                  title: "Альтернативный текст",
-                  description: "Важно для SEO и доступности",
-                },
-                {
-                  name: "caption",
-                  type: "string",
-                  title: "Подпись",
-                },
-                {
-                  name: "link",
-                  type: "url",
-                  title: "URL ссылки",
-                  description: "Необязательно: Сделать изображение кликабельным",
-                },
-              ],
-            },
-          ],
-        },
+        createBodyLocaleField("en", "English", false),
+        createBodyLocaleField("ru", "Russian", true),
       ],
       validation: (Rule) => Rule.required(),
     }),

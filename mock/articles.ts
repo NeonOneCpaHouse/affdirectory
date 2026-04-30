@@ -1,7 +1,7 @@
 import { client } from "@/lib/sanity"
 import { getArticleViewCount } from "@/lib/articleViews"
+import type { ArticlePortableTextNode } from "@/types/articlePortableText"
 import type { Localized } from "@/types"
-import type { PortableTextBlock } from "@portabletext/types"
 
 export type ArticleCategory = "news" | "reviews" | "case-studies" | "guides" | "trends"
 
@@ -23,7 +23,7 @@ export interface Article {
   tags: ArticleTag[]
   date: string
   excerpt: Localized<string>
-  body: Localized<PortableTextBlock[]>
+  body: Localized<ArticlePortableTextNode[]>
   thumbnail?: Localized<string>
   readingTime?: number
   checklist?: Localized<string[]>
