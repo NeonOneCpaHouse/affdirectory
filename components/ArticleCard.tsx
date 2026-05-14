@@ -6,7 +6,7 @@ import type { Article } from "@/mock/articles"
 import { useLanguage } from "@/context/LanguageContext"
 import { useAudience } from "@/context/AudienceContext"
 import { getTagVariants } from "@/lib/utils"
-import { Clock, ArrowUpRight, BookOpen, Eye, Hourglass } from "lucide-react"
+import { Clock, ArrowUpRight, BookOpen, Hourglass } from "lucide-react"
 
 const categoryLabels: Record<string, Record<string, string>> = {
   en: {
@@ -52,8 +52,6 @@ export default function ArticleCard({ article }: { article: Article }) {
     language === "ru" ? "ru-RU" : "en-US",
     { month: "short", day: "numeric", year: "numeric" }
   )
-  const formattedViews = new Intl.NumberFormat(language === "ru" ? "ru-RU" : "en-US").format(article.views)
-
   return (
     <Link
       href={getArticlePath()}
@@ -123,10 +121,6 @@ export default function ArticleCard({ article }: { article: Article }) {
             <div className="flex items-center gap-1.5">
               <Clock className="w-3.5 h-3.5" />
               <span className="font-medium">{formattedDate}</span>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <Eye className="w-3.5 h-3.5" />
-              <span className="font-medium">{formattedViews}</span>
             </div>
             {article.readingTime && (
               <>
