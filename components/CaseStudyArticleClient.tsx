@@ -13,6 +13,7 @@ import { useLanguage } from "@/context/LanguageContext"
 import { useAudience } from "@/context/AudienceContext"
 import { getTagVariants } from "@/lib/utils"
 import { PortableText } from "@portabletext/react"
+import { Hourglass } from "lucide-react"
 
 interface CaseStudyArticleClientProps {
   article: Article
@@ -56,6 +57,14 @@ export default function CaseStudyArticleClient({
                 })}
               </time>
               <ArticleViewCounter key={article._id} articleId={article._id} initialCount={initialViewCount} token={viewToken} />
+              {article.readingTime && (
+                <span className="inline-flex items-center gap-1.5 text-sm text-gray-500 font-medium">
+                  <Hourglass className="h-4 w-4" />
+                  <span>
+                    {article.readingTime} {t("article.readingTimeUnit")}
+                  </span>
+                </span>
+              )}
             </div>
             <h1 className="text-3xl md:text-5xl font-bold text-gray-900 dark:text-white mb-8 leading-tight">{title}</h1>
 

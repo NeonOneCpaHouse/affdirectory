@@ -14,6 +14,7 @@ import { useLanguage } from "@/context/LanguageContext"
 import { useAudience } from "@/context/AudienceContext"
 import { getTagVariants } from "@/lib/utils"
 import { PortableText } from "@portabletext/react"
+import { Hourglass } from "lucide-react"
 
 interface NewsArticleClientProps {
   article: Article
@@ -54,6 +55,14 @@ export default function NewsArticleClient({
                   day: "numeric",
                 })}
               </time>
+              {article.readingTime && (
+                <span className="inline-flex items-center gap-1.5 text-sm text-gray-500 font-medium">
+                  <Hourglass className="h-4 w-4" />
+                  <span>
+                    {article.readingTime} {t("article.readingTimeUnit")}
+                  </span>
+                </span>
+              )}
               <ArticleViewCounter key={article._id} articleId={article._id} initialCount={initialViewCount} token={viewToken} />
             </div>
 
