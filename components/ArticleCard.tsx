@@ -6,7 +6,7 @@ import type { Article } from "@/mock/articles"
 import { useLanguage } from "@/context/LanguageContext"
 import { useAudience } from "@/context/AudienceContext"
 import { getTagVariants } from "@/lib/utils"
-import { Clock, ArrowUpRight, BookOpen, Hourglass } from "lucide-react"
+import { Clock, ArrowUpRight, BookOpen } from "lucide-react"
 
 const categoryLabels: Record<string, Record<string, string>> = {
   en: {
@@ -93,10 +93,11 @@ export default function ArticleCard({ article }: { article: Article }) {
           {title}
         </h3>
 
-        {/* Tags */}
-        {article.tags && article.tags.length > 0 && (
-          <div className="flex flex-wrap gap-1.5 mt-3">
-            {article.tags.slice(0, 3).map((tag) => {
+        {/* Tags + Date row */}
+        <div className="flex items-start justify-between gap-3 mt-3 mt-auto pt-1">
+          {/* Tags - left side, allowed to wrap */}
+          <div className="flex flex-wrap gap-1.5 min-w-0">
+            {article.tags && article.tags.length > 0 && article.tags.slice(0, 3).map((tag) => {
               const variants = getTagVariants(tag.name.en)
               return (
                 <span
@@ -113,26 +114,11 @@ export default function ArticleCard({ article }: { article: Article }) {
               )
             })}
           </div>
-        )}
 
-        {/* Footer */}
-        <div className="flex items-center justify-between mt-auto pt-5">
-          <div className="flex items-center gap-4 text-xs text-gray-400 dark:text-gray-500">
-            <div className="flex items-center gap-1.5">
-              <Clock className="w-3.5 h-3.5" />
-              <span className="font-medium">{formattedDate}</span>
-            </div>
-            {article.readingTime && (
-              <>
-                <span className="text-gray-200 dark:text-gray-700">•</span>
-                <div className="flex items-center gap-1.5">
-                  <Hourglass className="w-3.5 h-3.5" />
-                  <span className="font-medium">
-                    {article.readingTime} {t("article.readingTimeUnit")}
-                  </span>
-                </div>
-              </>
-            )}
+          {/* Date - right side, never wraps */}
+          <div className="flex items-center gap-1.5 text-xs text-gray-400 dark:text-gray-500 shrink-0">
+            <Clock className="w-3.5 h-3.5" />
+            <span className="font-medium">{formattedDate}</span>
           </div>
         </div>
       </div>
