@@ -46,17 +46,18 @@ export default function GuideArticleClient({
       <div className="flex flex-col lg:flex-row gap-8">
         <main className="flex-1 min-w-0">
           <article className="bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-[32px] p-8 md:p-12 shadow-sm">
-            <div className="flex items-center gap-4 mb-6">
+            <div className="mb-6 space-y-3">
               <TagPills tags={[article.category]} variant="category" />
-              {article.readingTime && (
-                <span className="inline-flex items-center gap-1.5 text-sm text-gray-500 font-medium">
-                  <Hourglass className="h-4 w-4" />
-                  <span>
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-gray-500 font-medium">
+                {article.readingTime && (
+                  <span className="inline-flex items-center gap-1.5">
+                    <Hourglass className="h-4 w-4" />
                     {article.readingTime} {t("article.readingTimeUnit")}
                   </span>
-                </span>
-              )}
-              <ArticleViewCounter key={article._id} articleId={article._id} initialCount={initialViewCount} token={viewToken} />
+                )}
+                {article.readingTime && <span className="text-gray-300 dark:text-gray-600">·</span>}
+                <ArticleViewCounter key={article._id} articleId={article._id} initialCount={initialViewCount} token={viewToken} />
+              </div>
             </div>
 
             <h1 className="text-3xl md:text-5xl font-bold text-gray-900 dark:text-white mb-8 leading-tight">{title}</h1>
