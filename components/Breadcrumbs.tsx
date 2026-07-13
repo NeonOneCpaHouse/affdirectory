@@ -27,9 +27,10 @@ export default function Breadcrumbs({ items }: BreadcrumbsProps) {
     return `/${language}/${audience}${href.startsWith("/") ? "" : "/"}${href}`
   }
 
-  // Collapse middle breadcrumb items on mobile (< md) to reduce vertical space.
-  // When there are 2+ items after Home, mobile shows: Home / … / Current Page.
-  // Middle items remain in the DOM (hidden md:flex) for SEO and screen readers.
+  // Collapse breadcrumb items on mobile (< md) to reduce vertical space.
+  // When there are 2+ items after Home, mobile shows: Home / … / Parent.
+  // The last item (page title) is hidden on mobile since it's redundant with the h1.
+  // All items remain in the DOM (hidden md:flex) for SEO and screen readers.
   const collapsible = items.length >= 2
 
   return (
@@ -44,8 +45,8 @@ export default function Breadcrumbs({ items }: BreadcrumbsProps) {
         </span>
       )}
       {items.map((item, index) => {
-        const isLast = index === items.length - 1
-        const hiddenOnMobile = collapsible && !isLast
+        const isParent = index === items.length - 2
+        const hiddenOnMobile = collapsible && !isParent
 
         return (
           <span key={index} className={`flex items-center gap-2${hiddenOnMobile ? " hidden md:flex" : ""}`}>
