@@ -3,7 +3,8 @@ import { notFound } from "next/navigation"
 import { createArticleViewToken, getArticleViewCount } from "@/lib/articleViews"
 import { getArticleBySlug, getRelatedArticles } from "@/mock/articles"
 import GuideArticleClient from "@/components/GuideArticleClient"
-import { buildSeoMetadata, isSupportedAudience, isSupportedLanguage, toPlainTextExcerpt } from "@/lib/seo"
+import { buildSeoMetadata, isSupportedAudience, isSupportedLanguage, toPlainTextExcerpt, type SupportedLanguage, type SupportedAudience } from "@/lib/seo"
+import { articleJsonLd, breadcrumbJsonLd, JsonLd } from "@/lib/structuredData"
 
 export async function generateMetadata({
   params,
@@ -37,7 +38,7 @@ export async function generateMetadata({
 }
 
 export default async function GuideDetailPage({ params }: { params: Promise<{ lang: string; audience: string; slug: string }> }) {
-  const { slug, audience } = await params
+  const { lang, slug, audience } = await params
   const article = await getArticleBySlug(slug, audience)
 
   if (!article || article.category !== "guides") notFound()
@@ -46,5 +47,32 @@ export default async function GuideDetailPage({ params }: { params: Promise<{ la
   const initialViewCount = (await getArticleViewCount(article._id)) ?? article.views
   const viewToken = createArticleViewToken(article._id, article.views)
 
-  return <GuideArticleClient article={article} related={related} initialViewCount={initialViewCount} viewToken={viewToken} />
+  const typedLang = lang as SupportedLanguage
+  const typedAudience = audience as SupportedAudience
+  const title = article.title[typedLang] || article.title.en
+  const thumbnail = article.thumbnail?.[typedLang] || article.thumbnail?.en
+
+  const jsonLdData = [
+    articleJsonLd({
+      lang: typedLang,
+      audience: typedAudience,
+      title,
+      description: article.excerpt[typedLang] || article.excerpt.en || "",
+      datePublished: article.date,
+      slug: article.slug,
+      thumbnailUrl: thumbnail,
+      section: "Guides",
+    }),
+    breadcrumbJsonLd(typedLang, typedAudience, [
+      { name: typedLang === "ru" ? "Гайды" : "Guides", href: "/guides" },
+      { name: title },
+    ]),
+  ]
+
+  return (
+    <>
+      <JsonLd data={jsonLdData} />
+      <GuideArticleClient article={article} related={related} initialViewCount={initialViewCount} viewToken={viewToken} />
+    </>
+  )
 }

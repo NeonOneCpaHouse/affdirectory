@@ -2,7 +2,8 @@ import type { Metadata } from "next"
 import { getKnowledgeBySlug, getAllKnowledgeEntries } from "@/mock/knowledge"
 import { notFound } from "next/navigation"
 import KnowledgeArticleClient from "@/components/KnowledgeArticleClient"
-import { buildSeoMetadata, isSupportedAudience, isSupportedLanguage, toPlainTextExcerpt } from "@/lib/seo"
+import { buildSeoMetadata, isSupportedAudience, isSupportedLanguage, toPlainTextExcerpt, type SupportedLanguage, type SupportedAudience } from "@/lib/seo"
+import { breadcrumbJsonLd, JsonLd } from "@/lib/structuredData"
 
 export async function generateMetadata({
   params,
@@ -80,7 +81,23 @@ export default async function KnowledgeEntryPage({ params }: { params: Promise<{
 
     console.log(`[KB] Found ${relatedEntries.length} related entries for category: ${entry.category}`)
 
-    return <KnowledgeArticleClient entry={entry} relatedEntries={relatedEntries} />
+    const typedLang = (await params).lang as SupportedLanguage
+    const typedAudience = (await params).audience as SupportedAudience
+    const kbTitle = entry.title[typedLang] || entry.title.en
+
+    const jsonLdData = [
+      breadcrumbJsonLd(typedLang, typedAudience, [
+        { name: typedLang === "ru" ? "База знаний" : "Knowledge Base", href: "/knowledge-base" },
+        { name: kbTitle },
+      ]),
+    ]
+
+    return (
+      <>
+        <JsonLd data={jsonLdData} />
+        <KnowledgeArticleClient entry={entry} relatedEntries={relatedEntries} />
+      </>
+    )
   } catch (error) {
     const { slug: errorSlug } = await params
     console.error(`[KB] Error rendering knowledge page for slug ${errorSlug}:`, error)

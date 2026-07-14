@@ -4,6 +4,7 @@ import { getArticlesByCategory, getLatestArticles } from "@/mock/articles"
 import { getEvents } from "@/mock/events"
 import { getJobs } from "@/mock/jobs"
 import { buildSeoMetadata, getHomeSeoEntry, isSupportedAudience, isSupportedLanguage } from "@/lib/seo"
+import { organizationJsonLd, webSiteJsonLd, JsonLd } from "@/lib/structuredData"
 
 export async function generateMetadata({
   params,
@@ -33,13 +34,16 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
   ])
 
   return (
-    <HomePageClient
-      latestArticles={latestArticles}
-      guides={guides.slice(0, 4)}
-      cases={cases.slice(0, 4)}
-      reviews={reviews.slice(0, 4)}
-      events={events.slice(0, 4)}
-      jobs={jobs.slice(0, 4)}
-    />
+    <>
+      <JsonLd data={[organizationJsonLd(), webSiteJsonLd()]} />
+      <HomePageClient
+        latestArticles={latestArticles}
+        guides={guides.slice(0, 4)}
+        cases={cases.slice(0, 4)}
+        reviews={reviews.slice(0, 4)}
+        events={events.slice(0, 4)}
+        jobs={jobs.slice(0, 4)}
+      />
+    </>
   )
 }
