@@ -68,6 +68,9 @@ export default async function BlogArticlePage({ params }: { params: Promise<{ la
       slug: article.slug,
       thumbnailUrl: thumbnail,
       section: categoryLabels[article.category] || article.category,
+      authorName: article.author
+        ? article.author.name[typedLang] || article.author.name.en
+        : undefined,
     }),
     breadcrumbJsonLd(typedLang, typedAudience, [
       { name: typedLang === "ru" ? "Блог" : "Blog", href: "/blog" },

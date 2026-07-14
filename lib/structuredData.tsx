@@ -17,6 +17,7 @@ interface ArticleJsonLdInput {
   slug: string
   thumbnailUrl?: string
   section?: string
+  authorName?: string
 }
 
 // ─── Helpers ────────────────────────────────────────────────────────────────
@@ -51,6 +52,7 @@ export function articleJsonLd({
   slug,
   thumbnailUrl,
   section,
+  authorName,
 }: ArticleJsonLdInput) {
   const url = buildUrl(lang, audience, `/blog/${slug}`)
 
@@ -61,7 +63,9 @@ export function articleJsonLd({
     description,
     datePublished,
     dateModified: dateModified || datePublished,
-    author: PUBLISHER,
+    author: authorName
+      ? { "@type": "Person" as const, name: authorName }
+      : PUBLISHER,
     publisher: PUBLISHER,
     mainEntityOfPage: {
       "@type": "WebPage",

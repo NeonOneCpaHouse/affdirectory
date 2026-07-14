@@ -5,6 +5,7 @@ import Link from "next/link"
 import AdSlot from "@/components/AdSlot"
 import Breadcrumbs from "@/components/Breadcrumbs"
 import ArticleCard from "@/components/ArticleCard"
+import ArticleAuthorBio from "@/components/ArticleAuthorBio"
 import { articlePortableTextComponents } from "@/components/ArticlePortableText"
 import ArticleShareBar from "@/components/ArticleShareBar"
 import ArticleViewCounter from "@/components/ArticleViewCounter"
@@ -160,6 +161,8 @@ export default function CaseStudyArticleClient({
             </div>
 
             <ArticleShareBar title={title} />
+
+            {article.author && <ArticleAuthorBio author={article.author} />}
           </article>
 
 

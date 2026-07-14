@@ -15,6 +15,15 @@ export interface ArticleTagIndex {
   byCategory: Record<ArticleCategory, ArticleTag[]>
 }
 
+export interface ArticleAuthor {
+  name: Localized<string>
+  slug: string
+  avatar?: string
+  bio?: Localized<string>
+  role?: Localized<string>
+  social?: { twitter?: string; linkedin?: string; website?: string }
+}
+
 export interface Article {
   _id: string
   slug: string
@@ -22,6 +31,7 @@ export interface Article {
   category: ArticleCategory
   tags: ArticleTag[]
   date: string
+  author?: ArticleAuthor
   excerpt: Localized<string>
   body: Localized<ArticlePortableTextNode[]>
   thumbnail?: Localized<string>
@@ -107,6 +117,14 @@ const articleProjection = `{
   category,
   "tags": array::compact(tags[]->{ name, "slug": slug.current }),
   date,
+  "author": author->{
+    name,
+    "slug": slug.current,
+    "avatar": avatar.asset->url,
+    bio,
+    role,
+    social
+  },
   excerpt,
   body,
   "thumbnail": {

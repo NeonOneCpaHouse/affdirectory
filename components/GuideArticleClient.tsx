@@ -5,6 +5,7 @@ import Link from "next/link"
 import AdSlot from "@/components/AdSlot"
 import Breadcrumbs from "@/components/Breadcrumbs"
 import ArticleCard from "@/components/ArticleCard"
+import ArticleAuthorBio from "@/components/ArticleAuthorBio"
 import ArticleShareBar from "@/components/ArticleShareBar"
 import ArticleViewCounter from "@/components/ArticleViewCounter"
 import { articlePortableTextComponents } from "@/components/ArticlePortableText"
@@ -139,6 +140,8 @@ export default function GuideArticleClient({
             )}
 
             <ArticleShareBar title={title} />
+
+            {article.author && <ArticleAuthorBio author={article.author} />}
           </article>
 
 

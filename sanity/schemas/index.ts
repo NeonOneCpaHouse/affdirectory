@@ -1,5 +1,6 @@
 import article from "./article"
 import articleTag from "./articleTag"
+import author from "./author"
 import network from "./network"
 import cpaNetwork from "./cpaNetwork"
 import service from "./service"
@@ -12,5 +13,5 @@ import branding from "./branding"
 import domainParking from "./domainParking"
 import linkSelling from "./linkSelling"
 
-export const schemaTypes = [network, cpaNetwork, service, article, articleTag, adCreative, job, knowledge, event, popup, branding, domainParking, linkSelling]
+export const schemaTypes = [network, cpaNetwork, service, article, articleTag, author, adCreative, job, knowledge, event, popup, branding, domainParking, linkSelling]
 
