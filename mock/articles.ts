@@ -21,7 +21,7 @@ export interface ArticleAuthor {
   avatar?: string
   bio?: Localized<string>
   role?: Localized<string>
-  social?: { twitter?: string; linkedin?: string; website?: string }
+  social?: { twitter?: string; linkedin?: string; instagram?: string; telegram?: string; website?: string }
 }
 
 export interface Article {

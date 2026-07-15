@@ -71,6 +71,20 @@ export default defineType({
             Rule.uri({ scheme: ["http", "https"] }),
         },
         {
+          name: "instagram",
+          type: "url",
+          title: "Instagram",
+          validation: (Rule) =>
+            Rule.uri({ scheme: ["http", "https"] }),
+        },
+        {
+          name: "telegram",
+          type: "url",
+          title: "Telegram",
+          validation: (Rule) =>
+            Rule.uri({ scheme: ["http", "https"] }),
+        },
+        {
           name: "website",
           type: "url",
           title: "Website",

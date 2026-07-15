@@ -2,7 +2,7 @@
 
 import type { ArticleAuthor } from "@/mock/articles"
 import { useLanguage } from "@/context/LanguageContext"
-import { Twitter, Linkedin, Globe } from "lucide-react"
+import { Twitter, Linkedin, Instagram, Send, Globe } from "lucide-react"
 
 interface ArticleAuthorBioProps {
   author: ArticleAuthor
@@ -21,7 +21,7 @@ export default function ArticleAuthorBio({ author }: ArticleAuthorBioProps) {
     .toUpperCase()
     .slice(0, 2)
 
-  const hasSocials = author.social?.twitter || author.social?.linkedin || author.social?.website
+  const hasSocials = author.social?.twitter || author.social?.linkedin || author.social?.instagram || author.social?.telegram || author.social?.website
 
   return (
     <div className="mt-10 pt-8 border-t border-gray-100 dark:border-gray-800">
@@ -83,6 +83,28 @@ export default function ArticleAuthorBio({ author }: ArticleAuthorBioProps) {
                   aria-label={`${name} on LinkedIn`}
                 >
                   <Linkedin className="h-4 w-4" />
+                </a>
+              )}
+              {author.social?.instagram && (
+                <a
+                  href={author.social.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-colors"
+                  aria-label={`${name} on Instagram`}
+                >
+                  <Instagram className="h-4 w-4" />
+                </a>
+              )}
+              {author.social?.telegram && (
+                <a
+                  href={author.social.telegram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-colors"
+                  aria-label={`${name} on Telegram`}
+                >
+                  <Send className="h-4 w-4" />
                 </a>
               )}
               {author.social?.website && (
