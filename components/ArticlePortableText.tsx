@@ -3,10 +3,41 @@
 import type { PortableTextComponents } from "@portabletext/react"
 
 import { urlForImage } from "@/lib/sanity"
+import { useLanguage } from "@/context/LanguageContext"
 import type { ArticleTableBlock, ArticleTableRow } from "@/types/articlePortableText"
 
 function getRowCells(row?: ArticleTableRow) {
   return (row?.cells || []).map((cell) => cell?.trim() || "")
+}
+
+const NOTE_CONFIG: Record<string, { icon: string; labelKey: string }> = {
+  editors_note: { icon: "📝", labelKey: "article.editorsNote" },
+  afftraff_opinion: { icon: "💡", labelKey: "article.afftraffOpinion" },
+  our_experience: { icon: "🔬", labelKey: "article.ourExperience" },
+}
+
+function EditorNoteBlock({ value }: { value: { noteType?: string; text?: string } }) {
+  const { t } = useLanguage()
+
+  const noteType = value?.noteType || "editors_note"
+  const config = NOTE_CONFIG[noteType] || NOTE_CONFIG.editors_note
+  const label = t(config.labelKey)
+
+  if (!value?.text) return null
+
+  return (
+    <aside className="my-8 rounded-2xl border-l-4 border-accent-500 bg-accent-50 dark:bg-accent-500/10 p-6 shadow-sm">
+      <div className="mb-2 flex items-center gap-2">
+        <span className="text-lg" role="img" aria-hidden="true">{config.icon}</span>
+        <span className="text-sm font-bold uppercase tracking-wider text-accent-600">
+          {label}
+        </span>
+      </div>
+      <p className="text-base leading-relaxed text-gray-700 dark:text-gray-300 whitespace-pre-line">
+        {value.text}
+      </p>
+    </aside>
+  )
 }
 
 export const articlePortableTextComponents: PortableTextComponents = {
@@ -86,6 +117,7 @@ export const articlePortableTextComponents: PortableTextComponents = {
         </figure>
       )
     },
+    editorNote: EditorNoteBlock,
   },
   block: {
     h1: ({ children }) => <h1 className="mt-10 mb-4 text-3xl font-bold text-gray-900 dark:text-white">{children}</h1>,
@@ -129,3 +161,4 @@ export const articlePortableTextComponents: PortableTextComponents = {
     },
   },
 }
+

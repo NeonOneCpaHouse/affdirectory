@@ -18,4 +18,10 @@ export interface ArticleTableBlock extends PortableTextObjectNode {
   rows?: ArticleTableRow[]
 }
 
-export type ArticlePortableTextNode = PortableTextBlock | ArticleTableBlock | PortableTextObjectNode
+export interface EditorNoteBlock extends PortableTextObjectNode {
+  _type: "editorNote"
+  noteType?: "editors_note" | "afftraff_opinion" | "our_experience"
+  text?: string
+}
+
+export type ArticlePortableTextNode = PortableTextBlock | ArticleTableBlock | EditorNoteBlock | PortableTextObjectNode

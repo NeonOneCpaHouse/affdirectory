@@ -168,12 +168,61 @@ function createTableBlock(isRussian: boolean): any {
   }
 }
 
+function createEditorNoteBlock(isRussian: boolean): any {
+  return {
+    type: "object",
+    name: "editorNote",
+    title: isRussian ? "Мнение редакции" : "Editor's Note",
+    fields: [
+      defineField({
+        name: "noteType",
+        type: "string",
+        title: isRussian ? "Тип заметки" : "Note Type",
+        options: {
+          list: [
+            { title: isRussian ? "Мнение редакции" : "Editor's Note", value: "editors_note" },
+            { title: isRussian ? "Мнение AffTraff" : "AffTraff Opinion", value: "afftraff_opinion" },
+            { title: isRussian ? "Наш опыт" : "Our Experience", value: "our_experience" },
+          ],
+          layout: "radio",
+        },
+        initialValue: "editors_note",
+        validation: (Rule: any) => Rule.required(),
+      }),
+      defineField({
+        name: "text",
+        type: "text",
+        title: isRussian ? "Текст заметки" : "Note Text",
+        rows: 4,
+        validation: (Rule: any) => Rule.required(),
+      }),
+    ],
+    preview: {
+      select: {
+        noteType: "noteType",
+        text: "text",
+      },
+      prepare({ noteType, text }: { noteType?: string; text?: string }) {
+        const labels: Record<string, string> = {
+          editors_note: isRussian ? "Мнение редакции" : "Editor's Note",
+          afftraff_opinion: isRussian ? "Мнение AffTraff" : "AffTraff Opinion",
+          our_experience: isRussian ? "Наш опыт" : "Our Experience",
+        }
+        return {
+          title: labels[noteType || "editors_note"] || (isRussian ? "Заметка" : "Note"),
+          subtitle: text ? (text.length > 80 ? text.slice(0, 80) + "…" : text) : "",
+        }
+      },
+    },
+  }
+}
+
 function createBodyLocaleField(name: "en" | "ru", title: string, isRussian: boolean) {
   return defineField({
     name,
     type: "array",
     title,
-    of: [createTextBlock(isRussian), createImageBlock(isRussian), createTableBlock(isRussian)],
+    of: [createTextBlock(isRussian), createImageBlock(isRussian), createTableBlock(isRussian), createEditorNoteBlock(isRussian)],
   })
 }
 
